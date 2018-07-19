@@ -10,6 +10,8 @@ public class Auction {
         this.startingPrice = startingPrice;
         this.category = category;
     }
+
+
 }
 /*
 Każdy użytkownik może wystawić aukcję. Aukcja ma: tytuł, opis, cenę początkową, kategorię.
