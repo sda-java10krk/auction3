@@ -1,4 +1,5 @@
 public class Auction {
+
     String title;
     String description;
     Long startingPrice;

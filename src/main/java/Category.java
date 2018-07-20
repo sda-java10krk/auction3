@@ -3,23 +3,10 @@ import java.util.Set;
 
 public class Category {
 
-    //private Set<Product> products;
+   // zbiór kategorii
+
     private Set<Category> subcategories;
     private String name;
-
-    public Category(String name) {
-        this.name = name;
-    //    this.products = new HashSet<>();
-        this.subcategories = new HashSet<>();
-    }
-
-   // public void addProduct(Product product) {
-     //   this.products.add(product);
-    //}
-
-    public void addSubcategory(Category category) {
-        this.subcategories.add(category);
-    }
 
     public Set<Category> getSubcategories() {
         return subcategories;
@@ -29,8 +16,20 @@ public class Category {
         return name;
     }
 
+    public Category(String name) {
+        this.name = name;
+        this.subcategories = new HashSet<Category>();
+    }
 
 
+    public void addSubcategory(Category category) {
+        subcategories.add(category);
+    }
+
+
+
+
+             //drukuje kategorie i podkategorie
     public void print(int level){
 
         for(int i =0 ; i<level ; i++){
@@ -44,6 +43,7 @@ public class Category {
         }
     }
 
+    // czy dana dategoria ma subtegorie czy juz jest najnizszym poziomem
     public boolean isSubcategoryPresent(String name){
 
             for (Category subcategories : this.subcategories) {
