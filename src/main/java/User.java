@@ -18,7 +18,7 @@ public class User {
                 throw new IllegalArgumentException();
             }
         }
-            System.out.println("Podaj haslo:");
+            System.out.println("Podaj haslo do konta:");
             password = scan.next();
             if (password.length() < 5) {
                 throw new IllegalArgumentException();
