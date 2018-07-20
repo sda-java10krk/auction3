@@ -8,7 +8,13 @@ public class Auction {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
-        this.category = category;
+
+        if(category.isSubcategoryPresent(category.toString())){
+            System.out.println("Nie można umieścić aukcji w danej kategorii, wyprecyzuj!");
+        }else{
+           this.category = category;
+        }
+
     }
 
 
