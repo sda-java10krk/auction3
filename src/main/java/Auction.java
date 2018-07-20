@@ -17,6 +17,10 @@ public class Auction {
         }
     }
 
+    public void currentOffer(){
+        
+    }
+
 
 
 
