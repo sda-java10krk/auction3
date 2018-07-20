@@ -10,7 +10,7 @@ public class Category {
     public Category(String name) {
         this.name = name;
     //    this.products = new HashSet<>();
-        this.subcategories = new HashSet<>();
+        this.subcategories = new HashSet<Category>();
     }
 
    // public void addProduct(Product product) {
