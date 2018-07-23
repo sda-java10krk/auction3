@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class FileManager {
 
@@ -12,10 +13,12 @@ public class FileManager {
             try {
                 FileReader fileReader = new FileReader(fileName1);
                 BufferedReader reader1 = new BufferedReader(fileReader);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             }
+            catch (FileNotFoundException e) {
+            System.err.println("Nie odnaleziono pliku " + fileName1);
+            } catch (IOException e) {
+            System.err.println("Błąd podczas zapisu danych do pliku " + fileName1);
+        }
         }
     }
 

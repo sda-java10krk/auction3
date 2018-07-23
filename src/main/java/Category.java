@@ -48,23 +48,20 @@ public class Category {
         }
     }
 
+
     // czy dana dategoria ma subtegorie czy juz jest najnizszym poziomem
-    public boolean isSubcategoryPresent(String name){
 
-            for (Category subcategories : this.subcategories) {
+    public boolean isSubcategoryPresent(Category category) {
 
-                if(subcategories.getName().equals(name)){
-                    return true;
-                }else {
-                    subcategories.isSubcategoryPresent(name);
-                    if(subcategories.isSubcategoryPresent(name)){
-                        return true;
-                    }
-                }
 
+        for (Category subcategories : this.subcategories) {
+
+            if (subcategories != null) {
+                return true;
             }
+        }
 
-            return false;
+        return false;
     }
 
     @Override

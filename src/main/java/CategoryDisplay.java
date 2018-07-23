@@ -11,7 +11,7 @@ public class CategoryDisplay {
         Category c4 = new Category("Telefony");
         Category c5 = new Category("IPhone");
         Category c6 = new Category("Android");
-        
+
     }
 }
 
