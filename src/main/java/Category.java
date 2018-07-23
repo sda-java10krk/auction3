@@ -48,10 +48,11 @@ public class Category {
         }
     }
 
-
     // czy dana dategoria ma subtegorie czy juz jest najnizszym poziomem
 
-    public boolean isSubcategoryPresent(Category category) {
+
+    public boolean isSubcategoryPresent() {
+
 
 
         for (Category subcategories : this.subcategories) {
