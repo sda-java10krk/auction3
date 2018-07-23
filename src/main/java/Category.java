@@ -45,7 +45,7 @@ public class Category {
         }
     }
 
-    public boolean isSubcategoryPresent(Category category) {
+    public boolean isSubcategoryPresent() {
 
         for (Category subcategories : this.subcategories) {
 
