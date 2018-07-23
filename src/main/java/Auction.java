@@ -16,7 +16,7 @@ public class Auction {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
-        if(category.isSubcategoryPresent(category.toString())){
+        if(category.isSubcategoryPresent(category)){
             throw new SubcategoryPresentException();
         }else{
             this.category = category;
