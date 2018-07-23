@@ -1,6 +1,9 @@
+
 import java.math.BigDecimal;
 
+
 public class Offers {
+
 
     private User user;
     private BigDecimal price;

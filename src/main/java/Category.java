@@ -3,18 +3,24 @@ import java.util.Set;
 
 public class Category {
 
-    private Set<Auction> auction;
-    private Set<Category> subcategories;
-    private String name;
+   // zbiór kategorii
 
+    private Set<Category> subcategories;
+    public Set<Category> getSubcategories() {
+        return subcategories;
+    }
+    private String name;
 
     public Category(String name) {
         this.name = name;
         this.subcategories = new HashSet<Category>();
         this.auction = new HashSet<Auction>();
         this.subcategories = new HashSet<Category>();
-
     }
+
+
+    private Set<Auction> auction;
+
 
     public void addAuction(Auction auction) {
         this.auction.add(auction);
@@ -24,20 +30,16 @@ public class Category {
         this.auction.remove(auction);
     }
 
-    public void addSubcategory(Category category) {
-        this.subcategories.add(category);
-    }
 
-    public Set<Category> getSubcategories() {
-        return subcategories;
+    public void addSubcategory(Category category) {
+        subcategories.add(category);
     }
 
     public String getName() {
         return name;
     }
 
-
-
+             //drukuje kategorie i podkategorie
     public void print(int level){
 
         for(int i =0 ; i<level ; i++){
@@ -51,7 +53,12 @@ public class Category {
         }
     }
 
+    // czy dana dategoria ma subtegorie czy juz jest najnizszym poziomem
+
+
     public boolean isSubcategoryPresent() {
+
+
 
         for (Category subcategories : this.subcategories) {
 
@@ -62,8 +69,6 @@ public class Category {
 
         return false;
     }
-
-
 
     @Override
     public String toString() {

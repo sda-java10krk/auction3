@@ -6,12 +6,16 @@ import java.util.List;
 
 public class Auction {
 
-    private String title;
-    private String description;
-    private BigDecimal startingPrice;
-    private Category category;
+
+
+    String title;
+    String description;
+    BigDecimal startingPrice;
+    Category category;
+
     private List<Offers> offersList;
     private Offers currentOffer;
+
 
     public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException {
         this.title = title;
