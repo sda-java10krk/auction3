@@ -26,7 +26,7 @@ public class Auction {
 
 
     public void addingOffer(Offers offer) throws OfferTooLowException{
-        if(this.currentOffer==null && currentOffer.getPrice()<offer.getPrice()){
+        if(this.currentOffer==null && currentOffer.getPrice().compareTo(offer.getPrice())<0){
             this.currentOffer = offer;
             this.offersList.add(offer);
             if(auctionWinnerChecking(offer)){
