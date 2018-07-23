@@ -5,21 +5,15 @@ import java.util.Scanner;
 
 public class AuctionControllers {
 
-    public Auction createAuction() throws SubcategoryPresentException {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj nazwę aukcji?");
-        String title = scanner.nextLine();
-        System.out.println("Podaj opis?");
-        String description = scanner.nextLine();
-        System.out.println("Cena startowa?");
-        BigDecimal startingPrice = scanner.nextBigDecimal();
-        System.out.println("Kategoria?");
-        String categories = scanner.nextLine();
-        Category category = new Category(categories);
-
+    public Auction createAuction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException {
+        
         Auction auction = new Auction(title,description,startingPrice,category);
 
+
         return auction;
+    }
+
+    public void addAuctions(Auction auction){
+        auction.addingAuction(auction);
     }
 }

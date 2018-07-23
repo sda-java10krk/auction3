@@ -30,7 +30,7 @@ public class Auction {
             this.currentOffer = offer;
             this.offersList.add(offer);
             if(auctionWinnerChecking(offer)){
-                //Wygrywanko
+
             }
         }
         throw new OfferTooLowException();
@@ -42,6 +42,14 @@ public class Auction {
         }else{
             return false;
         }
+    }
+
+    public void addingAuction(Auction auction){
+        category.addAuction(auction);
+    }
+
+    public void removingAuction(Auction auction){
+        category.removingAuction(auction);
     }
 
     public String getTitle() {

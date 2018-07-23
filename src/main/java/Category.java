@@ -10,12 +10,18 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
-        this.auction = new HashSet<>();
-        this.subcategories = new HashSet<>();
+        this.subcategories = new HashSet<Category>();
+        this.auction = new HashSet<Auction>();
+        this.subcategories = new HashSet<Category>();
+
     }
 
     public void addAuction(Auction auction) {
         this.auction.add(auction);
+    }
+
+    public void removingAuction(Auction auction){
+        this.auction.remove(auction);
     }
 
     public void addSubcategory(Category category) {
