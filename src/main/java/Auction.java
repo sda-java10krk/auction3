@@ -23,15 +23,24 @@ public class Auction {
         }
     }
 
+
     public void addingOffer(Offers offer) throws OfferTooLowException{
         if(this.currentOffert==null && currentOffert.getPrice()<offer.getPrice()){
             this.currentOffert = offer;
             this.offersList.add(offer);
-            if(offersList.size()==3){
-                //Oferta wygrywa
+            if(auctionWinnerChecking(offer)){
+                //Wygrywanko
             }
         }
         throw new OfferTooLowException();
+    }
+
+    public boolean auctionWinnerChecking(Offers offer){
+        if(offersList.size()==3){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getTitle() {

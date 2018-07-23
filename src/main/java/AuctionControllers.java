@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class AuctionControllers {
-    
+
     public Auction createAuction() throws SubcategoryPresentException {
 
         Scanner scanner = new Scanner(System.in);
