@@ -4,9 +4,8 @@ import java.util.stream.Stream;
 
 public class User {
 
-    String login;
-    String password;
-
+    public String login;
+    public String password;
 
 
     public User(String login, String password) {
@@ -32,6 +31,7 @@ public class User {
         return password;
     }
 
+    }
 
 
-}
+

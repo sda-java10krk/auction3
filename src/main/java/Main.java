@@ -12,14 +12,16 @@ public class Main {
         int n=0;
         Scanner scanner = new Scanner(System.in);
         n=scanner.nextInt();
-        User user = new User();
 
         switch(n){
             case(1):{
-
+                System.out.println("Podaj login: ");
+                String login = scanner.next();
+                System.out.println("Podaj haslo: " );
+                String password = scanner.next();
             }
             case(2):{
-                user.createUser();
+
             }
         }
     }
