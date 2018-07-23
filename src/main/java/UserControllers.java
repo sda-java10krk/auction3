@@ -1,16 +1,16 @@
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class UserControllers {
 
-    public User createUser() throws IllegalArgumentException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj login: ");
-        String login = scanner.next();
-        System.out.println("Podaj haslo: " );
-        String password = scanner.next();
-
+    public boolean createUser(String login, String password) throws IllegalArgumentException {
         User user = new User(login,password);
 
-        return user;
+        return false;
+    }
+
+    public boolean loginUser(Map userList, String login,  String password) throws IllegalArgumentException {
+       return false;
     }
 }
