@@ -1,3 +1,5 @@
+import Exceptions.SubcategoryPresentException;
+
 public class Auction {
 
     String title;
@@ -5,18 +7,22 @@ public class Auction {
     Long startingPrice;
     Category category;
 
-    public Auction(String title, String description, Long startingPrice, Category category) {
+    public Auction(String title, String description, Long startingPrice, Category category) throws SubcategoryPresentException {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
-
         if(category.isSubcategoryPresent(category.toString())){
-            System.out.println("Nie można umieścić aukcji w danej kategorii, wyprecyzuj!");
+            throw new SubcategoryPresentException();
         }else{
-           this.category = category;
+            this.category = category;
         }
-
     }
+
+    public void currentOffer(){
+        
+    }
+
+
 
 
 }

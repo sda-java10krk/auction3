@@ -1,3 +1,7 @@
-package PACKAGE_NAME;
+
 public class OfferController {
+
+    public void placingOffer(){
+
+    }
 }

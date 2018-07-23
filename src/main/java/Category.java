@@ -6,19 +6,23 @@ public class Category {
    // zbiór kategorii
 
     private Set<Category> subcategories;
-    private String name;
-
     public Set<Category> getSubcategories() {
         return subcategories;
     }
-
-    public String getName() {
-        return name;
-    }
+    private String name;
 
     public Category(String name) {
         this.name = name;
+        this.auction = new HashSet<Auction>();
         this.subcategories = new HashSet<Category>();
+    }
+
+
+    private Set<Auction> auction;
+
+
+    public void addAuction(Auction auction) {
+        this.auction.add(auction);
     }
 
 
@@ -26,8 +30,9 @@ public class Category {
         subcategories.add(category);
     }
 
-
-
+    public String getName() {
+        return name;
+    }
 
              //drukuje kategorie i podkategorie
     public void print(int level){
@@ -61,8 +66,6 @@ public class Category {
 
             return false;
     }
-
-
 
     @Override
     public String toString() {
