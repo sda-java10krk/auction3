@@ -57,6 +57,24 @@ public class FileManager {
     }
 
 
+    public void readUserFromList (User user) {
+
+        String fileName1 = "UserList.txt";
+        try {
+            FileInputStream fis = new FileInputStream(fileName1);
+            ObjectInputStream  writer1 = new ObjectInputStream(fis);
+            {
+                writer1.readObject();
+            }
+        } catch (FileNotFoundException e){
+            System.err.println("Nie odnaleziono pliku " + fileName1);
+        } catch (IOException e){
+            System.err.println("Błąd podczas odczytu danych z pliku " + fileName1);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Nieprawidłowy format pliku");
+        }
+    }
+
 
     }
 
