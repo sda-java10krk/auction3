@@ -38,14 +38,15 @@ public class FileManager {
         }
     }
 
-    public void saveOffersForAuction (Auction auction) {
+    public void saveOffersForAuction (Offers offers) {
 
         String fileName3 = "OffersList.txt";
         try {
             FileOutputStream fileReader3 = new FileOutputStream(fileName3);
             ObjectOutputStream reader3 = new ObjectOutputStream(fileReader3);
             {
-                reader3.writeObject(auction);
+
+                reader3.writeObject(offers);
             }
         }
         catch (FileNotFoundException e) {
