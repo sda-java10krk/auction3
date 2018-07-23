@@ -5,18 +5,19 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class Auction {
+
     private String title;
     private String description;
     private BigDecimal startingPrice;
     private Category category;
     private List<Offers> offersList;
-    private Offers currentOffert;
+    private Offers currentOffer;
 
     public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
-        if(category.isSubcategoryPresent(category.toString())){
+        if(category.isSubcategoryPresent()){
             throw new SubcategoryPresentException();
         }else{
             this.category = category;
@@ -25,8 +26,8 @@ public class Auction {
 
 
     public void addingOffer(Offers offer) throws OfferTooLowException{
-        if(this.currentOffert==null && currentOffert.getPrice()<offer.getPrice()){
-            this.currentOffert = offer;
+        if(this.currentOffer==null && currentOffer.getPrice()<offer.getPrice()){
+            this.currentOffer = offer;
             this.offersList.add(offer);
             if(auctionWinnerChecking(offer)){
                 //Wygrywanko
