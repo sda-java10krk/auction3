@@ -48,22 +48,16 @@ public class Category {
         }
     }
 
-    public boolean isSubcategoryPresent(String name){
+    public boolean isSubcategoryPresent(Category category) {
 
-            for (Category subcategories : this.subcategories) {
+        for (Category subcategories : this.subcategories) {
 
-                if(subcategories.getName().equals(name)){
-                    return true;
-                }else {
-                    subcategories.isSubcategoryPresent(name);
-                    if(subcategories.isSubcategoryPresent(name)){
-                        return true;
-                    }
-                }
-
+            if (subcategories != null) {
+                return true;
             }
+        }
 
-            return false;
+        return false;
     }
 
 
