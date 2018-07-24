@@ -1,7 +1,7 @@
 
 public class CategoryDisplay {
 
-    public static void main(String[] args) {
+    Category categoryTree = new Category(null);
 
         Category c0 = new Category("Elektronika");
         Category c7 = new Category("Motozycja");
@@ -17,6 +17,9 @@ public class CategoryDisplay {
         Category c9 = new Category("Osobowe");
         Category c10 = new Category("Ciężarówka");
         Category c11 = new Category("Skutery");
+
+         categoryTree.addSubcategory(elektronika);
+         categoryTree.addSubcategory(motoryzacja);
 
         c0.addSubcategory(c1); //elektronika -> Komputery
         c0.addSubcategory(c4); // elektronika -> Telefony

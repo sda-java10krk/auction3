@@ -1,18 +1,19 @@
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileManager {
 
 
-    public void saveUserToList (Map<String, User> map) {
+    public void saveUserToList (Map<String, User> map1) {
 
         String fileName1 = "UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
             {
-                writer1.writeObject(map);
+                writer1.writeObject(map1);
             }
         }
         catch (FileNotFoundException e) {
@@ -24,16 +25,14 @@ public class FileManager {
 
 
 
+    public void saveOffersForAuction (Map<Auction, List > map2) {
 
-
-    public void saveAuctions (Auction auction) {
-
-        String fileName2 = "AuctionList.txt";
+        String fileName2 = "AuctionAndOffersList.txt";
         try {
             FileOutputStream fileWriter2 = new FileOutputStream(fileName2);
             ObjectOutputStream writer2 = new ObjectOutputStream(fileWriter2);
             {
-                writer2.writeObject(auction);
+                writer2.writeObject(map2);
             }
         }
         catch (FileNotFoundException e) {
@@ -43,25 +42,6 @@ public class FileManager {
         }
     }
 
-    public void saveOffersForAuction (Offers offers) {
-
-        String fileName3 = "OffersList.txt";
-        try {
-            FileOutputStream fileWriter3 = new FileOutputStream(fileName3);
-            ObjectOutputStream writer3 = new ObjectOutputStream(fileWriter3);
-            {
-
-                writer3.writeObject(offers);
-            }
-        }
-        catch (FileNotFoundException e) {
-            System.err.println("Nie odnaleziono pliku " + fileName3);
-        } catch (IOException e) {
-            System.err.println("Błąd podczas zapisu danych do pliku " + fileName3);
-        }
-    }
-
-
     public HashMap<String, User> readUserFromList () {
 
         String fileName1 = "UserList.txt";
@@ -70,6 +50,25 @@ public class FileManager {
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
                 return (HashMap<String, User >) reader1.readObject();
+            }
+        } catch (FileNotFoundException e){
+            System.err.println("Nie odnaleziono pliku " + fileName1);
+        } catch (IOException e){
+            System.err.println("Błąd podczas odczytu danych z pliku " + fileName1);
+        } catch (ClassNotFoundException e) {
+            System.err.println("Nieprawidłowy format pliku");
+        }
+        return null ;
+    }
+
+    public HashMap<String, List> readAuctionAndOffers () {
+
+        String fileName1 = "UserList.txt";
+        try {
+            FileInputStream fileReader1 = new FileInputStream(fileName1);
+            ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
+            {
+                return (HashMap<String, List >) reader1.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName1);
