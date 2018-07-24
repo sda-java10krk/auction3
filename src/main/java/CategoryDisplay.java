@@ -1,6 +1,8 @@
 
 public class CategoryDisplay {
 
+    public static Category initializeCategories() {
+
     Category categoryTree = new Category(null);
 
         Category c0 = new Category("Elektronika");
@@ -18,8 +20,6 @@ public class CategoryDisplay {
         Category c10 = new Category("Ciężarówka");
         Category c11 = new Category("Skutery");
 
-         categoryTree.addSubcategory(elektronika);
-         categoryTree.addSubcategory(motoryzacja);
 
         c0.addSubcategory(c1); //elektronika -> Komputery
         c0.addSubcategory(c4); // elektronika -> Telefony
@@ -36,9 +36,12 @@ public class CategoryDisplay {
         c4.addSubcategory(c9);  // Samochody -> Osobowe
         c4.addSubcategory(c10);  // Samochody ->  Ciężarówka
 
-        c0.print(2);
-
-
+        return categoryTree ;
     }
 }
 
+// ZEBY NIE DAŁO SIE sie dodac sukbategorii do miejsca gdzie jest juz akcja
+// metoda ktora dodaje auckej do subkategorii sprawdzjac wczesniej czy nie ma zadnej sukbategirii
+
+// funkcja ktora wyswietla aukcje z danej kategorii
+// czyli jak wpisze android to pokaze auckej androiga a jak wpisze telefony to wpisze wszystkie auckej telefonów ze wzgledu na kategori 
