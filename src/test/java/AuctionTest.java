@@ -92,18 +92,40 @@ public class AuctionTest {
         auction.addingOffer(offer);
     }
 
-//    @Test
-//    public void testReturnEqualsIfUserDoNotAddOfferToOwnAuction() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
-//
-//        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
-//        Offers offer = new Offers(user,BigDecimal.valueOf(2000));
-//        try {
-//            auction.addingOffer(offer);
-//        }catch(AddingOfferToOwnAuction e){
-//            ex=e;
-//        }
-//        assertNull(ex);
-//    }
+    @Test
+    public void testReturnNullIfUserDoNotAddOfferToOwnAuction() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(2000));
+        try {
+            auction.addingOffer(offer);
+        }catch(AddingOfferToOwnAuction e){
+            ex=e;
+        }
+        assertNull(ex);
+    }
+
+    @Test(expected = OfferTooLowException.class)
+    public void testThrowOfferTooLowExceptionIfUserAddingTooLowOffer() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(2));
+
+        auction.addingOffer(offer);
+    }
+
+    @Test
+    public void testReturnNullIfUserAddCorrectOffer() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(2000));
+        try {
+            auction.addingOffer(offer);
+        }catch(OfferTooLowException e){
+            ex=e;
+        }
+        assertNull(ex);
+    }
 
 
 

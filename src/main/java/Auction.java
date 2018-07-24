@@ -2,6 +2,7 @@ import Exceptions.*;
 import sun.jvm.hotspot.debugger.AddressException;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Auction {
@@ -39,6 +40,7 @@ public class Auction {
         }
         this.category = category;
 
+        this.offersList = new LinkedList<>();
     }
 
     public void addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
@@ -46,10 +48,8 @@ public class Auction {
         if(offer.getUser().equals(user)){
             throw new AddingOfferToOwnAuction();
         }
-        if(this.currentOffer!=null && offer.getPrice().compareTo(this.startingPrice)<=0){
-
+        if(this.currentOffer!=null && offer.getPrice().compareTo(this.currentOffer.getPrice())<=0 || offer.getPrice().compareTo(this.startingPrice)<=0){
             throw new OfferTooLowException();
-
         }else{
             this.offersList.add(offer);
         }
