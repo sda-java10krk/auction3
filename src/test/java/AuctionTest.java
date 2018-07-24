@@ -4,8 +4,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class AuctionTest {
 
@@ -26,7 +25,7 @@ public class AuctionTest {
             ex=e;
         }
 
-        assertEquals(null,ex);
+        assertNull(ex);
     }
 
     @Test(expected = EmptyDescriptionException.class)
@@ -42,7 +41,7 @@ public class AuctionTest {
             ex=e;
         }
 
-        assertEquals(null,ex);
+        assertNull(ex);
     }
 
     @Test(expected = TooLowPriceException.class)
@@ -58,7 +57,7 @@ public class AuctionTest {
             ex=e;
         }
 
-        assertEquals(null,ex);
+        assertNull(ex);
     }
 
     @Test(expected = SubcategoryPresentException.class)
@@ -80,7 +79,7 @@ public class AuctionTest {
             ex=e;
         }
 
-        assertEquals(null,ex);
+        assertNull(ex);
     }
 
     @Test(expected = AddingOfferToOwnAuction.class)
@@ -124,7 +123,52 @@ public class AuctionTest {
         }catch(OfferTooLowException e){
             ex=e;
         }
+
         assertNull(ex);
+    }
+
+    @Test
+    public void testReturnEqualsIfOfferAdded() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(200));
+
+        auction.addingOffer(offer);
+
+        Offers currentOffer = auction.getCurrentOffer();
+
+        assertEquals(offer,currentOffer);
+    }
+
+    @Test
+    public void testReturnTrueIfThereAreLessThenThreeOffers() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(200));
+        Offers offer1 = new Offers(user,BigDecimal.valueOf(300));
+
+        auction.addingOffer(offer);
+        boolean result = auction.addingOffer(offer1);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testReturnFalseIfWeOfferedMoreThanThreeOffers() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(200));
+        Offers offer1 = new Offers(user,BigDecimal.valueOf(300));
+        Offers offer2 = new Offers(user,BigDecimal.valueOf(400));
+        Offers offer3 = new Offers(user,BigDecimal.valueOf(500));
+
+        auction.addingOffer(offer);
+        auction.addingOffer(offer1);
+        auction.addingOffer(offer2);
+        boolean result = auction.addingOffer(offer3);
+
+        assertFalse(result);
+
     }
 
 

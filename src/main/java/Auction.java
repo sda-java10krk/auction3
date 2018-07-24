@@ -4,6 +4,7 @@ import sun.jvm.hotspot.debugger.AddressException;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Auction {
 
@@ -43,7 +44,7 @@ public class Auction {
         this.offersList = new LinkedList<>();
     }
 
-    public void addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+    public boolean addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
 
         if(offer.getUser().equals(user)){
             throw new AddingOfferToOwnAuction();
@@ -51,8 +52,15 @@ public class Auction {
         if(this.currentOffer!=null && offer.getPrice().compareTo(this.currentOffer.getPrice())<=0 || offer.getPrice().compareTo(this.startingPrice)<=0){
             throw new OfferTooLowException();
         }else{
-            this.offersList.add(offer);
+            if(auctionWinnerChecking(offer)) {
+                return false;
+            }else {
+                this.offersList.add(offer);
+                this.currentOffer = offer;
+            }
         }
+
+        return true;
     }
 
     public boolean auctionWinnerChecking(Offers offer){
@@ -91,8 +99,32 @@ public class Auction {
         return category;
     }
 
-    public void setCurrentOffer(Offers currentOffer) {
-        this.currentOffer = currentOffer;
+    public List<Offers> getOffersList() {
+        return offersList;
+    }
+
+    public Offers getCurrentOffer() {
+        return currentOffer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Auction auction = (Auction) o;
+        return Objects.equals(user, auction.user) &&
+                Objects.equals(title, auction.title) &&
+                Objects.equals(description, auction.description) &&
+                Objects.equals(startingPrice, auction.startingPrice) &&
+                Objects.equals(category, auction.category) &&
+                Objects.equals(offersList, auction.offersList) &&
+                Objects.equals(currentOffer, auction.currentOffer);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(user, title, description, startingPrice, category, offersList, currentOffer);
     }
 }
 /*
