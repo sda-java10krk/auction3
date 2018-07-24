@@ -1,17 +1,19 @@
 import java.util.Map;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class UserControllers {
+    UserList userList = UserList.getInstance();
 
     public boolean createUser(String login, String password) throws IllegalArgumentException {
-
-        User user = new User(login,password);
-
-        return false;
+        userList.createUser(login, password);
+        return true;
     }
 
-    public boolean loginUser(Map userList, String login,  String password) throws IllegalArgumentException {
-       return false;
+    public boolean userIsPresent(String login, String password) {
+        if (UserList.getInstance().getUserList().containsKey(login) && UserList.getInstance().getUserList().equals(password)) {
+            return true;
+        } else
+            return false;
     }
 }
+
+
