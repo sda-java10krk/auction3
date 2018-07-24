@@ -1,4 +1,5 @@
 import Exceptions.*;
+import sun.jvm.hotspot.debugger.AddressException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -40,7 +41,10 @@ public class Auction {
 
     }
 
-    public void addingOffer(Offers offer) throws OfferTooLowException{
+    public void addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+        if(offer.getUser().equals(user)){
+            throw new AddingOfferToOwnAuction();
+        }
         if(this.currentOffer==null && currentOffer.getPrice().compareTo(offer.getPrice())<0){
             this.currentOffer = offer;
             this.offersList.add(offer);

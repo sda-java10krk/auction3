@@ -82,4 +82,13 @@ public class AuctionTest {
         assertEquals(null,ex);
     }
 
+    @Test(expected = AddingOfferToOwnAuction.class)
+    public void testThrowAddingOfferToOwnAuctionIfUserAddingOfferToOwnAuction() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+
+        Auction auction = new Auction(user,"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        Offers offer = new Offers(user,BigDecimal.valueOf(2000));
+
+        auction.addingOffer(offer);
+    }
+
 }

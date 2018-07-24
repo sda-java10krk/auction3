@@ -1,4 +1,5 @@
 
+import Exceptions.AddingOfferToOwnAuction;
 import Exceptions.OfferTooLowException;
 
 import java.math.BigDecimal;
@@ -15,7 +16,7 @@ public class OfferController {
             return offer;
         }
 
-        public void addingOffer(Auction auction,Offers offer) throws OfferTooLowException {
+        public void addingOffer(Auction auction,Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction {
 
             auction.addingOffer(offer);
 
