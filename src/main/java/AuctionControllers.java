@@ -1,11 +1,12 @@
 import Exceptions.SubcategoryPresentException;
+import Exceptions.TooLowPriceException;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class AuctionControllers {
 
-    public Auction createAuction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException {
+    public Auction createAuction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException {
 
         Auction auction = new Auction(title,description,startingPrice,category);
 
