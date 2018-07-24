@@ -1,3 +1,5 @@
+import Exceptions.EmptyDescriptionException;
+import Exceptions.EmptyTitleException;
 import Exceptions.SubcategoryPresentException;
 import Exceptions.TooLowPriceException;
 
@@ -6,7 +8,7 @@ import java.util.Scanner;
 
 public class AuctionControllers {
 
-    public Auction createAuction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException {
+    public Auction createAuction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
 
         Auction auction = new Auction(title,description,startingPrice,category);
 

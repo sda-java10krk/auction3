@@ -6,7 +6,6 @@ import java.util.List;
 public class Auction {
 
 
-
     private String title;
     private String description;
     private BigDecimal startingPrice;
@@ -17,6 +16,7 @@ public class Auction {
 
     public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
 
+
         if(title.length()==0){
             throw new EmptyTitleException();
         }
@@ -26,7 +26,7 @@ public class Auction {
         }
         this.description = description;
 
-        if(this.startingPrice.compareTo(new BigDecimal(0))>0){
+        if(startingPrice.compareTo(BigDecimal.valueOf(0))>0){
             this.startingPrice = startingPrice;
         }else{
             throw new TooLowPriceException();
@@ -47,7 +47,7 @@ public class Auction {
     }
 
     public boolean auctionWinnerChecking(Offers offer){
-        if(offersList.size()==3){
+        if(this.offersList.size()==3){
             return true;
         }else{
             return false;
