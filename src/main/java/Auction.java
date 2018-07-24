@@ -42,14 +42,17 @@ public class Auction {
     }
 
     public void addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+
         if(offer.getUser().equals(user)){
             throw new AddingOfferToOwnAuction();
         }
-        if(this.currentOffer==null && currentOffer.getPrice().compareTo(offer.getPrice())<0){
-            this.currentOffer = offer;
+        if(this.currentOffer!=null && offer.getPrice().compareTo(this.startingPrice)<=0){
+
+            throw new OfferTooLowException();
+
+        }else{
             this.offersList.add(offer);
         }
-        throw new OfferTooLowException();
     }
 
     public boolean auctionWinnerChecking(Offers offer){
@@ -86,6 +89,10 @@ public class Auction {
 
     public Category getCategory() {
         return category;
+    }
+
+    public void setCurrentOffer(Offers currentOffer) {
+        this.currentOffer = currentOffer;
     }
 }
 /*
