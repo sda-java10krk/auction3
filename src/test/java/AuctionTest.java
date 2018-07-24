@@ -1,7 +1,4 @@
-import Exceptions.EmptyDescriptionException;
-import Exceptions.EmptyTitleException;
-import Exceptions.SubcategoryPresentException;
-import Exceptions.TooLowPriceException;
+import Exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +30,55 @@ public class AuctionTest {
     @Test(expected = EmptyDescriptionException.class)
     public void testThrowEmptyDescriptionExceptionIfTitleIsEmpty() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
         Auction auction = new Auction("dddd","",new BigDecimal(2000),new Category("Elektronika"));
+    }
+
+    @Test
+    public void testReturnEqualsIfDescriptionIsNotEmpty() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+        try{
+            Auction auction = new Auction("dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        }catch(EmptyDescriptionException e){
+            ex=e;
+        }
+
+        assertEquals(null,ex);
+    }
+
+    @Test(expected = TooLowPriceException.class)
+    public void testThrowTooLowPriceExceptionIfStartingPriceIsNegative() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+        Auction auction = new Auction("Tytul","Opis",BigDecimal.valueOf(-1),new Category("Elektronika"));
+    }
+
+    @Test
+    public void testReturnEqualsIfStartingPriceIsNotNegative() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+        try{
+            Auction auction = new Auction("dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
+        }catch(TooLowPriceException e){
+            ex=e;
+        }
+
+        assertEquals(null,ex);
+    }
+
+    @Test(expected = SubcategoryPresentException.class)
+    public void testThrowSubcategoryExceptionIfCategoryHasSubcategory() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+        Category category = new Category("Elektronika");
+        Category category2 = new Category("Komputery");
+        category.addSubcategory(category2);
+        Auction auction = new Auction("Tytul","Opis",BigDecimal.valueOf(2000),category);
+    }
+
+    @Test
+    public void testReturnEqualsIfCategoryDoNotHasSubcategory() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+        Category category = new Category("Elektronika");
+        Category category2 = new Category("Komputery");
+        category.addSubcategory(category2);
+        try {
+            Auction auction = new Auction("Tytul", "Opis", BigDecimal.valueOf(2000), category2);
+        }catch(SubcategoryPresentException e){
+            ex=e;
+        }
+
+        assertEquals(null,ex);
     }
 
 }
