@@ -7,7 +7,6 @@ public class UserList {
     private static UserList Instance;
     private Map<String, User> userList = new HashMap<>();
 
-
     public UserList() {
         }
 
