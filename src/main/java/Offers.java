@@ -1,20 +1,25 @@
+
+import java.math.BigDecimal;
+
+
 public class Offers {
-    User user;
-    Long price;
+
+
+    private User user;
+    private BigDecimal price;
+
+    public Offers(User user, BigDecimal price) {
+        this.user = user;
+        this.price = price;
+    }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
-        this.price = price;
-    }
+
 }

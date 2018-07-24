@@ -8,31 +8,30 @@ public class Category {
     private String name;
 
 
+
     public Category(String name) {
         this.name = name;
-    //    this.products = new HashSet<>();
         this.subcategories = new HashSet<Category>();
         this.auction = new HashSet<Auction>();
-        this.subcategories = new HashSet<Category>();
-
     }
+
 
     public void addAuction(Auction auction) {
         this.auction.add(auction);
     }
 
-    public void addSubcategory(Category category) {
-        this.subcategories.add(category);
+    public void removingAuction(Auction auction){
+        this.auction.remove(auction);
     }
 
-    public Set<Category> getSubcategories() {
-        return subcategories;
+
+    public void addSubcategory(Category category) {
+        subcategories.add(category);
     }
 
     public String getName() {
         return name;
     }
-
 
 
     public void print(int level){
@@ -48,6 +47,7 @@ public class Category {
         }
     }
 
+
     public boolean isSubcategoryPresent() {
 
         for (Category subcategories : this.subcategories) {
@@ -59,8 +59,6 @@ public class Category {
 
         return false;
     }
-
-
 
     @Override
     public String toString() {
