@@ -3,7 +3,7 @@ import java.io.*;
 public class FileManager {
 
 
-    public void saveUserToList (User user) {
+    public void saveUserToList (String user) {
 
         String fileName1 = "UserList.txt";
         try {
