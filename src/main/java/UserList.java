@@ -9,6 +9,8 @@ public class UserList {
 
     Map<User, String> userList = new HashMap<>();
 
+
+
         public Map addUserToMap (User user) throws IllegalArgumentException {
          if(user.password.length()< 5 ){
              throw new IllegalArgumentException();

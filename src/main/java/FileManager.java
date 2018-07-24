@@ -20,6 +20,10 @@ public class FileManager {
         }
     }
 
+
+
+
+
     public void saveAuctions (Auction auction) {
 
         String fileName2 = "AuctionList.txt";
@@ -56,14 +60,14 @@ public class FileManager {
     }
 
 
-    public User readUserFromList (User user) {
+    public User readUserFromList () {
 
         String fileName1 = "UserList.txt";
         try {
             FileInputStream fileReader1 = new FileInputStream(fileName1);
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
-                reader1.readObject();
+                return (User) reader1.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName1);
@@ -72,7 +76,7 @@ public class FileManager {
         } catch (ClassNotFoundException e) {
             System.err.println("Nieprawidłowy format pliku");
         }
-        return User ;
+        return null ;
     }
 
 

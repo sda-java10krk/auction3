@@ -18,10 +18,10 @@ public class FileReadTest {
 
 
         FileManager fileManager = new FileManager();
+
         fileManager.saveUserToList(userTest);
-        fileManager.readUserFromList(userTest);
+        User readUser = fileManager.readUserFromList();
 
-        assertTrue(userTest.equals(fileManager.readUserFromList(userTest)));
-
+        assertEquals(userTest, readUser);
     }
 }
