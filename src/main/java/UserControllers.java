@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 public class UserControllers {
 
     public boolean createUser(String login, String password) throws IllegalArgumentException {
+
         User user = new User(login,password);
 
         return false;

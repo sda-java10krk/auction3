@@ -1,5 +1,4 @@
-import Exceptions.OfferTooLowException;
-import Exceptions.SubcategoryPresentException;
+import Exceptions.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,34 +7,41 @@ public class Auction {
 
 
 
-    String title;
-    String description;
-    BigDecimal startingPrice;
-    Category category;
-
+    private String title;
+    private String description;
+    private BigDecimal startingPrice;
+    private Category category;
     private List<Offers> offersList;
     private Offers currentOffer;
 
 
-    public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException {
+    public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+
+        if(title.length()==0){
+            throw new EmptyTitleException();
+        }
         this.title = title;
+        if(description.length()==0){
+            throw new EmptyDescriptionException();
+        }
         this.description = description;
-        this.startingPrice = startingPrice;
+
+        if(this.startingPrice.compareTo(new BigDecimal(0))>0){
+            this.startingPrice = startingPrice;
+        }else{
+            throw new TooLowPriceException();
+        }
         if(category.isSubcategoryPresent()){
             throw new SubcategoryPresentException();
-        }else{
-            this.category = category;
         }
-    }
+        this.category = category;
 
+    }
 
     public void addingOffer(Offers offer) throws OfferTooLowException{
         if(this.currentOffer==null && currentOffer.getPrice().compareTo(offer.getPrice())<0){
             this.currentOffer = offer;
             this.offersList.add(offer);
-            if(auctionWinnerChecking(offer)){
-
-            }
         }
         throw new OfferTooLowException();
     }
