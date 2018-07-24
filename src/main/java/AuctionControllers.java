@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class AuctionControllers {
 
-    public Auction createAuction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
 
-        Auction auction = new Auction(title,description,startingPrice,category);
+        Auction auction = new Auction(user,title,description,startingPrice,category);
 
         addAuctions(auction);
 

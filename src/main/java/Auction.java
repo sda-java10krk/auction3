@@ -1,4 +1,5 @@
 import Exceptions.*;
+import sun.jvm.hotspot.debugger.AddressException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,6 +7,7 @@ import java.util.List;
 public class Auction {
 
 
+    private User user;
     private String title;
     private String description;
     private BigDecimal startingPrice;
@@ -14,8 +16,9 @@ public class Auction {
     private Offers currentOffer;
 
 
-    public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
 
+        this.user = user;
 
         if(title.length()==0){
             throw new EmptyTitleException();
@@ -38,7 +41,10 @@ public class Auction {
 
     }
 
-    public void addingOffer(Offers offer) throws OfferTooLowException{
+    public void addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+        if(offer.getUser().equals(user)){
+            throw new AddingOfferToOwnAuction();
+        }
         if(this.currentOffer==null && currentOffer.getPrice().compareTo(offer.getPrice())<0){
             this.currentOffer = offer;
             this.offersList.add(offer);
@@ -60,6 +66,10 @@ public class Auction {
 
     public void removingAuction(Auction auction){
         category.removingAuction(auction);
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public String getTitle() {

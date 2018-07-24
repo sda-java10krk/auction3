@@ -51,12 +51,10 @@ public class Category {
     public boolean isSubcategoryPresent() {
 
         for (Category subcategories : this.subcategories) {
-
             if (subcategories != null) {
                 return true;
             }
         }
-
         return false;
     }
 
