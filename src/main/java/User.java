@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class User {
+public class User implements Serializable {
 
     public String login;
     public String password;
@@ -31,7 +32,21 @@ public class User {
         return password;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password);
     }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(login, password);
+    }
+}
 
 
 
