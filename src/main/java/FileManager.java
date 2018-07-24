@@ -3,15 +3,14 @@ import java.io.*;
 public class FileManager {
 
 
-
     public void saveUserToList (User user) {
 
         String fileName1 = "UserList.txt";
         try {
-            FileOutputStream fileReader1 = new FileOutputStream(fileName1);
-            ObjectOutputStream reader1 = new ObjectOutputStream(fileReader1);
+            FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
+            ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
             {
-                reader1.writeObject(user);
+                writer1.writeObject(user);
             }
         }
         catch (FileNotFoundException e) {
@@ -25,10 +24,10 @@ public class FileManager {
 
         String fileName2 = "AuctionList.txt";
         try {
-            FileOutputStream fileReader2 = new FileOutputStream(fileName2);
-            ObjectOutputStream reader2 = new ObjectOutputStream(fileReader2);
+            FileOutputStream fileWriter2 = new FileOutputStream(fileName2);
+            ObjectOutputStream writer2 = new ObjectOutputStream(fileWriter2);
             {
-                reader2.writeObject(auction);
+                writer2.writeObject(auction);
             }
         }
         catch (FileNotFoundException e) {
@@ -42,11 +41,11 @@ public class FileManager {
 
         String fileName3 = "OffersList.txt";
         try {
-            FileOutputStream fileReader3 = new FileOutputStream(fileName3);
-            ObjectOutputStream reader3 = new ObjectOutputStream(fileReader3);
+            FileOutputStream fileWriter3 = new FileOutputStream(fileName3);
+            ObjectOutputStream writer3 = new ObjectOutputStream(fileWriter3);
             {
 
-                reader3.writeObject(offers);
+                writer3.writeObject(offers);
             }
         }
         catch (FileNotFoundException e) {
@@ -57,14 +56,14 @@ public class FileManager {
     }
 
 
-    public void readUserFromList (User user) {
+    public User readUserFromList (User user) {
 
         String fileName1 = "UserList.txt";
         try {
-            FileInputStream fis = new FileInputStream(fileName1);
-            ObjectInputStream  writer1 = new ObjectInputStream(fis);
+            FileInputStream fileReader1 = new FileInputStream(fileName1);
+            ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
-                writer1.readObject();
+                reader1.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName1);
@@ -73,6 +72,7 @@ public class FileManager {
         } catch (ClassNotFoundException e) {
             System.err.println("Nieprawidłowy format pliku");
         }
+        return User ;
     }
 
 
