@@ -14,8 +14,8 @@ public class FileReadTest {
     @Test
     public void saveUserToListTest ()  {
 
-        User userTest = new User ();
-        userTest.createUser("Login","Hasło");
+        User userTest = new User ("login","haslo");
+
 
         FileManager fileManager = new FileManager();
         fileManager.saveUserToList(userTest);

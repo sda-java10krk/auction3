@@ -13,6 +13,7 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+        this.subcategories = new HashSet<Category>();
         this.auction = new HashSet<Auction>();
         this.subcategories = new HashSet<Category>();
     }
@@ -23,6 +24,10 @@ public class Category {
 
     public void addAuction(Auction auction) {
         this.auction.add(auction);
+    }
+
+    public void removingAuction(Auction auction){
+        this.auction.remove(auction);
     }
 
 

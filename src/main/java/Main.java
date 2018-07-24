@@ -11,9 +11,17 @@ public class Main {
         System.out.println("2.Rejestracja");
         System.out.println("3.Wyjście");
 
+        
+        n=scanner.nextInt();
+
         switch(n){
             case(1):{
-
+                System.out.println("Podaj login: ");
+                String login = scanner.next();
+                System.out.println("Podaj haslo: " );
+                String password = scanner.next();
+            }
+            case(2):{
             }
 
         }

@@ -1,14 +1,26 @@
 
-
-//W sumie to nie wiem, czy Lista to najlepszy wybór, zastanówcie się
-
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 public class UserList {
 
-    List<User> userList;
+    Map<User, String> userList = new HashMap<>();
 
-    public UserList(List<User> userList) {
-        this.userList = userList;
+        public Map addUserToMap (User user) throws IllegalArgumentException {
+         if(user.password.length()< 5 ){
+             throw new IllegalArgumentException();
+         }
+         else if (user.login.equals(userList) == true){
+             throw new IllegalArgumentException();
+         }
+         else {
+             userList.put(user, user.getLogin());
+         }
+
+        return userList;
     }
+
 }

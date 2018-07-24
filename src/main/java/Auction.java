@@ -1,5 +1,6 @@
 import Exceptions.OfferTooLowException;
 import Exceptions.SubcategoryPresentException;
+import Exceptions.TooLowPriceException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,19 +9,22 @@ public class Auction {
 
 
 
-    String title;
-    String description;
-    BigDecimal startingPrice;
-    Category category;
-
+    private String title;
+    private String description;
+    private BigDecimal startingPrice;
+    private Category category;
     private List<Offers> offersList;
     private Offers currentOffer;
 
 
-    public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException {
+    public Auction(String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException {
         this.title = title;
         this.description = description;
-        this.startingPrice = startingPrice;
+        if(this.startingPrice.compareTo(new BigDecimal(0))>0){
+            this.startingPrice = startingPrice;
+        }else{
+            throw new TooLowPriceException();
+        }
         if(category.isSubcategoryPresent()){
             throw new SubcategoryPresentException();
         }else{
@@ -30,12 +34,9 @@ public class Auction {
 
 
     public void addingOffer(Offers offer) throws OfferTooLowException{
-        if(this.currentOffer==null && currentOffer.getPrice()<offer.getPrice()){
+        if(this.currentOffer==null && currentOffer.getPrice().compareTo(offer.getPrice())<0){
             this.currentOffer = offer;
             this.offersList.add(offer);
-            if(auctionWinnerChecking(offer)){
-                //Wygrywanko
-            }
         }
         throw new OfferTooLowException();
     }
@@ -46,6 +47,14 @@ public class Auction {
         }else{
             return false;
         }
+    }
+
+    public void addingAuction(Auction auction){
+        category.addAuction(auction);
+    }
+
+    public void removingAuction(Auction auction){
+        category.removingAuction(auction);
     }
 
     public String getTitle() {

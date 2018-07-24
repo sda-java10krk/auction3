@@ -1,42 +1,37 @@
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class User {
 
-    String login;
-    String password;
+    public String login;
+    public String password;
 
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public void setLogin(String login) {
+
         this.login = login;
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
+    public String getLogin() {
+        return login;
+    }
 
-    List<User> userList = new ArrayList<User>();
+    public String getPassword() {
+        return password;
+    }
 
-
-    public void createUser(String login, String password) throws IllegalArgumentException  {
-
-        System.out.println("Podaj swoj login: ");
-        Scanner scan = new Scanner(System.in);
-        login= scan.next();
-        for(int i = 0; i<= userList.size();i++){
-            if(userList.get(i).login.equals(login)){
-                throw new IllegalArgumentException();
-            }
-        }
-            System.out.println("Podaj haslo do konta:");
-            password = scan.next();
-            if (password.length() < 5) {
-                throw new IllegalArgumentException();
-            }
     }
 
 
-    public void makeAnOffer(long offer){
 
-    }
-}
