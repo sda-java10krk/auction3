@@ -22,11 +22,11 @@ public class FileReadTest {
 
         FileManager fileManager = new FileManager();
 
-        fileManager.saveUserToList(userListTest.keySet());
+        fileManager.saveUserToList(userListTest);
 
-        User readUser = fileManager.readUserFromList();
+        HashMap <String,User> readUser = fileManager.readUserFromList();
 
 
-        assertEquals(userTest, readUser);
+        assertEquals(userListTest, readUser);
     }
 }

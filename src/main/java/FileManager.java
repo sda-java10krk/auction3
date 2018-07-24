@@ -1,16 +1,18 @@
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileManager {
 
 
-    public void saveUserToList (String user) {
+    public void saveUserToList (Map<String, User> map) {
 
         String fileName1 = "UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
             {
-                writer1.writeObject(user);
+                writer1.writeObject(map);
             }
         }
         catch (FileNotFoundException e) {
@@ -60,14 +62,14 @@ public class FileManager {
     }
 
 
-    public User readUserFromList () {
+    public HashMap<String, User> readUserFromList () {
 
         String fileName1 = "UserList.txt";
         try {
             FileInputStream fileReader1 = new FileInputStream(fileName1);
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
-                return (User) reader1.readObject();
+                return (HashMap<String, User >) reader1.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName1);
