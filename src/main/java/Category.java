@@ -1,3 +1,5 @@
+import Exceptions.SubcategoryPresentException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +18,12 @@ public class Category {
     }
 
 
-    public void addAuction(Auction auction) {
-        this.auction.add(auction);
+    public void addAuction(Auction auction) throws SubcategoryPresentException {
+        if(isSubcategoryPresent()) {
+            this.auction.add(auction);
+        }else{
+            throw new SubcategoryPresentException();
+        }
     }
 
     public void removingAuction(Auction auction){
