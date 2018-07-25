@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class FileManager {
 
-
     public void saveUserToList (Map<String, User> map1) {
 
         String fileName1 = "Controllers.UserList.txt";
@@ -24,25 +23,6 @@ public class FileManager {
             System.err.println("Nie odnaleziono pliku " + fileName1);
         } catch (IOException e) {
             System.err.println("Błąd podczas zapisu danych do pliku " + fileName1);
-        }
-    }
-
-
-
-    public void saveOffersForAuction (Map<Auction, List > map2) {
-
-        String fileName2 = "AuctionAndOffersList.txt";
-        try {
-            FileOutputStream fileWriter2 = new FileOutputStream(fileName2);
-            ObjectOutputStream writer2 = new ObjectOutputStream(fileWriter2);
-            {
-                writer2.writeObject(map2);
-            }
-        }
-        catch (FileNotFoundException e) {
-            System.err.println("Nie odnaleziono pliku " + fileName2);
-        } catch (IOException e) {
-            System.err.println("Błąd podczas zapisu danych do pliku " + fileName2);
         }
     }
 
@@ -65,19 +45,36 @@ public class FileManager {
         return null ;
     }
 
+    public void saveOffersForAuction (List <Offers> map2) {
+
+        String fileName2 = "AuctionAndOffersList.txt";
+        try {
+            FileOutputStream fileWriter2 = new FileOutputStream(fileName2);
+            ObjectOutputStream writer2 = new ObjectOutputStream(fileWriter2);
+            {
+                writer2.writeObject(map2);
+            }
+        }
+        catch (FileNotFoundException e) {
+            System.err.println("Nie odnaleziono pliku " + fileName2);
+        } catch (IOException e) {
+            System.err.println("Błąd podczas zapisu danych do pliku " + fileName2);
+        }
+    }
+
+
+
 
     public HashMap<String, List> readAuctionToOffers () {
 
 
         String fileName2 = "AuctionsList.txt";
 
-        String fileName1 = "Controllers.UserList.txt";
-
         try {
-            FileInputStream fileReader1 = new FileInputStream(fileName2);
-            ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
+            FileInputStream fileReader2 = new FileInputStream(fileName2);
+            ObjectInputStream reader2 = new ObjectInputStream(fileReader2);
             {
-                return (HashMap<String, List >) reader1.readObject();
+                return (HashMap<String, List >) reader2.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName2);
