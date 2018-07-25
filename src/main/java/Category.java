@@ -45,6 +45,7 @@ public class Category {
     public void addSubcategory(Category category) {
         // i gdy chce dodac subkategorie to musze jako parametr przyjac 1. gdzie chce dodac subkategorie i jak sie ma nazywac
         subcategories.add(category);
+        //utworzyc categorie "pozostałe" i wysłac wiadomosc do userów ze aucja hest w takiej kategorii
     }
 
     public String getName() {
