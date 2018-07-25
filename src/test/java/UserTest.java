@@ -23,7 +23,7 @@ public class UserTest {
         String password = "haslo123";
         UserControllers userControllers = new UserControllers();
 
-        assertTrue(userControllers.userRegister(login,password));
+        assertTrue(userControllers.userLogin(login,password));
 
     }
 
@@ -33,7 +33,7 @@ public class UserTest {
         String password = "h3";
         UserControllers userControllers = new UserControllers();
 
-        assertTrue(userControllers.userRegister(login,password));
+        assertTrue(userControllers.userLogin(login,password));
 
     }
 
