@@ -1,4 +1,8 @@
+
 import Exceptions.BadChooseToCategory;
+import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
+import Exceptions.SubcategoryPresentException;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +10,6 @@ import java.util.Set;
 public class Category {
 
     private Set<Auction> auction;
-
     private Set<Category> subcategories;
     private String name;
 
@@ -22,8 +25,12 @@ public class Category {
     // nie rozumiem potencjalnie nieskonczeonego zagłebienia - czy to chodzi w dół czy w boki dla tego schematu co juz mamy
     // bo dla mnie nie ma sensu isc w dół jak robimy jedną odnoge
 
-    public void addAuction(Auction auction) {
-        this.auction.add(auction);
+    public void addAuction(Auction auction) throws SubcategoryPresentException {
+        if(isSubcategoryPresent()) {
+            throw new SubcategoryPresentException();
+        }else{
+            this.auction.add(auction);
+        }
     }
 
 
@@ -46,6 +53,15 @@ public class Category {
         // i gdy chce dodac subkategorie to musze jako parametr przyjac 1. gdzie chce dodac subkategorie i jak sie ma nazywac
         subcategories.add(category);
         //utworzyc categorie "pozostałe" i wysłac wiadomosc do userów ze aucja hest w takiej kategorii
+
+
+    public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
+        if(!isSubcategoryPresent() && category.getAuction()!=null){
+            throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
+        }else{
+            subcategories.add(category);
+        }
+
     }
 
     public String getName() {
@@ -75,6 +91,14 @@ public class Category {
             }
         }
         return false;
+    }
+
+    public Set<Auction> getAuction() {
+        return auction;
+    }
+
+    public Set<Category> getSubcategories() {
+        return subcategories;
     }
 
     @Override
