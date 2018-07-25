@@ -16,16 +16,9 @@ public class AuctionControllers {
 
         Auction auction = new Auction(user,title,description,startingPrice,category);
 
-        addAuctions(auction);
+        category.addAuction(auction);
 
         return auction;
     }
 
-    public void addAuctions(Auction auction) throws SubcategoryPresentException {
-        auction.addingAuction(auction);
-    }
-
-    public void removingAuction(Auction auction){
-        auction.removingAuction(auction);
-    }
 }

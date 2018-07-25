@@ -45,7 +45,7 @@ public class Auction {
         this.offersList = new LinkedList<>();
     }
 
-    public boolean addingOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+    public boolean addOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
 
         if(offer.getUser().equals(user)){
             throw new AddingOfferToOwnAuction();
@@ -53,7 +53,7 @@ public class Auction {
         if(this.currentOffer!=null && offer.getPrice().compareTo(this.currentOffer.getPrice())<=0 || offer.getPrice().compareTo(this.startingPrice)<=0){
             throw new OfferTooLowException();
         }else{
-            if(auctionWinnerChecking(offer)) {
+            if(auctionWinnerChecking()) {
                 return false;
             }else {
                 this.offersList.add(offer);
@@ -64,20 +64,12 @@ public class Auction {
         return true;
     }
 
-    public boolean auctionWinnerChecking(Offers offer){
+    public boolean auctionWinnerChecking(){
         if(this.offersList.size()==3){
             return true;
         }else{
             return false;
         }
-    }
-
-    public void addingAuction(Auction auction) throws SubcategoryPresentException {
-        category.addAuction(auction);
-    }
-
-    public void removingAuction(Auction auction){
-        category.removingAuction(auction);
     }
 
     public User getUser() {
