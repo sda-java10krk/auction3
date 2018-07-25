@@ -71,7 +71,7 @@ public class Auction {
         }
     }
 
-    public void addingAuction(Auction auction){
+    public void addingAuction(Auction auction) throws SubcategoryPresentException {
         category.addAuction(auction);
     }
 

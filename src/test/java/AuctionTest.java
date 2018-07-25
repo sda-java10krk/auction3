@@ -61,7 +61,7 @@ public class AuctionTest {
     }
 
     @Test(expected = SubcategoryPresentException.class)
-    public void testThrowSubcategoryExceptionIfCategoryHasSubcategory() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+    public void testThrowSubcategoryExceptionIfCategoryHasSubcategory() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
         Category category = new Category("Elektronika");
         Category category2 = new Category("Komputery");
         category.addSubcategory(category2);
@@ -69,7 +69,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void testReturnEqualsIfCategoryDoNotHasSubcategory() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+    public void testReturnEqualsIfCategoryDoNotHasSubcategory() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
         Category category = new Category("Elektronika");
         Category category2 = new Category("Komputery");
         category.addSubcategory(category2);

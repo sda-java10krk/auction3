@@ -17,7 +17,7 @@ public class AuctionControllers {
         return auction;
     }
 
-    public void addAuctions(Auction auction){
+    public void addAuctions(Auction auction) throws SubcategoryPresentException {
         auction.addingAuction(auction);
     }
 

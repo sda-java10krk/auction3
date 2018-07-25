@@ -1,3 +1,4 @@
+import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
 import Exceptions.SubcategoryPresentException;
 
 import java.util.HashSet;
@@ -20,9 +21,9 @@ public class Category {
 
     public void addAuction(Auction auction) throws SubcategoryPresentException {
         if(isSubcategoryPresent()) {
-            this.auction.add(auction);
-        }else{
             throw new SubcategoryPresentException();
+        }else{
+            this.auction.add(auction);
         }
     }
 
@@ -31,8 +32,13 @@ public class Category {
     }
 
 
-    public void addSubcategory(Category category) {
-        subcategories.add(category);
+    public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
+        if(!isSubcategoryPresent() && category.getAuction()!=null){
+            throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
+        }else{
+            subcategories.add(category);
+        }
+
     }
 
     public String getName() {
@@ -62,6 +68,14 @@ public class Category {
             }
         }
         return false;
+    }
+
+    public Set<Auction> getAuction() {
+        return auction;
+    }
+
+    public Set<Category> getSubcategories() {
+        return subcategories;
     }
 
     @Override
