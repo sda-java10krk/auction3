@@ -6,6 +6,8 @@ import Exceptions.UserNotExistInBaseException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.Assert.assertTrue;
 
 public class UserTest {
@@ -14,11 +16,21 @@ public class UserTest {
     public void createUserList() {
         userList = new UserList();
     }
-    @Test
 
-    public void testCreateUser() throws UserAlreadyInTheBaseException, TooShortPasswordException, UserNotExistInBaseException {
+    @Test
+    public void testCreateUser() throws Exception {
         String login = "Michal123";
         String password = "haslo123";
+        UserControllers userControllers = new UserControllers();
+
+        assertTrue(userControllers.userRegister(login,password));
+
+    }
+
+    @Test(expected = TooShortPasswordException.class)
+    public void testThrowTooShortExceptionIfPasswordIsTooShort() throws Exception {
+        String login = "Michal123";
+        String password = "h3";
         UserControllers userControllers = new UserControllers();
 
         assertTrue(userControllers.userRegister(login,password));
