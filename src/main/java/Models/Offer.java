@@ -6,13 +6,13 @@ import Models.User;
 import java.math.BigDecimal;
 
 
-public class Offers {
+public class Offer{
 
 
     private User user;
     private BigDecimal price;
 
-    public Offers(User user, BigDecimal price) throws NegativeOfferPriceException {
+    public Offer(User user, BigDecimal price) throws NegativeOfferPriceException {
         this.user = user;
         if(price.compareTo(BigDecimal.valueOf(0))<0){
             throw new NegativeOfferPriceException();

@@ -15,8 +15,8 @@ public class Auction {
     private String description;
     private BigDecimal startingPrice;
     private Category category;
-    private List<Offers> offersList;
-    private Offers currentOffer;
+    private List<Offer> offersList;
+    private Offer currentOffer;
 
 
     public Auction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
@@ -45,7 +45,7 @@ public class Auction {
         this.offersList = new LinkedList<>();
     }
 
-    public boolean addOffer(Offers offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+    public boolean addOffer(Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction{
 
         if(offer.getUser().equals(user)){
             throw new AddingOfferToOwnAuction();
@@ -92,11 +92,11 @@ public class Auction {
         return category;
     }
 
-    public List<Offers> getOffersList() {
+    public List<Offer> getOffersList() {
         return offersList;
     }
 
-    public Offers getCurrentOffer() {
+    public Offer getCurrentOffer() {
         return currentOffer;
     }
 
