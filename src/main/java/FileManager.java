@@ -61,19 +61,20 @@ public class FileManager {
         return null ;
     }
 
-    public HashMap<String, List> readAuctionAndOffers () {
 
-        String fileName1 = "UserList.txt";
+    public HashMap<String, List> readAuctionToOffers () {
+
+        String fileName2 = "AuctionsList.txt";
         try {
-            FileInputStream fileReader1 = new FileInputStream(fileName1);
+            FileInputStream fileReader1 = new FileInputStream(fileName2);
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
                 return (HashMap<String, List >) reader1.readObject();
             }
         } catch (FileNotFoundException e){
-            System.err.println("Nie odnaleziono pliku " + fileName1);
+            System.err.println("Nie odnaleziono pliku " + fileName2);
         } catch (IOException e){
-            System.err.println("Błąd podczas odczytu danych z pliku " + fileName1);
+            System.err.println("Błąd podczas odczytu danych z pliku " + fileName2);
         } catch (ClassNotFoundException e) {
             System.err.println("Nieprawidłowy format pliku");
         }

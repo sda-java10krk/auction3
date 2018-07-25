@@ -47,13 +47,13 @@ public class Category {
         this.auction.remove(auction);
     }
 
-// jaki dostep dawać użytkownikom - czy mogą robic subkategorie tylko na najnizszym poziomie czy wyzszych tez// no bo
-    // i tak robimy aukcje tylko na najnizszym poziomie wiec jak czegos by brakowało to sobie dorobi sukbategorie na najnizszym
-    public void addSubcategory(Category category) {
-        // i gdy chce dodac subkategorie to musze jako parametr przyjac 1. gdzie chce dodac subkategorie i jak sie ma nazywac
-        subcategories.add(category);
-        //utworzyc categorie "pozostałe" i wysłac wiadomosc do userów ze aucja hest w takiej kategorii
-
+//// jaki dostep dawać użytkownikom - czy mogą robic subkategorie tylko na najnizszym poziomie czy wyzszych tez// no bo
+//    // i tak robimy aukcje tylko na najnizszym poziomie wiec jak czegos by brakowało to sobie dorobi sukbategorie na najnizszym
+//    public void addSubcategory(Category category) {
+//        // i gdy chce dodac subkategorie to musze jako parametr przyjac 1. gdzie chce dodac subkategorie i jak sie ma nazywac
+//        subcategories.add(category);
+//        //utworzyc categorie "pozostałe" i wysłac wiadomosc do userów ze aucja hest w takiej kategorii
+//    }
 
     public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
         if(!isSubcategoryPresent() && category.getAuction()!=null){
@@ -61,8 +61,8 @@ public class Category {
         }else{
             subcategories.add(category);
         }
-
     }
+
 
     public String getName() {
         return name;
