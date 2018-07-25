@@ -15,7 +15,6 @@ public class Main {
         n=scanner.nextInt();
         switch(n){
             case(1):{
-
                 HelloMenuView.askForLogin();
                 String login = scanner.next();
                 HelloMenuView.askForPassword();
@@ -29,6 +28,7 @@ public class Main {
                         }
                         case(2):{
                             //Aukcje Wystawione przez Usera
+
                         }
                         case(3):{
                             //Auckje wygrane przez Usera
