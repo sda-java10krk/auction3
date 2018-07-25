@@ -1,3 +1,5 @@
+import Controllers.UserControllers;
+import Controllers.UserList;
 import Exceptions.TooShortPasswordException;
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
@@ -13,7 +15,7 @@ public class UserTest {
         userList = new UserList();
     }
     @Test
-    
+
     public void testCreateUser() throws UserAlreadyInTheBaseException, TooShortPasswordException, UserNotExistInBaseException {
         String login = "Michal123";
         String password = "haslo123";

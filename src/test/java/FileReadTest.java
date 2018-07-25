@@ -1,8 +1,9 @@
+
 import Exceptions.TooShortPasswordException;
+import Models.User;
 import org.junit.Test;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FileReadTest {
 
-    public static final String FILE_NAME = "UserList.txt";
+    public static final String FILE_NAME = "Controllers.UserList.txt";
 
     @Test
     public void saveUserToListTest () throws IOException, TooShortPasswordException {

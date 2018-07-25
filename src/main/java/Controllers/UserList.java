@@ -1,3 +1,6 @@
+package Controllers;
+
+import Models.User;
 
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
