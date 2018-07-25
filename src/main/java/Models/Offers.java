@@ -1,3 +1,6 @@
+package Models;
+
+import Models.User;
 
 import java.math.BigDecimal;
 

@@ -1,3 +1,5 @@
+package Models;
+
 import Exceptions.*;
 
 import java.math.BigDecimal;

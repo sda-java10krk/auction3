@@ -1,7 +1,12 @@
+package Models;
 
 import Exceptions.BadChooseToCategory;
+
+
+
 import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
 import Exceptions.SubcategoryPresentException;
+import Models.Auction;
 
 
 import java.util.HashSet;
@@ -56,7 +61,7 @@ public class Category {
 //    }
 
     public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
-        if(!isSubcategoryPresent() && category.getAuction()!=null){
+        if(!isSubcategoryPresent() && !this.subcategories.isEmpty()){
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
         }else{
             subcategories.add(category);

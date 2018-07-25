@@ -1,3 +1,7 @@
+import Models.Auction;
+import Models.Offers;
+import Models.User;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +12,7 @@ public class FileManager {
 
     public void saveUserToList (Map<String, User> map1) {
 
-        String fileName1 = "UserList.txt";
+        String fileName1 = "Controllers.UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
@@ -64,7 +68,11 @@ public class FileManager {
 
     public HashMap<String, List> readAuctionToOffers () {
 
+
         String fileName2 = "AuctionsList.txt";
+
+        String fileName1 = "Controllers.UserList.txt";
+
         try {
             FileInputStream fileReader1 = new FileInputStream(fileName2);
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
@@ -90,5 +98,5 @@ public class FileManager {
 
 
 //    String fileName2 = "Auctionstxt";
-//    String fileName3 = "Offers.txt";
+//    String fileName3 = "Models.Offers.txt";
 //    String fileName4 = "Users.txt";

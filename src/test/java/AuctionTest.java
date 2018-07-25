@@ -1,5 +1,8 @@
 import Exceptions.*;
-import org.junit.Before;
+import Models.Auction;
+import Models.Category;
+import Models.Offers;
+import Models.User;
 import org.junit.Test;
 
 import java.math.BigDecimal;
