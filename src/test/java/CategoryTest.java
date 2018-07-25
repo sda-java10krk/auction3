@@ -1,3 +1,4 @@
+import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -7,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CategoryTest {
     @Test
-    public void testReturnTrueIfSubcategoryExists(){
+    public void testReturnTrueIfSubcategoryExists() throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
         Category c0 = new Category("Elektronika");
         Category c1 = new Category("Komputery");
         Category c2 = new Category("Laptopy");
@@ -22,7 +23,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void testReturnFalseIfSubcategoryDoesNotExists(){
+    public void testReturnFalseIfSubcategoryDoesNotExists() throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
         Category c0 = new Category("Elektronika");
         Category c1 = new Category("Komputery");
         Category c2 = new Category("Laptopy");

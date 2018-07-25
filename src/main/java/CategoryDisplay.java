@@ -1,7 +1,8 @@
+import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
 
 public class CategoryDisplay {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
 
         Category c0 = new Category("Elektronika");
         Category c7 = new Category("Motozycja");
