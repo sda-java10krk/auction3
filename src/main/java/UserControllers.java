@@ -1,19 +1,23 @@
+import Exceptions.TooShortPassword;
+
+import java.io.IOException;
 import java.util.Map;
 
 public class UserControllers {
-    UserList userList = UserList.getInstance();
 
-    public boolean createUser(String login, String password) throws IllegalArgumentException {
-        userList.createUser(login, password);
+    public static User login(String login, String password) {
+        User user = UserList.getInstance().findUser(login,password);
+        return user;
+    }
+
+    public boolean createUser(String login, String password) throws TooShortPassword {
+        UserList.getInstance().createUser(login, password);
         return true;
     }
 
-    public boolean userIsPresent(String login, String password) {
-        if (UserList.getInstance().getUserList().containsKey(login) && UserList.getInstance().getUserList().equals(password)) {
-            return true;
-        } else
-            return false;
-    }
+
+
+
 }
 
 

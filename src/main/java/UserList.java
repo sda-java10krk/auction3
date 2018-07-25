@@ -1,21 +1,30 @@
 
+import Exceptions.TooShortPassword;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 public class UserList {
 
-    private static UserList Instance;
+    private static UserList instance;
     private Map<String, User> userList = new HashMap<>();
+
+
+    public Map<String, User> getUserList() {
+        return userList;
+    }
 
     public UserList() {
     }
 
-    public void createUser (String login, String password) throws IllegalArgumentException {
-        userList.put(login, new User(login,password));
+    public void createUser (String login, String password) {
+        userList.put(login,new User(login, password));
     }
 
-    public Map<String, User> getUserList() {
-        return userList;
+    private void setUserList(String login, User user) {
     }
 
     public void setUserList(Map<String,User> userList) {
@@ -26,10 +35,16 @@ public class UserList {
         this.userList = userList;
     }
 
-    public static UserList getInstance() {
-        if(Instance == null){
-            Instance = new UserList();
+
+        public static UserList getInstance() {
+        if(instance == null){
+            instance = new UserList();
         }
-        return Instance;
+        return instance;
     }
+    public User findUser( String login, String password) {
+        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password));
+        return this.userList.get(login);
+    }
+
 }
