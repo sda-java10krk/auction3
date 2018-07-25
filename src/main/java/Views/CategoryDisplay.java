@@ -38,8 +38,7 @@ public class CategoryDisplay {
         c4.addSubcategory(c10);  // Samochody ->  Ciężarówka
 
         c0.print(2);
-
-
+        
     }
 }
 
