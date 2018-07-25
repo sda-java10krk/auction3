@@ -15,14 +15,12 @@ public class UserTest {
         userList = new UserList();
     }
     @Test
-
     public void testCreateUser() throws UserAlreadyInTheBaseException, TooShortPasswordException, UserNotExistInBaseException {
         String login = "Michal123";
         String password = "haslo123";
         UserControllers userControllers = new UserControllers();
 
         assertTrue(userControllers.userRegister(login,password));
-
     }
 
 }
