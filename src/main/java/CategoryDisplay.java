@@ -44,4 +44,4 @@ public class CategoryDisplay {
 // metoda ktora dodaje auckej do subkategorii sprawdzjac wczesniej czy nie ma zadnej sukbategirii
 
 // funkcja ktora wyswietla aukcje z danej kategorii
-// czyli jak wpisze android to pokaze auckej androiga a jak wpisze telefony to wpisze wszystkie auckej telefonów ze wzgledu na kategori 
+// czyli jak wpisze android to pokaze auckej androiga a jak wpisze telefony to wpisze wszystkie auckej telefonów ze wzgledu na kategori

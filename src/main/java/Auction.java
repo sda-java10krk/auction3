@@ -23,6 +23,7 @@ public class Auction {
             throw new EmptyTitleException();
         }
         this.title = title;
+
         if(description.length()==0){
             throw new EmptyDescriptionException();
         }
@@ -66,6 +67,7 @@ public class Auction {
     public void removingAuction(Auction auction){
         category.removingAuction(auction);
     }
+
 
     public User getUser() {
         return user;

@@ -1,6 +1,7 @@
 import java.util.Map;
 
 public class UserControllers {
+
     UserList userList = UserList.getInstance();
 
     public boolean createUser(String login, String password) throws IllegalArgumentException {

@@ -1,9 +1,12 @@
+import Exceptions.BadChooseToCategory;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Category {
 
     private Set<Auction> auction;
+
     private Set<Category> subcategories;
     private String name;
 
@@ -15,17 +18,32 @@ public class Category {
         this.auction = new HashSet<Auction>();
     }
 
+    // ale jak chce dac uzytnownikowi mozliwosc dodania swojej kategorii to nie powinienem robic HashSet z categoriami
+    // nie rozumiem potencjalnie nieskonczeonego zagłebienia - czy to chodzi w dół czy w boki dla tego schematu co juz mamy
+    // bo dla mnie nie ma sensu isc w dół jak robimy jedną odnoge
 
     public void addAuction(Auction auction) {
         this.auction.add(auction);
     }
 
+
+    public void addAuction2(Auction auction) throws BadChooseToCategory{
+        if(isSubcategoryPresent()==true){
+            throw new BadChooseToCategory();
+        }
+        this.auction.add(auction);
+
+    }
+
+
     public void removingAuction(Auction auction){
         this.auction.remove(auction);
     }
 
-
+// jaki dostep dawać użytkownikom - czy mogą robic subkategorie tylko na najnizszym poziomie czy wyzszych tez// no bo
+    // i tak robimy aukcje tylko na najnizszym poziomie wiec jak czegos by brakowało to sobie dorobi sukbategorie na najnizszym
     public void addSubcategory(Category category) {
+        // i gdy chce dodac subkategorie to musze jako parametr przyjac 1. gdzie chce dodac subkategorie i jak sie ma nazywac
         subcategories.add(category);
     }
 
