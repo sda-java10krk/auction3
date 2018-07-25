@@ -1,4 +1,6 @@
-import Exceptions.TooShortPassword;
+import Exceptions.TooShortPasswordException;
+import Exceptions.UserAlreadyInTheBaseException;
+import Exceptions.UserNotExistInBaseException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,29 +13,13 @@ public class UserTest {
         userList = new UserList();
     }
     @Test
-    public void testCreateUser() {
+    
+    public void testCreateUser() throws UserAlreadyInTheBaseException, TooShortPasswordException, UserNotExistInBaseException {
         String login = "Michal123";
         String password = "haslo123";
-            userList.createUser(login, password);
+        UserControllers userControllers = new UserControllers();
 
-        assertTrue(userList.getUserList().containsKey(login));
-    }
-
-    @Test
-    public void testUserLogin() throws TooShortPassword {
-//        UserList userList = new UserList();
-        userList.createUser("Konrad","Ityle123");
-        userList.createUser("Michal","Haselko123");
-        userList.createUser("Bogdan","Password123");
-
-
-        String login = "Konrad";
-        String password = "Ityle123";
-
-
-    userList.findUser(login,password);
-
-assertTrue(userList.findUser(login,password).equals(userList.getUserList()));
+        assertTrue(userControllers.userRegister(login,password));
 
     }
 

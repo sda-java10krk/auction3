@@ -12,6 +12,9 @@ public class AuctionTest {
     Exception ex;
     User user = new User("Kapaika","Passsword");
 
+    public AuctionTest() throws TooShortPasswordException {
+    }
+
     @Test(expected = EmptyTitleException.class)
     public void testThrowEmptyTitleExceptionIfTitleIsEmpty() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
         Auction auction = new Auction(user,"","asdasdascas",new BigDecimal(2.0),new Category("Elektronika"));
@@ -92,7 +95,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void testReturnNullIfUserDoNotAddOfferToOwnAuction() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+    public void testReturnNullIfUserDoNotAddOfferToOwnAuction() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException, TooShortPasswordException {
 
         Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
         Offers offer = new Offers(user,BigDecimal.valueOf(2000));
@@ -105,7 +108,7 @@ public class AuctionTest {
     }
 
     @Test(expected = OfferTooLowException.class)
-    public void testThrowOfferTooLowExceptionIfUserAddingTooLowOffer() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+    public void testThrowOfferTooLowExceptionIfUserAddingTooLowOffer() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException, TooShortPasswordException {
 
         Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
         Offers offer = new Offers(user,BigDecimal.valueOf(2));
@@ -114,7 +117,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void testReturnNullIfUserAddCorrectOffer() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+    public void testReturnNullIfUserAddCorrectOffer() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException, TooShortPasswordException {
 
         Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
         Offers offer = new Offers(user,BigDecimal.valueOf(2000));
@@ -128,7 +131,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void testReturnEqualsIfOfferAdded() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+    public void testReturnEqualsIfOfferAdded() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException, TooShortPasswordException {
 
         Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
         Offers offer = new Offers(user,BigDecimal.valueOf(200));
@@ -141,7 +144,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void testReturnTrueIfThereAreLessThenThreeOffers() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+    public void testReturnTrueIfThereAreLessThenThreeOffers() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException, TooShortPasswordException {
 
         Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
         Offers offer = new Offers(user,BigDecimal.valueOf(200));
@@ -154,7 +157,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void testReturnFalseIfWeOfferedMoreThanThreeOffers() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException {
+    public void testReturnFalseIfWeOfferedMoreThanThreeOffers() throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AddingOfferToOwnAuction, OfferTooLowException, TooShortPasswordException {
 
         Auction auction = new Auction(new User("Bartosz","aalallalal"),"dsadsa","asdasdascas", BigDecimal.valueOf(20),new Category("Elektronika"));
         Offers offer = new Offers(user,BigDecimal.valueOf(200));

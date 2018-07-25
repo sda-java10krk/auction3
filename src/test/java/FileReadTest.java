@@ -1,3 +1,4 @@
+import Exceptions.TooShortPasswordException;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -14,9 +15,9 @@ public class FileReadTest {
     public static final String FILE_NAME = "UserList.txt";
 
     @Test
-    public void saveUserToListTest () throws IOException {
+    public void saveUserToListTest () throws IOException, TooShortPasswordException {
 
-        User userTest = new User ("login","haslo");
+        User userTest = new User ("login","haslo1");
 
 
         FileManager fileManager = new FileManager();

@@ -1,11 +1,9 @@
 
-import Exceptions.TooShortPassword;
+import Exceptions.UserAlreadyInTheBaseException;
+import Exceptions.UserNotExistInBaseException;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 public class UserList {
 
@@ -13,15 +11,8 @@ public class UserList {
     private Map<String, User> userList = new HashMap<>();
 
 
-    public Map<String, User> getUserList() {
-        return userList;
-    }
-
     public UserList() {
-    }
-
-    public void createUser (String login, String password) {
-        userList.put(login,new User(login, password));
+        this.userList= new HashMap<>();
     }
 
     private void setUserList(String login, User user) {
@@ -35,16 +26,26 @@ public class UserList {
         this.userList = userList;
     }
 
-
         public static UserList getInstance() {
         if(instance == null){
             instance = new UserList();
         }
         return instance;
     }
-    public User findUser( String login, String password) {
-        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password));
-        return this.userList.get(login);
+    public User findUser( String login, String password)throws UserNotExistInBaseException {
+        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password))
+            throw new UserNotExistInBaseException();
+
+        else {
+            return this.userList.get(login);
+        }
+    }
+
+    public void addUser(User user) throws UserAlreadyInTheBaseException {
+        if(this.userList.containsKey(user.login)) {
+            throw new UserAlreadyInTheBaseException();
+        }
+        this.userList.put(user.login, user);
     }
 
 }

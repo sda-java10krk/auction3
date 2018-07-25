@@ -1,18 +1,15 @@
-import Exceptions.TooShortPassword;
-
-import java.io.IOException;
-import java.util.Map;
+import Exceptions.TooShortPasswordException;
+import Exceptions.UserNotExistInBaseException;
 
 public class UserControllers {
 
-    public static User login(String login, String password) {
-        User user = UserList.getInstance().login(user);
-        return user;
-    }
+//    public static User login(String login, String password) {
+//
+//    }
 
-    public boolean userRegister (String login, String password) throws TooShortPassword {
+    public boolean userRegister (String login, String password) throws TooShortPasswordException, UserNotExistInBaseException {
         User user = new User (login,password);
-        UserList.getInstance().createUser(login, password);
+        UserList.getInstance().findUser(login, password);
         return true;
     }
 
