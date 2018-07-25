@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Exceptions.EmptyDescriptionException;
 import Exceptions.EmptyTitleException;
 import Exceptions.SubcategoryPresentException;
@@ -5,6 +6,10 @@ import Exceptions.TooLowPriceException;
 import Models.Auction;
 import Models.Category;
 import Models.Offers;
+=======
+
+import Exceptions.TooShortPasswordException;
+>>>>>>> origin/Filip_R
 import Models.User;
 import org.junit.Test;
 
@@ -27,8 +32,14 @@ public class FileReadTest {
     public static final String FILE_NAME = "Controllers.UserList.txt";
 
     @Test
+<<<<<<< HEAD
     public void saveUserToListTestAndChechResultByMethodReadFile ()  {
         Map<String, User> userListTest = new HashMap<>();
+=======
+    public void saveUserToListTest () throws IOException, TooShortPasswordException {
+
+        User userTest = new User ("login","haslo1");
+>>>>>>> origin/Filip_R
 
         userListTest.put("login", new User("Login","Hasło"));
 

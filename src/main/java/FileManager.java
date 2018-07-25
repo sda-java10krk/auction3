@@ -1,5 +1,5 @@
 import Models.Auction;
-import Models.Offers;
+import Models.Offer;
 import Models.User;
 
 import java.io.*;
@@ -45,7 +45,9 @@ public class FileManager {
         return null ;
     }
 
+
     public void saveOffersForAuction (List <Offers> map2) {
+
 
         String fileName2 = "AuctionAndOffersList.txt";
         try {
