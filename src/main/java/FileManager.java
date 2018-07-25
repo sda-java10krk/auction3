@@ -4,14 +4,17 @@ import Models.User;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class FileManager {
 
-    public void saveUserToList (Map<String, User> map1) {
 
-        String fileName1 = "Controllers.UserList.txt";
+
+    public void saveUserToFile (Map<String, User> map1) {
+
+        String fileName1 = "UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
@@ -26,7 +29,7 @@ public class FileManager {
         }
     }
 
-    public HashMap<String, User> readUserFromList () {
+    public HashMap<String, User> readUserFromFile () {
 
         String fileName1 = "UserList.txt";
         try {
@@ -46,10 +49,9 @@ public class FileManager {
     }
 
 
-    public void saveOffersForAuction (List <Offers> map2) {
+    public void saveOffersForAuction (LinkedList <Auction> map2) {
 
-
-        String fileName2 = "AuctionAndOffersList.txt";
+        String fileName2 = "AuctionsList.txt";
         try {
             FileOutputStream fileWriter2 = new FileOutputStream(fileName2);
             ObjectOutputStream writer2 = new ObjectOutputStream(fileWriter2);
@@ -67,8 +69,7 @@ public class FileManager {
 
 
 
-    public HashMap<String, List> readAuctionToOffers () {
-
+    public LinkedList <Auction> readAuctionToOffers () {
 
         String fileName2 = "AuctionsList.txt";
 
@@ -76,7 +77,7 @@ public class FileManager {
             FileInputStream fileReader2 = new FileInputStream(fileName2);
             ObjectInputStream reader2 = new ObjectInputStream(fileReader2);
             {
-                return (HashMap<String, List >) reader2.readObject();
+                return (LinkedList<Auction>) reader2.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName2);
@@ -87,15 +88,5 @@ public class FileManager {
         }
         return null ;
     }
-
-
     }
 
-
-
-
-
-
-//    String fileName2 = "Auctionstxt";
-//    String fileName3 = "Models.Offers.txt";
-//    String fileName4 = "Users.txt";

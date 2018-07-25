@@ -21,7 +21,7 @@ public class Main {
                 System.out.println("Podaj haslo: " );
                 String password = scanner.next();
 
-                UserControllers userControllers = new UserControllers();
+               // UserControllers userControllers = new UserControllers();
 //                userControllers.userIsPresent(login,password);
             }
             case(2):{

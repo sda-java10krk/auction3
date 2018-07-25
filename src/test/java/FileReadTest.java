@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-import Exceptions.EmptyDescriptionException;
-import Exceptions.EmptyTitleException;
-import Exceptions.SubcategoryPresentException;
-import Exceptions.TooLowPriceException;
+
+import Exceptions.*;
 import Models.Auction;
 import Models.Category;
-import Models.Offers;
-=======
+import Models.Offer;
+import Models.Offer;
 
-import Exceptions.TooShortPasswordException;
->>>>>>> origin/Filip_R
 import Models.User;
 import org.junit.Test;
 
@@ -17,10 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,45 +21,39 @@ import static org.junit.Assert.assertTrue;
 public class FileReadTest {
 
 
-    public static final String FILE_NAME = "Controllers.UserList.txt";
+    public static final String FILE_NAME1 = "UserList.txt";
+    public static final String FILE_NAME2 ="AuctionsList.txt";
 
     @Test
-<<<<<<< HEAD
-    public void saveUserToListTestAndChechResultByMethodReadFile ()  {
+    public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
         Map<String, User> userListTest = new HashMap<>();
-=======
-    public void saveUserToListTest () throws IOException, TooShortPasswordException {
-
         User userTest = new User ("login","haslo1");
->>>>>>> origin/Filip_R
-
-        userListTest.put("login", new User("Login","Hasło"));
+        userListTest.put("login", new User("Login","hasło1"));
 
         FileManager fileManager = new FileManager();
-        fileManager.saveUserToList(userListTest);
+        fileManager.saveUserToFile(userListTest);
 
-        HashMap <String,User> readUser = fileManager.readUserFromList();
+        HashMap <String,User> readUser = fileManager.readUserFromFile();
         assertEquals(userListTest, readUser);
     }
 
+
+
     @Test
-    public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+    public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
+        List<Auction> auctionList = new LinkedList<>();
 
-        Map<Auction, List<Offers>> userListTest2 = new HashMap<>();
-        userListTest2.put(new Auction(new User ("login","password"),"password","description",BigDecimal.valueOf(100),new Category("category")),new ArrayList());
+        Auction auction = new Auction(new User ("login","password"),"title","description",BigDecimal.valueOf(100),new Category("category"));
 
-
-        List <Offers> offers = new ArrayList<>();
-        offers.add(new Offers(
-
-       userListTest2.put("Opel",new ArrayList());
-
+        auction.addOffer(new Offer(new User ("1","password"),BigDecimal.valueOf(101)));
+        auction.addOffer(new Offer(new User ("2","password"),BigDecimal.valueOf(202)));
+        auction.addOffer(new Offer(new User ("3","password"),BigDecimal.valueOf(303)));
+        auctionList.add(auction);
 
         FileManager fileManager = new FileManager();
-        fileManager.saveUserToList(userListTest2);
+        fileManager.saveOffersForAuction(auctionList);
 
-
-        HashMap <String,User> readUser = fileManager.readUserFromList();
-        assertEquals(userListTest, readUser);
+        LinkedList<Auction> readList = fileManager.readAuctionToOffers();
+        assertEquals(auctionList, readList);
     }
 }

@@ -10,6 +10,7 @@ import Models.Auction;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Category {
@@ -82,7 +83,7 @@ public class Category {
         System.out.println(this.name);
 
         for(Category subcategories : this.subcategories){
-                subcategories.print(level+1);
+            subcategories.print(level+1);
 
         }
     }
@@ -105,6 +106,12 @@ public class Category {
     public Set<Category> getSubcategories() {
         return subcategories;
     }
+
+//    public List showAuctionBasedOnCategory (Category category){
+//
+//
+//        return List
+//    }
 
     @Override
     public String toString() {

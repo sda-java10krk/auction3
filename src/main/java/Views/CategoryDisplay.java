@@ -5,13 +5,9 @@ import Models.Category;
 
 public class CategoryDisplay {
 
+    public static void initializeCategories() throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
 
-   // public static Category initializeCategories() {
-
-        // Category categoryTree = new Category(null);
-
-        public static void main (String[]args) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
-
+         Category categoryTree = new Category(null);
 
             Category c0 = new Category("Elektronika");
             Category c7 = new Category("Motozycja");
@@ -41,11 +37,13 @@ public class CategoryDisplay {
             c4.addSubcategory(c5);  // Telefony -> IPhone
             c4.addSubcategory(c6);  // Telefony ->  Android
 
-            c4.addSubcategory(c9);  // Samochody -> Osobowe
-            c4.addSubcategory(c10);  // Samochody ->  Ciężarówka
+            c8.addSubcategory(c9);  // Samochody -> Osobowe
+            c8.addSubcategory(c10);  // Samochody ->  Ciężarówka
+        c0.print(0);
 
-            // return categoryTree ;
         }
+
+
     }
 
 

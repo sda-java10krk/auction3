@@ -2,12 +2,13 @@ package Models;
 
 import Exceptions.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Auction {
+public class Auction implements Serializable {
 
     private User user;
     private String title;
@@ -41,6 +42,7 @@ public class Auction {
             throw new SubcategoryPresentException();
         }
         this.category = category;
+
 
         this.offersList = new LinkedList<>();
     }
