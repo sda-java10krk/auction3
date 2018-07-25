@@ -1,3 +1,7 @@
+import Models.Auction;
+import Models.Offers;
+import Models.User;
+
 import java.io.*;
 
 public class FileManager {
@@ -6,7 +10,7 @@ public class FileManager {
 
     public void saveUserToList (User user) {
 
-        String fileName1 = "UserList.txt";
+        String fileName1 = "Controllers.UserList.txt";
         try {
             FileOutputStream fileReader1 = new FileOutputStream(fileName1);
             ObjectOutputStream reader1 = new ObjectOutputStream(fileReader1);
@@ -59,7 +63,7 @@ public class FileManager {
 
     public void readUserFromList (User user) {
 
-        String fileName1 = "UserList.txt";
+        String fileName1 = "Controllers.UserList.txt";
         try {
             FileInputStream fis = new FileInputStream(fileName1);
             ObjectInputStream  writer1 = new ObjectInputStream(fis);
@@ -84,5 +88,5 @@ public class FileManager {
 
 
 //    String fileName2 = "Auctionstxt";
-//    String fileName3 = "Offers.txt";
+//    String fileName3 = "Models.Offers.txt";
 //    String fileName4 = "Users.txt";

@@ -1,3 +1,5 @@
+package Models;
+
 import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
 import Exceptions.SubcategoryPresentException;
 
@@ -33,7 +35,7 @@ public class Category {
 
 
     public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
-        if(!isSubcategoryPresent() && category.getAuction()!=null){
+        if(!isSubcategoryPresent() && !this.subcategories.isEmpty()){
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
         }else{
             subcategories.add(category);

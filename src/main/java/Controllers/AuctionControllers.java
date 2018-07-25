@@ -1,10 +1,14 @@
+package Controllers;
+
 import Exceptions.EmptyDescriptionException;
 import Exceptions.EmptyTitleException;
 import Exceptions.SubcategoryPresentException;
 import Exceptions.TooLowPriceException;
+import Models.Auction;
+import Models.Category;
+import Models.User;
 
 import java.math.BigDecimal;
-import java.util.Scanner;
 
 public class AuctionControllers {
 

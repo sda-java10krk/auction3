@@ -1,4 +1,7 @@
+package Views;
+
 import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
+import Models.Category;
 
 public class CategoryDisplay {
 

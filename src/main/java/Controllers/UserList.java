@@ -1,3 +1,6 @@
+package Controllers;
+
+import Models.User;
 
 import java.util.HashMap;
 import java.util.Map;
