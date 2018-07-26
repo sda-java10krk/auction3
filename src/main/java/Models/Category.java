@@ -12,6 +12,7 @@ import Models.Auction;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Category implements Serializable {
@@ -112,5 +113,21 @@ public class Category implements Serializable {
             name = "Kategorie";
         }
          return "";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return Objects.equals(auction, category.auction) &&
+                Objects.equals(subcategories, category.subcategories) &&
+                Objects.equals(name, category.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(auction, subcategories, name);
     }
 }

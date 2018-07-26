@@ -54,6 +54,8 @@ public class FileReadTest {
         fileManager.saveOffersToAuction(auctionList);
 
         LinkedList<Auction> readList = fileManager.readAuctionToOffers();
+
         assertEquals(auctionList, readList);
+
     }
 }
