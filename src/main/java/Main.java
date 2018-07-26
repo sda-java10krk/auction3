@@ -1,4 +1,6 @@
 import Controllers.UserControllers;
+import Controllers.UserList;
+import Models.User;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
 import Views.LoggedUserMenuView;
@@ -54,5 +56,6 @@ public class Main {
             }
 
         }
+
     }
 }
