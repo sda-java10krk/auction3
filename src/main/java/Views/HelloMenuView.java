@@ -19,4 +19,8 @@ public class HelloMenuView {
     public static void RegisterConfirmedInformation(){
         System.out.println("Zostałeś zarejestrowany!");
     }
+
+    public static void WrongAnwser(){
+        System.out.println("Zła odpowiedź!");
+    }
 }
