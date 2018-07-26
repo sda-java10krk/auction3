@@ -26,9 +26,16 @@ public class UserTest {
 
     @Test
     public void testLoginUser() throws Exception {
-
+        UserControllers userControllers = new UserControllers();
         String login = "Filip123";
         String password = "Haslo123";
+
+        assertTrue(userList.findUser(login,password));
+    }
+    @Test(expected = UserNotExistInBaseException.class)
+    public void testThrowUserNotExist() throws Exception{
+        String login = "Fasdasd1";
+        String password = "dsadasdasd";
         UserControllers userControllers = new UserControllers();
 
         assertTrue(userControllers.userLogin(login,password));
@@ -36,12 +43,12 @@ public class UserTest {
 
     @Test(expected = TooShortPasswordException.class)
     public void testThrowTooShortExceptionIfPasswordIsTooShort() throws Exception {
-        String login = "Michal123";
-        String password = "h3";
         UserControllers userControllers = new UserControllers();
+        String login = "Filip123";
+        String password = "h3";
+        User user = new User(login,password);
 
-        assertTrue(userControllers.userLogin(login,password));
-
+        assertTrue(Boolean.parseBoolean(user.password));
     }
 
     @Test(expected = UserAlreadyInTheBaseException.class)

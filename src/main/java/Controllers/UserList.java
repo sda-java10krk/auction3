@@ -8,6 +8,7 @@ import Exceptions.UserNotExistInBaseException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserList {
 
@@ -34,12 +35,13 @@ public class UserList {
         }
         return instance;
     }
-    public boolean findUser( String login, String password)throws UserNotExistInBaseException {
-        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password)){
-            throw new UserNotExistInBaseException();
+    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+        if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
+            this.userList.get(login);
         }
         else {
-            this.userList.get(login);
+            throw new UserNotExistInBaseException();
+
         }
         return true;
     }
@@ -54,5 +56,17 @@ public class UserList {
         return true;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserList userList1 = (UserList) o;
+        return Objects.equals(userList, userList1.userList);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(userList);
+    }
 }
