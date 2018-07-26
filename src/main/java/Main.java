@@ -15,32 +15,42 @@ public class Main {
         n=scanner.nextInt();
         switch(n){
             case(1):{
-
                 HelloMenuView.askForLogin();
                 String login = scanner.next();
                 HelloMenuView.askForPassword();
                 String password = scanner.next();
-                userControllers.userLogin(login,password);
+                if(userControllers.userLogin(login,password)){
+                    LoggedUserMenuView.FirstOptionsView();
+                    int k=scanner.nextInt();
+                    switch(k){
+                        case(1):{
+                            CategoryDisplay.initializeCategories();
+                        }
+                        case(2):{
+                            //Aukcje Wystawione przez Usera
 
-                LoggedUserMenuView.FirstOptionsView();
-                int k=scanner.nextInt();
-                switch(k){
-                    case(1):{
-                        CategoryDisplay.showCategoryTree();
-                    }
-                    case(2):{
-                        //Aukcje Wystawione przez Usera
-                    }
-                    case(3):{
-                        //Auckje wygrane przez Usera
+               // UserControllers userControllers = new UserControllers();
+//                userControllers.userIsPresent(login,password);
+
+                        }
+                        case(3):{
+                            //Auckje wygrane przez Usera
+                        }
                     }
                 }
             }
             case(2):{
+                HelloMenuView.askForLogin();
+                String login = scanner.next();
+                HelloMenuView.askForPassword();
+                String password = scanner.next();
+                if(userControllers.userRegister(login,password)){
+                    HelloMenuView.RegisterConfirmedInformation();
+                }
 
             }
             case(3):{
-
+                break;
             }
 
         }

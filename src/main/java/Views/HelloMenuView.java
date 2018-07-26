@@ -15,4 +15,8 @@ public class HelloMenuView {
     public static void askForPassword(){
         System.out.println("Podaj hasło: ");
     }
+
+    public static void RegisterConfirmedInformation(){
+        System.out.println("Zostałeś zarejestrowany!");
+    }
 }

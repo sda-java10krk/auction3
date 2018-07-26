@@ -26,7 +26,9 @@ public class UserTest {
 
     @Test
     public void testLoginUser() throws Exception {
+
         UserControllers userControllers = new UserControllers();
+
         String login = "Filip123";
         String password = "Haslo123";
 
@@ -48,7 +50,8 @@ public class UserTest {
         String password = "h3";
         User user = new User(login,password);
 
-        assertTrue(Boolean.parseBoolean(user.password));
+        assertTrue(user.getPassword().length()>5);
+
     }
 
     @Test(expected = UserAlreadyInTheBaseException.class)

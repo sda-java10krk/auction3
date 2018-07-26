@@ -17,15 +17,16 @@ public class UserControllers {
     }
 
     public boolean userRegister(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
-        if(UserList.getInstance().registerUser(login, password)) {
+        if (UserList.getInstance().registerUser(login, password)) {
             return true;
         }
         return false;
     }
-
-
-
-
 }
+
+
+
+
+
 
 

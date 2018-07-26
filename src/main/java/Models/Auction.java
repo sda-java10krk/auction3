@@ -2,13 +2,13 @@ package Models;
 
 import Exceptions.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class Auction {
-
+public class Auction implements Serializable {
 
     private User user;
     private String title;
@@ -27,6 +27,7 @@ public class Auction {
             throw new EmptyTitleException();
         }
         this.title = title;
+
         if(description.length()==0){
             throw new EmptyDescriptionException();
         }
@@ -41,6 +42,7 @@ public class Auction {
             throw new SubcategoryPresentException();
         }
         this.category = category;
+
 
         this.offersList = new LinkedList<>();
     }
@@ -71,6 +73,16 @@ public class Auction {
             return false;
         }
     }
+
+
+    public void addingAuction(Auction auction) throws SubcategoryPresentException {
+        category.addAuction(auction);
+    }
+
+    public void removingAuction(Auction auction){
+        category.removingAuction(auction);
+    }
+
 
     public User getUser() {
         return user;

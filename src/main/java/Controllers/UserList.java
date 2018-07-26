@@ -15,6 +15,14 @@ public class UserList {
     private static UserList instance;
     private Map<String, User> userList = new HashMap<>();
 
+        public void createUser (String login, String password) throws IllegalArgumentException, TooShortPasswordException {
+            userList.put(login, new User(login, password));
+        }
+
+        public Map<String, User> getUserList () {
+            return userList;
+        }
+
 
     public UserList() {
         this.userList= new HashMap<>();
@@ -22,12 +30,16 @@ public class UserList {
 
     private void setUserList(String login, User user) {
     }
-    public void setUserList(Map<String,User> userList) {
-        this.userList = userList;
-    }
-    public UserList(Map<String,User> userList) {
-        this.userList = userList;
-    }
+
+
+
+        public void setUserList (Map < String, User > userList){
+            this.userList = userList;
+        }
+
+    public UserList(Map < String, User > userList) {
+            this.userList = userList;
+        }
 
         public static UserList getInstance() {
         if(instance == null){
@@ -70,3 +82,4 @@ public class UserList {
         return Objects.hash(userList);
     }
 }
+
