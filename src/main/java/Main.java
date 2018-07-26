@@ -20,6 +20,7 @@ public class Main {
         SaveReadManager saveReadManager = new SaveReadManager();
 
         HashMap<String, User> users = saveReadManager.readUserFromFile();
+        UserList.getInstance().setUserList(users);
 
         while(state!=State.STOP){
             switch(state){
