@@ -41,14 +41,6 @@ public class Category implements Serializable {
     }
 
 
-    public void addAuction2(Auction auction) throws BadChooseToCategory{
-        if(isSubcategoryPresent()==true){
-            throw new BadChooseToCategory();
-        }
-        this.auction.add(auction);
-
-    }
-
 
     public void removingAuction(Auction auction){
         this.auction.remove(auction);
