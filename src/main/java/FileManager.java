@@ -1,3 +1,4 @@
+import Controllers.UserList;
 import Models.Auction;
 import Models.Offer;
 import Models.User;
@@ -12,14 +13,31 @@ public class FileManager {
 
 
 
-    public void saveUserToFile (Map<String, User> map) {
+//    public void saveUserToFile (Map<String, User> map) {
+//
+//        String fileName1 = "UserList.txt";
+//        try {
+//            FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
+//            ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
+//            {
+//                writer1.writeObject(map);
+//            }
+//        }
+//        catch (FileNotFoundException e) {
+//            System.err.println("Nie odnaleziono pliku " + fileName1);
+//        } catch (IOException e) {
+//            System.err.println("Błąd podczas zapisu danych do pliku " + fileName1);
+//        }
+//    }
+
+    public void saveUserToFile2 (UserList userList) {
 
         String fileName1 = "UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
             {
-                writer1.writeObject(map);
+                writer1.writeObject(userList);
             }
         }
         catch (FileNotFoundException e) {
@@ -29,14 +47,33 @@ public class FileManager {
         }
     }
 
-    public HashMap<String, User> readUserFromFile () {
+//    public HashMap<String, User> readUserFromFile () {
+//
+//        String fileName1 = "UserList.txt";
+//        try {
+//            FileInputStream fileReader1 = new FileInputStream(fileName1);
+//            ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
+//            {
+//                return (HashMap<String, User >) reader1.readObject();
+//            }
+//        } catch (FileNotFoundException e){
+//            System.err.println("Nie odnaleziono pliku " + fileName1);
+//        } catch (IOException e){
+//            System.err.println("Błąd podczas odczytu danych z pliku " + fileName1);
+//        } catch (ClassNotFoundException e) {
+//            System.err.println("Nieprawidłowy format pliku");
+//        }
+//        return null ;
+//    }
+
+    public UserList readUserFromFile2 () {
 
         String fileName1 = "UserList.txt";
         try {
             FileInputStream fileReader1 = new FileInputStream(fileName1);
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
-                return (HashMap<String, User >) reader1.readObject();
+                return (UserList) reader1.readObject();
             }
         } catch (FileNotFoundException e){
             System.err.println("Nie odnaleziono pliku " + fileName1);
@@ -47,6 +84,11 @@ public class FileManager {
         }
         return null ;
     }
+
+
+
+
+
 
 
     public void saveOffersToAuction (List <Auction> list) {

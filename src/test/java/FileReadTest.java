@@ -1,4 +1,5 @@
 
+import Controllers.UserList;
 import Exceptions.*;
 import Models.Auction;
 import Models.Category;
@@ -24,22 +25,35 @@ public class FileReadTest {
     public static final String FILE_NAME1 = "UserList.txt";
     public static final String FILE_NAME2 ="AuctionsList.txt";
 
+//    @Test
+//    public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
+//        Map<String, User> userListTest = new HashMap<>();
+//        User userTest = new User ("login","haslo1");
+//        userListTest.put("login", new User("Login","hasło1"));
+//
+//        FileManager fileManager = new FileManager();
+//        fileManager.saveUserToFile(userListTest);
+//
+//        HashMap <String,User> readUser = fileManager.readUserFromFile();
+//        assertEquals(userListTest, readUser);
+//    }
+
     @Test
     public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
-        Map<String, User> userListTest = new HashMap<>();
-        User userTest = new User ("login","haslo1");
-        userListTest.put("login", new User("Login","hasło1"));
+        UserList userListTest = new UserList();
+        userListTest.createUser("login","password");
+
 
         FileManager fileManager = new FileManager();
-        fileManager.saveUserToFile(userListTest);
+        fileManager.saveUserToFile2(userListTest);
 
-        HashMap <String,User> readUser = fileManager.readUserFromFile();
+        UserList readUser = fileManager.readUserFromFile2();
         assertEquals(userListTest, readUser);
     }
 
 
 
-    @Test
+
     public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
         List<Auction> auctionList = new LinkedList<>();
 

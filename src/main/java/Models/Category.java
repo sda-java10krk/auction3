@@ -63,6 +63,11 @@ public class Category implements Serializable {
         }
     }
 
+    public void showEveryOffersForCategory (){
+
+    }
+
+
 
     public String getName() {
         return name;
