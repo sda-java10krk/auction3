@@ -3,10 +3,11 @@ package Models;
 import Exceptions.NegativeOfferPriceException;
 import Models.User;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 
-public class Offer{
+public class Offer implements Serializable {
 
 
     private User user;

@@ -1,21 +1,37 @@
 package Controllers;
-
+import Controllers.UserList;
+import Exceptions.TooShortPasswordException;
+import Exceptions.UserAlreadyInTheBaseException;
+import Exceptions.UserNotExistInBaseException;
+import Models.User;
 import java.util.Map;
 
+
 public class UserControllers {
+
+
     UserList userList = UserList.getInstance();
 
-    public boolean createUser(String login, String password) throws IllegalArgumentException {
-        userList.createUser(login, password);
-        return true;
+    public boolean userLogin(String login, String password) throws TooShortPasswordException, UserNotExistInBaseException {
+
+        User user = new User(login, password);
+        if (UserList.getInstance().findUser(login, password)) {
+            return true;
+        }
+        return false;
     }
 
-    public boolean userIsPresent(String login, String password) {
-        if (UserList.getInstance().getUserList().containsKey(login) && UserList.getInstance().getUserList().equals(password)) {
+    public boolean userRegister(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
+        if (UserList.getInstance().registerUser(login, password)) {
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 }
+
+
+
+
+
 
 

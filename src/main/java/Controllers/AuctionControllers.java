@@ -1,4 +1,6 @@
+
 package Controllers;
+
 
 import Exceptions.EmptyDescriptionException;
 import Exceptions.EmptyTitleException;
@@ -8,11 +10,14 @@ import Models.Auction;
 import Models.Category;
 import Models.User;
 
+
 import java.math.BigDecimal;
+import java.util.Locale;
 
 public class AuctionControllers {
 
-    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+
 
         Auction auction = new Auction(user,title,description,startingPrice,category);
 
