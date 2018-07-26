@@ -31,6 +31,7 @@ public class UserList {
     }
 
 
+
         public void setUserList (Map < String, User > userList){
             this.userList = userList;
         }
@@ -46,21 +47,26 @@ public class UserList {
         return instance;
     }
 
-    public User findUser( String login, String password)throws UserNotExistInBaseException {
-        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password))
+    public boolean findUser( String login, String password)throws UserNotExistInBaseException {
+        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password)){
             throw new UserNotExistInBaseException();
-
-        else {
-            return this.userList.get(login);
         }
+        else {
+            this.userList.get(login);
+        }
+        return true;
     }
 
-    public void addUser(User user) throws UserAlreadyInTheBaseException {
-        if(this.userList.containsKey(user.login)) {
+    public boolean registerUser( String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
+        if(this.userList.containsKey(login)){
             throw new UserAlreadyInTheBaseException();
         }
-        this.userList.put(user.login, user);
+        else {
+            this.userList.put(login,new User(login,password));
+        }
+        return true;
     }
+
 
 }
 

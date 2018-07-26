@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CategoryTest {
     @Test
-    public void testReturnTrueIfSubcategoryExists() throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
+    public void testReturnTrueIfSubcategoryExists() throws Exception {
         Category c0 = new Category("Elektronika");
         Category c1 = new Category("Komputery");
         Category c2 = new Category("Laptopy");
@@ -23,7 +23,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void testReturnFalseIfSubcategoryDoesNotExists() throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
+    public void testReturnFalseIfSubcategoryDoesNotExists() throws Exception {
         Category c0 = new Category("Elektronika");
         Category c1 = new Category("Komputery");
         Category c2 = new Category("Laptopy");
