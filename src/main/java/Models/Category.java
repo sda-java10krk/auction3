@@ -9,11 +9,12 @@ import Exceptions.SubcategoryPresentException;
 import Models.Auction;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Category {
+public class Category implements Serializable {
 
     private Set<Auction> auction;
     private Set<Category> subcategories;
