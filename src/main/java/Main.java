@@ -1,8 +1,13 @@
+import Controllers.AuctionControllers;
+import Controllers.SaveReadManager;
 import Controllers.UserControllers;
+import Controllers.UserList;
+import Models.User;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
 import Views.LoggedUserMenuView;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +17,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
         UserControllers userControllers = new UserControllers();
+        SaveReadManager saveReadManager = new SaveReadManager();
 
+        HashMap<String, User> users = saveReadManager.readUserFromFile();
 
         while(state!=State.STOP){
             switch(state){
@@ -40,32 +47,19 @@ public class Main {
                     break;
                 }
                 case DURING_LOGIN:{
-
                     HelloMenuView.askForLogin();
                     String login = scanner.next();
                     HelloMenuView.askForPassword();
                     String password = scanner.next();
                     if(userControllers.userLogin(login,password)){
-                        LoggedUserMenuView.FirstOptionsView();
-                        int k=scanner.nextInt();
-                        switch(k){
-                            case(1):{
-                                CategoryDisplay.initializeCategories();
-                            }
-                            case(2):{
-                                //Aukcje Wystawione przez Usera
-
-                                // UserControllers userControllers = new UserControllers();
-//                userControllers.userIsPresent(login,password);
-
-                            }
-                            case(3):{
-                                //Auckje wygrane przez Usera
-                            }
-                        }
+                        state = State.LOGGED_IN;
+                        break;
                     }
-
-
+                    else{
+                        HelloMenuView.WrongAnwser();
+                        state = State.DURING_LOGIN;
+                        break;
+                    }
                 }
                 case DURING_REGISTRATION:{
                     HelloMenuView.askForLogin();
@@ -74,7 +68,91 @@ public class Main {
                     String password = scanner.next();
                     if(userControllers.userRegister(login,password)){
                         HelloMenuView.RegisterConfirmedInformation();
+                        state = State.LOGGED_IN;
+                    }else{
+                        HelloMenuView.WrongAnwser();
+                        state = State.DURING_REGISTRATION;
                     }
+                }
+
+                case LOGGED_IN:{
+                    LoggedUserMenuView.FirstOptionsView();
+                    String answer=scanner.next();
+                    switch(answer){
+                        case("1"):{
+                            CategoryDisplay.initializeCategories();
+                            state = State.SHOWING_CATEGORY;
+                            break;
+                        }
+                        case("2"):{
+                            state = State.LISTING_AUCTIONS;
+                            //Aukcje Wystawione przez Usera
+
+                            // UserControllers userControllers = new UserControllers();
+//                userControllers.userIsPresent(login,password);
+                            break;
+
+                        }
+                        case("3"):{
+                            state = State.WINNING_AUCTIONS;
+                            //Auckje wygrane przez Usera
+                            break;
+                        }
+                        case("4"):{
+                            state = State.LOGOUT;
+                            break;
+                        }
+                        case("5"):{
+                            state = State.STOP;
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                case SHOWING_CATEGORY:{
+                    CategoryDisplay.initializeCategories();
+                    LoggedUserMenuView.TreeViewOptions();
+                    String answer = scanner.next();
+                    switch(answer){
+                        case("1"):{
+                            state = State.LISTING_AUCTIONS;
+                            break;
+
+                        }
+                        case("2"):{
+                            state = State.WINNING_AUCTIONS;
+                            break;
+
+                        }
+                        case("3"):{
+                            state = State.LOGOUT;
+                            break;
+
+                        }
+                        case("4"):{
+                            state = State.STOP;
+                            break;
+
+                        }
+
+
+                    }
+                }
+
+                case LOGOUT:{
+                    state = State.INIT;
+                    break;
+                }
+
+                case LISTING_AUCTIONS:{
+                    AuctionControllers auctionControllers = new AuctionControllers();
+                    break;
+
+                }
+
+                case WINNING_AUCTIONS:{
+
                 }
 
             }
