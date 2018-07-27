@@ -42,7 +42,7 @@ public class AuctionsDatabase {
         }
 
     }
-    
+
 
     public List<Auction> getCurrentAuctions(){
 
