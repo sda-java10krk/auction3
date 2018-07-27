@@ -73,7 +73,7 @@ public class Auction implements Serializable {
             return false;
         }
     }
-    
+
 
 
     public User getUser() {

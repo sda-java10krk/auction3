@@ -1,7 +1,6 @@
-package Controllers;
+package Helpers;
 
 import Models.Auction;
-import Models.Offer;
 import Models.User;
 
 import java.io.*;
