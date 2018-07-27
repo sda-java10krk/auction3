@@ -85,8 +85,9 @@ public class Category implements Serializable {
         }
     }
 
-    public void printAuctionToSelectedCategory(int level){
-        
+    public void printAuctionToSelectedCategory(String categoryName, int level){
+
+        this.name = categoryName;
         System.out.println(this.name);
 
         for(Category subcategories : this.subcategories){

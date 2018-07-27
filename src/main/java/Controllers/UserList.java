@@ -1,11 +1,12 @@
 package Controllers;
 
 import Exceptions.TooShortPasswordException;
+import Helpers.SaveReadManager;
+import Helpers.UserFileManager;
 import Models.User;
 
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
-import Helpers.SaveReadManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,10 @@ import java.util.Objects;
 public class UserList {
 
     private static UserList instance;
+
     private Map<String, User> userList = new HashMap<>();
+
+    private UserFileManager userFileManager = new UserFileManager();
     private SaveReadManager saveReadManager = new SaveReadManager();
 
 
@@ -68,6 +72,7 @@ public class UserList {
             User user = new User(login,password);
             this.userList.put(login,user);
             saveReadManager.saveUserToFile(userList);
+            userFileManager.writeCsvFile(userList);
         }
         return true;
     }
