@@ -70,7 +70,7 @@ public class UserList {
         }
         return true;
     }
-    
+
 
     @Override
     public boolean equals(Object o) {
