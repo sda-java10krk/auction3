@@ -65,7 +65,8 @@ public class UserList {
             throw new UserAlreadyInTheBaseException();
         }
         else {
-            this.userList.put(login,new User(login,password));
+            User user = new User(login,password);
+            this.userList.put(login,user);
             saveReadManager.saveUserToFile(userList);
         }
         return true;
