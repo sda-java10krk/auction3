@@ -1,4 +1,6 @@
 import Controllers.AuctionControllers;
+import Exceptions.LoginNotGoneWellExeption;
+import Exceptions.UserNotExistInBaseException;
 import Helpers.SaveReadManager;
 import Controllers.UserControllers;
 import Controllers.UserList;
@@ -21,6 +23,7 @@ public class Main {
 
         HashMap<String, User> users = saveReadManager.readUserFromFile();
         UserList.getInstance().setUserList(users);
+        User currentUser;
 
         while(state!=State.STOP){
             switch(state){
@@ -52,15 +55,15 @@ public class Main {
                     String login = scanner.next();
                     HelloMenuView.askForPassword();
                     String password = scanner.next();
-                    if(userControllers.userLogin(login,password)){
+                    try {
+                        currentUser = userControllers.userLogin(login, password);
                         state = State.LOGGED_IN;
-                        break;
-                    }
-                    else{
+
+                    }catch(UserNotExistInBaseException e) {
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_LOGIN;
-                        break;
                     }
+                    break;
                 }
                 case DURING_REGISTRATION:{
                     HelloMenuView.askForLogin();
@@ -74,6 +77,7 @@ public class Main {
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_REGISTRATION;
                     }
+                    break;
                 }
 
                 case LOGGED_IN:{
@@ -87,6 +91,7 @@ public class Main {
                         }
                         case("2"):{
                             state = State.LISTING_AUCTIONS;
+
                             //Aukcje Wystawione przez Usera
 
                             // UserControllers userControllers = new UserControllers();
@@ -136,9 +141,8 @@ public class Main {
                             break;
 
                         }
-
-
                     }
+                    break;
                 }
 
                 case LOGOUT:{

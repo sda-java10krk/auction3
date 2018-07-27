@@ -24,24 +24,24 @@ public class UserTest {
 
     }
 
-    @Test
-    public void testLoginUser() throws Exception {
-
-        UserControllers userControllers = new UserControllers();
-
-        String login = "Filip123";
-        String password = "Haslo123";
-
-        assertTrue(userList.findUser(login,password));
-    }
-    @Test(expected = UserNotExistInBaseException.class)
-    public void testThrowUserNotExist() throws Exception{
-        String login = "Fasdasd1";
-        String password = "dsadasdasd";
-        UserControllers userControllers = new UserControllers();
-
-        assertTrue(userControllers.userLogin(login,password));
-    }
+//    @Test
+//    public void testLoginUser() throws Exception {
+//
+//        UserControllers userControllers = new UserControllers();
+//
+//        String login = "Filip123";
+//        String password = "Haslo123";
+//
+//        assertTrue(userList.findUser(login,password));
+//    }
+//    @Test(expected = UserNotExistInBaseException.class)
+//    public void testThrowUserNotExist() throws Exception{
+//        String login = "Fasdasd1";
+//        String password = "dsadasdasd";
+//        UserControllers userControllers = new UserControllers();
+//
+//        assertTrue(userControllers.userLogin(login,password));
+//    }
 
     @Test(expected = TooShortPasswordException.class)
     public void testThrowTooShortExceptionIfPasswordIsTooShort() throws Exception {
