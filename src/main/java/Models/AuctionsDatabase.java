@@ -15,7 +15,10 @@ public class AuctionsDatabase {
         return instance;
     }
 
-    
+    public void addAuction(Auction auction){
+
+
+    }
 
 
 
