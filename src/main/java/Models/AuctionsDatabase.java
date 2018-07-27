@@ -15,10 +15,16 @@ public class AuctionsDatabase {
         return instance;
     }
 
-    public void addAuction(Auction auction){
+//    public void addAuction(Auction auction){
+//
+//        this.currentAuctionsMap.put(auction.getUser().getLogin(),auction);
+//
+//    }
+//
+//    public void addWiningAuction(Auction auction){
+//        this.winningAuctionsMap.put();
+//    }
 
-
-    }
 
 
 
