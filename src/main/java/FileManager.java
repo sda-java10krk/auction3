@@ -12,14 +12,14 @@ public class FileManager {
 
 
 
-    public void saveUserToFile (Map<String, User> map1) {
+    public void saveUserToFile (Map<String, User> map) {
 
         String fileName1 = "UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
             {
-                writer1.writeObject(map1);
+                writer1.writeObject(map);
             }
         }
         catch (FileNotFoundException e) {
@@ -49,14 +49,14 @@ public class FileManager {
     }
 
 
-    public void saveOffersForAuction (LinkedList <Auction> map2) {
+    public void saveOffersToAuction (List <Auction> list) {
 
         String fileName2 = "AuctionsList.txt";
         try {
             FileOutputStream fileWriter2 = new FileOutputStream(fileName2);
             ObjectOutputStream writer2 = new ObjectOutputStream(fileWriter2);
             {
-                writer2.writeObject(map2);
+                writer2.writeObject(list);
             }
         }
         catch (FileNotFoundException e) {
