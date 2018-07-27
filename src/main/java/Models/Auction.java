@@ -75,14 +75,6 @@ public class Auction implements Serializable {
     }
 
 
-    public void addingAuction(Auction auction) throws SubcategoryPresentException {
-        category.addAuction(auction);
-    }
-
-    public void removingAuction(Auction auction){
-        category.removingAuction(auction);
-    }
-
 
     public User getUser() {
         return user;

@@ -1,16 +1,13 @@
 
+import Helpers.SaveReadManager;
 import Exceptions.*;
 import Models.Auction;
 import Models.Category;
-import Models.Offer;
 import Models.Offer;
 
 import Models.User;
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -30,10 +27,10 @@ public class FileReadTest {
         User userTest = new User ("login","haslo1");
         userListTest.put("login", new User("Login","hasło1"));
 
-        FileManager fileManager = new FileManager();
-        fileManager.saveUserToFile(userListTest);
+        SaveReadManager saveReadManager = new SaveReadManager();
+        saveReadManager.saveUserToFile(userListTest);
 
-        HashMap <String,User> readUser = fileManager.readUserFromFile();
+        HashMap <String,User> readUser = saveReadManager.readUserFromFile();
         assertEquals(userListTest, readUser);
     }
 
@@ -50,10 +47,10 @@ public class FileReadTest {
         auction.addOffer(new Offer(new User ("3","password"),BigDecimal.valueOf(303)));
         auctionList.add(auction);
 
-        FileManager fileManager = new FileManager();
-        fileManager.saveOffersToAuction(auctionList);
+        SaveReadManager saveReadManager = new SaveReadManager();
+        saveReadManager.saveOffersToAuction(auctionList);
 
-        LinkedList<Auction> readList = fileManager.readAuctionToOffers();
+        LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
 
         assertEquals(auctionList, readList);
 

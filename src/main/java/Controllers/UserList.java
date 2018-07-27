@@ -5,6 +5,7 @@ import Models.User;
 
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
+import Helpers.SaveReadManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,8 @@ public class UserList {
 
     private static UserList instance;
     private Map<String, User> userList = new HashMap<>();
+    private SaveReadManager saveReadManager = new SaveReadManager();
+
 
 
     public Map<String, User> getUserList() {
@@ -27,23 +30,24 @@ public class UserList {
     private void setUserList(String login, User user) {
     }
 
-    public void setUserList(Map<String, User> userList) {
-        this.userList = userList;
-    }
 
-    public UserList(Map<String, User> userList) {
-        this.userList = userList;
-    }
+        public void setUserList (Map < String, User > userList){
+            this.userList = userList;
+        }
 
-    public static UserList getInstance() {
-        if (instance == null) {
+    public UserList(Map < String, User > userList) {
+            this.userList = userList;
+        }
+
+        public static UserList getInstance() {
+        if(instance == null){
             instance = new UserList();
         }
         return instance;
     }
 
-    public boolean findUser(String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
-        if (this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)) {
+    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+        if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
             this.userList.get(login);
         } else {
             throw new UserNotExistInBaseException();
@@ -54,12 +58,15 @@ public class UserList {
     public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
         if (this.userList.containsKey(login)) {
             throw new UserAlreadyInTheBaseException();
-        } else {
-            User user = new User(login, password);
-            this.userList.put(login, user);
+        }
+        else {
+            User user = new User(login,password);
+            this.userList.put(login,user);
+            saveReadManager.saveUserToFile(userList);
         }
         return true;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -68,6 +75,8 @@ public class UserList {
         UserList userList1 = (UserList) o;
         return Objects.equals(userList, userList1.userList);
     }
+
+
 
     @Override
     public int hashCode() {
