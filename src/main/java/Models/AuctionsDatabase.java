@@ -1,5 +1,7 @@
 package Models;
 
+import Exceptions.AuctionNotEndedYetException;
+
 import java.util.Map;
 
 public class AuctionsDatabase {
@@ -15,15 +17,21 @@ public class AuctionsDatabase {
         return instance;
     }
 
-//    public void addAuction(Auction auction){
-//
-//        this.currentAuctionsMap.put(auction.getUser().getLogin(),auction);
-//
-//    }
-//
-//    public void addWiningAuction(Auction auction){
-//        this.winningAuctionsMap.put();
-//    }
+    public void addCurrentAuction(Auction auction){
+
+        this.currentAuctionsMap.put(auction.getUser().getLogin(),auction);
+
+    }
+
+    public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException{
+        if(auction.auctionWinnerChecking()){
+            this.winningAuctionsMap.put(auction.getUser().getLogin(),auction);
+        }
+        else{
+            throw new AuctionNotEndedYetException();
+        }
+
+    }
 
 
 
