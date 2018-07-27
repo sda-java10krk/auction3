@@ -1,6 +1,8 @@
+package Helpers;
+
 import Controllers.UserList;
+
 import Models.Auction;
-import Models.Offer;
 import Models.User;
 
 import java.io.*;
@@ -9,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class FileManager {
+public class SaveReadManager {
 
 
     public void saveUserToFile(Map<String, User> map) {

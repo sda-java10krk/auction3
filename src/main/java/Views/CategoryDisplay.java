@@ -56,9 +56,7 @@ public class CategoryDisplay {
             c8.addSubcategory(c9);  // Samochody -> Osobowe
             c8.addSubcategory(c10);  // Samochody ->  Ciężarówka
 
-
             FirstCategory.print(0);
-
 
         }
     }

@@ -1,17 +1,16 @@
 
 import Controllers.UserList;
+
+import Helpers.SaveReadManager;
+
 import Exceptions.*;
 import Models.Auction;
 import Models.Category;
-import Models.Offer;
 import Models.Offer;
 
 import Models.User;
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -25,32 +24,18 @@ public class FileReadTest {
     public static final String FILE_NAME1 = "UserList.txt";
     public static final String FILE_NAME2 ="AuctionsList.txt";
 
-//    @Test
-//    public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
-//        Map<String, User> userListTest = new HashMap<>();
-//        User userTest = new User ("login","haslo1");
-//        userListTest.put("login", new User("Login","hasło1"));
-//
-//        FileManager fileManager = new FileManager();
-//        fileManager.saveUserToFile(userListTest);
-//
-//        HashMap <String,User> readUser = fileManager.readUserFromFile();
-//        assertEquals(userListTest, readUser);
-//    }
-
     @Test
     public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
-        UserList userListTest = new UserList();
-        userListTest.createUser("login","password");
+        Map<String, User> userListTest = new HashMap<>();
+        User userTest = new User ("login","haslo1");
+        userListTest.put("login", new User("Login","hasło1"));
 
+        SaveReadManager fileManager = new SaveReadManager();
+        fileManager.saveUserToFile(userListTest);
 
-        FileManager fileManager = new FileManager();
-        fileManager.saveUserToFile2(userListTest);
-
-        UserList readUser = fileManager.readUserFromFile2();
+        HashMap <String,User> readUser = fileManager.readUserFromFile();
         assertEquals(userListTest, readUser);
     }
-
 
 
 
@@ -64,10 +49,10 @@ public class FileReadTest {
         auction.addOffer(new Offer(new User ("3","password"),BigDecimal.valueOf(303)));
         auctionList.add(auction);
 
-        FileManager fileManager = new FileManager();
-        fileManager.saveOffersToAuction(auctionList);
+        SaveReadManager saveReadManager = new SaveReadManager();
+        saveReadManager.saveOffersToAuction(auctionList);
 
-        LinkedList<Auction> readList = fileManager.readAuctionToOffers();
+        LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
 
         assertEquals(auctionList, readList);
 

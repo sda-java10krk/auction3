@@ -5,14 +5,18 @@ import Models.User;
 
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
+import Helpers.SaveReadManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UserList {
 
     private static UserList instance;
     private Map<String, User> userList = new HashMap<>();
+    private SaveReadManager saveReadManager = new SaveReadManager();
+
 
         public void createUser (String login, String password) throws IllegalArgumentException, TooShortPasswordException {
             userList.put(login, new User(login, password));
@@ -30,8 +34,6 @@ public class UserList {
     private void setUserList(String login, User user) {
     }
 
-
-
         public void setUserList (Map < String, User > userList){
             this.userList = userList;
         }
@@ -47,12 +49,13 @@ public class UserList {
         return instance;
     }
 
-    public boolean findUser( String login, String password)throws UserNotExistInBaseException {
-        if(this.userList.containsKey(login)&& this.userList.get(login).getPassword().equals(password)){
-            throw new UserNotExistInBaseException();
+    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+        if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
+            this.userList.get(login);
         }
         else {
-            this.userList.get(login);
+            throw new UserNotExistInBaseException();
+
         }
         return true;
     }
@@ -62,11 +65,28 @@ public class UserList {
             throw new UserAlreadyInTheBaseException();
         }
         else {
-            this.userList.put(login,new User(login,password));
+            User user = new User(login,password);
+            this.userList.put(login,user);
+            saveReadManager.saveUserToFile(userList);
         }
         return true;
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserList userList1 = (UserList) o;
+        return Objects.equals(userList, userList1.userList);
+    }
+
+
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(userList);
+    }
 }
 
