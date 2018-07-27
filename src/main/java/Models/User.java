@@ -1,4 +1,5 @@
 package Models;
+
 import Exceptions.TooShortPasswordException;
 
 
@@ -19,7 +20,7 @@ public class User implements Serializable {
 
     public User(String login, String password) throws TooShortPasswordException {
         this.login = login;
-        if(password.length()<5){
+        if (password.length() < 5) {
             throw new TooShortPasswordException();
         }
         this.password = password;
@@ -30,8 +31,8 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) throws TooShortPasswordException {
-            this.password = password;
-        }
+        this.password = password;
+    }
 
     public String getLogin() {
         return login;

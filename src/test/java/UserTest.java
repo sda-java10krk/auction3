@@ -14,13 +14,14 @@ import static org.junit.Assert.assertTrue;
 
 public class UserTest {
     private UserList userList;
+
     @Before
     public void createUserList() throws Exception {
         userList = new UserList();
 
-        userList.registerUser("Filip123","Haslo123");
-        userList.registerUser("BartekKrul","Password");
-        userList.registerUser("Marcin42","Pass3213");
+        userList.registerUser("Filip123", "Haslo123");
+        userList.registerUser("BartekKrul", "Password");
+        userList.registerUser("Marcin42", "Pass3213");
 
     }
 
@@ -29,15 +30,15 @@ public class UserTest {
         UserControllers userControllers = new UserControllers();
         String login = "Filip123";
         String password = "Haslo123";
-        assertTrue(userList.findUser(login,password));
+        assertTrue(userList.findUser(login, password));
     }
 
     @Test(expected = UserNotExistInBaseException.class)
-    public void testThrowUserNotExist() throws Exception{
+    public void testThrowUserNotExist() throws Exception {
         String login = "Fasdasd1";
         String password = "dsadasdasd";
         UserControllers userControllers = new UserControllers();
-        assertTrue(userControllers.userLogin(login,password));
+        assertTrue(userControllers.userLogin(login, password));
     }
 
     @Test(expected = TooShortPasswordException.class)
@@ -45,8 +46,8 @@ public class UserTest {
         UserControllers userControllers = new UserControllers();
         String login = "Filip123";
         String password = "h3";
-        User user = new User(login,password);
-        assertTrue(user.getPassword().length()>5);
+        User user = new User(login, password);
+        assertTrue(user.getPassword().length() > 5);
     }
 
     @Test(expected = UserAlreadyInTheBaseException.class)
@@ -54,14 +55,14 @@ public class UserTest {
         String login = "Filip123";
         String password = "asdafasf";
 
-        assert(userList.registerUser(login,password));
+        assert (userList.registerUser(login, password));
     }
 
     @Test
     public void testAddUserToUserList() throws UserAlreadyInTheBaseException, TooShortPasswordException {
         int result = userList.getInstance().getUserList().size();
         userList.registerUser("Filip_R", "Hassslo123");
-        assertTrue(userList.getUserList().size()> result);
+        assertTrue(userList.getUserList().size() > result);
     }
 
 }

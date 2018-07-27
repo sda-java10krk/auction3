@@ -45,7 +45,6 @@ public class UserList {
         }
         else {
             throw new UserNotExistInBaseException();
-
         }
         return true;
     }
