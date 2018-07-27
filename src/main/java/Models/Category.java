@@ -75,7 +75,6 @@ public class Category implements Serializable {
 
 
     public void print(int level){
-
         for(int i =0 ; i<level ; i++){
             System.out.print("-");
         }
@@ -83,7 +82,18 @@ public class Category implements Serializable {
 
         for(Category subcategories : this.subcategories){
             subcategories.print(level+1);
+        }
+    }
 
+    public void printAuctionToSelectedCategory(int level){
+        
+        System.out.println(this.name);
+
+        for(Category subcategories : this.subcategories){
+            subcategories.print(level+1);
+        }
+        if (subcategories.isEmpty()) {
+            System.out.println("jestes na dole");
         }
     }
 

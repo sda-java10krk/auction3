@@ -12,86 +12,44 @@ import java.util.Map;
 public class FileManager {
 
 
-
-//    public void saveUserToFile (Map<String, User> map) {
-//
-//        String fileName1 = "UserList.txt";
-//        try {
-//            FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
-//            ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
-//            {
-//                writer1.writeObject(map);
-//            }
-//        }
-//        catch (FileNotFoundException e) {
-//            System.err.println("Nie odnaleziono pliku " + fileName1);
-//        } catch (IOException e) {
-//            System.err.println("Błąd podczas zapisu danych do pliku " + fileName1);
-//        }
-//    }
-
-    public void saveUserToFile2 (UserList userList) {
+    public void saveUserToFile(Map<String, User> map) {
 
         String fileName1 = "UserList.txt";
         try {
             FileOutputStream fileWriter1 = new FileOutputStream(fileName1);
             ObjectOutputStream writer1 = new ObjectOutputStream(fileWriter1);
             {
-                writer1.writeObject(userList);
+                writer1.writeObject(map);
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println("Nie odnaleziono pliku " + fileName1);
         } catch (IOException e) {
             System.err.println("Błąd podczas zapisu danych do pliku " + fileName1);
         }
     }
 
-//    public HashMap<String, User> readUserFromFile () {
-//
-//        String fileName1 = "UserList.txt";
-//        try {
-//            FileInputStream fileReader1 = new FileInputStream(fileName1);
-//            ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
-//            {
-//                return (HashMap<String, User >) reader1.readObject();
-//            }
-//        } catch (FileNotFoundException e){
-//            System.err.println("Nie odnaleziono pliku " + fileName1);
-//        } catch (IOException e){
-//            System.err.println("Błąd podczas odczytu danych z pliku " + fileName1);
-//        } catch (ClassNotFoundException e) {
-//            System.err.println("Nieprawidłowy format pliku");
-//        }
-//        return null ;
-//    }
 
-    public UserList readUserFromFile2 () {
+    public HashMap<String, User> readUserFromFile() {
 
         String fileName1 = "UserList.txt";
         try {
             FileInputStream fileReader1 = new FileInputStream(fileName1);
             ObjectInputStream reader1 = new ObjectInputStream(fileReader1);
             {
-                return (UserList) reader1.readObject();
+                return (HashMap<String, User>) reader1.readObject();
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.err.println("Nie odnaleziono pliku " + fileName1);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.err.println("Błąd podczas odczytu danych z pliku " + fileName1);
         } catch (ClassNotFoundException e) {
             System.err.println("Nieprawidłowy format pliku");
         }
-        return null ;
+        return null;
     }
 
 
-
-
-
-
-
-    public void saveOffersToAuction (List <Auction> list) {
+    public void saveOffersToAuction(List<Auction> list) {
 
         String fileName2 = "AuctionsList.txt";
         try {
@@ -100,8 +58,7 @@ public class FileManager {
             {
                 writer2.writeObject(list);
             }
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println("Nie odnaleziono pliku " + fileName2);
         } catch (IOException e) {
             System.err.println("Błąd podczas zapisu danych do pliku " + fileName2);
@@ -109,9 +66,7 @@ public class FileManager {
     }
 
 
-
-
-    public LinkedList <Auction> readAuctionToOffers () {
+    public LinkedList<Auction> readAuctionToOffers() {
 
         String fileName2 = "AuctionsList.txt";
 
@@ -121,14 +76,14 @@ public class FileManager {
             {
                 return (LinkedList<Auction>) reader2.readObject();
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.err.println("Nie odnaleziono pliku " + fileName2);
-        } catch (IOException e){
+        } catch (IOException e) {
             System.err.println("Błąd podczas odczytu danych z pliku " + fileName2);
         } catch (ClassNotFoundException e) {
             System.err.println("Nieprawidłowy format pliku");
         }
-        return null ;
+        return null;
     }
-    }
+}
 
