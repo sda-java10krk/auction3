@@ -16,46 +16,47 @@ public class UserList {
     private Map<String, User> userList = new HashMap<>();
 
 
-        public Map<String, User> getUserList () {
-            return userList;
-        }
-
-        public UserList() {
-        this.userList= new HashMap<>();
+    public Map<String, User> getUserList() {
+        return userList;
     }
+
+    public UserList() {
+        this.userList = new HashMap<>();
+    }
+
     private void setUserList(String login, User user) {
     }
-        public void setUserList (Map < String, User > userList){
-            this.userList = userList;
-        }
 
-    public UserList(Map < String, User > userList) {
-            this.userList = userList;
-        }
+    public void setUserList(Map<String, User> userList) {
+        this.userList = userList;
+    }
 
-        public static UserList getInstance() {
-        if(instance == null){
+    public UserList(Map<String, User> userList) {
+        this.userList = userList;
+    }
+
+    public static UserList getInstance() {
+        if (instance == null) {
             instance = new UserList();
         }
         return instance;
     }
-    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
-        if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
+
+    public boolean findUser(String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+        if (this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)) {
             this.userList.get(login);
-        }
-        else {
+        } else {
             throw new UserNotExistInBaseException();
         }
         return true;
     }
 
-    public boolean registerUser( String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
-        if(this.userList.containsKey(login)){
+    public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
+        if (this.userList.containsKey(login)) {
             throw new UserAlreadyInTheBaseException();
-        }
-        else {
+        } else {
             User user = new User(login, password);
-            this.userList.put(login,user);
+            this.userList.put(login, user);
         }
         return true;
     }
