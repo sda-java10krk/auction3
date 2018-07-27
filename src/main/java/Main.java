@@ -2,7 +2,6 @@ import Controllers.AuctionControllers;
 import Helpers.SaveReadManager;
 import Controllers.UserControllers;
 import Controllers.UserList;
-import Models.CurrentUser;
 import Models.User;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
@@ -84,6 +83,8 @@ public class Main {
                         case("1"):{
                             CategoryDisplay.initializeCategories();
                             state = State.SHOWING_CATEGORY;
+                            String user = CurrentUser.getInstance().getUser().getLogin();
+                            System.out.println(user);
                             break;
                         }
                         case("2"):{

@@ -18,53 +18,57 @@ public class UserList {
     private SaveReadManager saveReadManager = new SaveReadManager();
 
 
+    public void createUser (String login, String password) throws IllegalArgumentException, TooShortPasswordException {
+        userList.put(login, new User(login, password));
+    }
 
-    public Map<String, User> getUserList() {
+    public Map<String, User> getUserList () {
         return userList;
     }
 
+
     public UserList() {
-        this.userList = new HashMap<>();
+        this.userList= new HashMap<>();
     }
 
     private void setUserList(String login, User user) {
     }
 
-
-        public void setUserList (Map < String, User > userList){
-            this.userList = userList;
-        }
+    public void setUserList (Map < String, User > userList){
+        this.userList = userList;
+    }
 
     public UserList(Map < String, User > userList) {
-            this.userList = userList;
-        }
+        this.userList = userList;
+    }
 
-        public static UserList getInstance() {
+    public static UserList getInstance() {
         if(instance == null){
             instance = new UserList();
         }
         return instance;
     }
 
-    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+    public User findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
         if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
-            this.userList.get(login);
-        } else {
-            throw new UserNotExistInBaseException();
+            return this.userList.get(login);
         }
-        return true;
+        else {
+            throw new UserNotExistInBaseException();
+
+        }
     }
 
-    public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
-        if (this.userList.containsKey(login)) {
+    public boolean registerUser( String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
+        if(this.userList.containsKey(login)){
             throw new UserAlreadyInTheBaseException();
         }
         else {
             User user = new User(login,password);
             this.userList.put(login,user);
             saveReadManager.saveUserToFile(userList);
+            return true;
         }
-        return true;
     }
 
 
@@ -83,12 +87,4 @@ public class UserList {
 
         return Objects.hash(userList);
     }
-
-    @Override
-    public String toString() {
-        return "UserList{" +
-                "userList=" + userList +
-                '}';
-    }
 }
-

@@ -7,9 +7,6 @@ import Models.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.jws.soap.SOAPBinding;
-import java.util.concurrent.ExecutionException;
-
 import static org.junit.Assert.assertTrue;
 
 public class UserTest {
@@ -25,21 +22,21 @@ public class UserTest {
 
     }
 
-    @Test
-    public void testLoginUser() throws Exception {
-        UserControllers userControllers = new UserControllers();
-        String login = "Filip123";
-        String password = "Haslo123";
-        assertTrue(userList.findUser(login, password));
-    }
-
-    @Test(expected = UserNotExistInBaseException.class)
-    public void testThrowUserNotExist() throws Exception {
-        String login = "Fasdasd1";
-        String password = "dsadasdasd";
-        UserControllers userControllers = new UserControllers();
-        assertTrue(userControllers.userLogin(login, password));
-    }
+//    @Test
+//    public void testLoginUser() throws Exception {
+//        UserControllers userControllers = new UserControllers();
+//        String login = "Filip123";
+//        String password = "Haslo123";
+//        assertTrue(userList.findUser(login, password));
+//    }
+//
+//    @Test(expected = UserNotExistInBaseException.class)
+//    public void testThrowUserNotExist() throws Exception {
+//        String login = "Fasdasd1";
+//        String password = "dsadasdasd";
+//        UserControllers userControllers = new UserControllers();
+//        assertTrue(userControllers.userLogin(login, password));
+//    }
 
     @Test(expected = TooShortPasswordException.class)
     public void testThrowTooShortExceptionIfPasswordIsTooShort() throws Exception {
@@ -59,11 +56,25 @@ public class UserTest {
     }
 
     @Test
-    public void testAddUserToUserList() throws UserAlreadyInTheBaseException, TooShortPasswordException {
+    public void testAddUserToUserList() throws Exception {
         int result = userList.getInstance().getUserList().size();
         userList.registerUser("Filip_R", "Hassslo123");
         assertTrue(userList.getUserList().size() > result);
     }
+
+//    @Test
+//    public void TestCurrentUser() throws Exception {
+//        UserControllers userControllers = new UserControllers();
+//        String login = "Filip123";
+//        String password = "Haslo123";
+//
+//        userControllers.userLogin(login,password);
+//
+//        String user1 = CurrentUser.getInstance().getUser().login;
+//
+//
+//        assert(login.equals(user1));
+//    }
 
 }
 

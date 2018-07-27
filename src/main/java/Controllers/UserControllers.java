@@ -11,11 +11,8 @@ import java.util.Map;
 
 public class UserControllers {
 
-    public boolean userLogin(String login, String password) throws TooShortPasswordException, UserNotExistInBaseException {
-        if (UserList.getInstance().findUser(login, password)) {
-            return true;
-        }
-        return false;
+    public User userLogin(String login, String password) throws TooShortPasswordException, UserNotExistInBaseException {
+        return UserList.getInstance().findUser(login, password);
     }
 
     public boolean userRegister(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
