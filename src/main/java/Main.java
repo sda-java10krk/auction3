@@ -1,5 +1,6 @@
 import Controllers.UserControllers;
 import Controllers.UserList;
+import Models.CurrentUser;
 import Models.User;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
@@ -53,6 +54,8 @@ public class Main {
                         switch(k){
                             case(1):{
                                 CategoryDisplay.initializeCategories();
+                                String user = CurrentUser.getInstance().getUser().getLogin();
+                                System.out.println(user);
                             }
                             case(2):{
                                 //Aukcje Wystawione przez Usera

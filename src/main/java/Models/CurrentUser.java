@@ -28,4 +28,11 @@ public class CurrentUser {
         }
         return user;
     }
+
+    @Override
+    public String toString() {
+        return "CurrentUser{" +
+                "user=" + user +
+                '}';
+    }
 }
