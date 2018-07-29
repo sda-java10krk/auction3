@@ -54,17 +54,21 @@ public class FileReadTest {
         assertEquals(auctionList, readList);
     }
 
-
+    @Test
     public void saveUserToListTestAndChechResultByMethodReadFileCSV () throws TooShortPasswordException, IOException {
-        Map<String, User> userListTest = new HashMap<>();
-        User userTest = new User ("login","haslo1");
-        userListTest.put("login", new User("Login","hasło1"));
+        Map<String, User> saveUserListTest = new HashMap<>();
+        saveUserListTest.put("login", new User("login","haslo1"));
+
 
         UserFileManager userFileManager = new UserFileManager();
-        userFileManager.saveUserToFileCSV(userListTest);
+        userFileManager.saveUserToFileCSV(saveUserListTest);
 
-        HashMap <String,User> readUser = userFileManager.readUserFromFile();
+        //HashMap <String,User> readUser = userFileManager.readUserFromFile();
 
-        assertEquals(userListTest, readUser);
+        User user = userFileManager.readUserFromFileCsv();
+        Map<String, User> loadUserListTest = new HashMap<>();
+        loadUserListTest.put(user.getLogin(),user);
+
+        assertEquals(saveUserListTest, loadUserListTest);
     }
 }

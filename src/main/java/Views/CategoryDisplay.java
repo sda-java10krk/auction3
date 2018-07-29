@@ -49,14 +49,15 @@ public class CategoryDisplay {
             c4.addSubcategory(c5);  // Telefony -> IPhone
             c4.addSubcategory(c6);  // Telefony ->  Android
 
-            c0.print(0);
-
-
             c8.addSubcategory(c9);  // Samochody -> Osobowe
             c8.addSubcategory(c10);  // Samochody ->  Ciężarówka
 
             FirstCategory.print(0);
 
+        }
+
+        public static void askAboutCategory() {
+                System.out.println("Podaj kategorie ogólną lub szczegółową, aby zobaczyć aukcje");
         }
     }
 

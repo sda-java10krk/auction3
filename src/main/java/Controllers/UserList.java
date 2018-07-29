@@ -46,6 +46,11 @@ public class UserList {
             this.userList = userList;
         }
 
+            //TODO
+    public void AddUserToListFromFile (User user) {
+        userList.put(user.getLogin(),user);
+    }
+
         public static UserList getInstance() {
         if(instance == null){
             instance = new UserList();

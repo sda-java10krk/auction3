@@ -69,7 +69,7 @@ public class Category implements Serializable {
         }
     }
 
-
+    //TODO
     public void printAuctionToSelectedCategory(String categoryName) {
 
        int level = PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY;

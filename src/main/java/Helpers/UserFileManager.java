@@ -23,8 +23,6 @@ public class UserFileManager {
         try {
             for (User user : map.values()) {
                 fileWriter = new FileWriter(fileName);
-                fileWriter.append(PARAMETERS.toString());
-                fileWriter.append(NEW_LINE);
                 fileWriter.append(user.getLogin());
                 fileWriter.append(SEPARATOR);
                 fileWriter.append(user.getPassword());
@@ -45,21 +43,24 @@ public class UserFileManager {
     private static final int USER_PASSWORD = 1;
 
 
-    public HashMap<String, User> readUserFromFile() throws TooShortPasswordException, IOException {
-        UserFileManager.checkTheFileUserExist();
-        String fileName = "UserList2.csv";
+    public User readUserFromFileCsv() throws TooShortPasswordException, IOException {
+
+        UserFileManager.checkTheFileCsvUserExist();
+        String fileName = "C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2.csv";
         BufferedReader fileReader = null;
         String line = "";
+        String cvsSplitBy = ",";
 
         try {
             fileReader = new BufferedReader(new FileReader(fileName));
             fileReader.readLine();
             while ((line = fileReader.readLine()) != null) {
-                String[] data = line.split(SEPARATOR);
+                String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
                     User user = new User(data[USER_LOGIN], data[USER_PASSWORD]);
                     // zobaczyc czy dobrze
-                    UserList.getInstance().setUserList(data[USER_LOGIN], user);
+                  // UserList.getInstance().setUserList(data[USER_LOGIN],user);
+                   UserList.getInstance().AddUserToListFromFile(user);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -71,7 +72,10 @@ public class UserFileManager {
     }
 
     //TODO
-    public static void checkTheFileUserExist() throws IOException {
+    // co zrobic z problemem dotyczacym ściezki bo przeciez u kazdego bedzie inna sciezka w zaleznosci gdzie ten plik
+    // wiec pytanie czy mozna to jakos zautomatyzowac albo pomyslec nad tym czy nie lepiej jak plik bedzie juz
+    // gotowy przed pierwszym otwarciem programu
+    public static void checkTheFileCsvUserExist() throws IOException {
         File file = new File("C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2.csv");
         if (file.exists()) {
         } else {
