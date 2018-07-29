@@ -18,6 +18,9 @@ public class UserFileManager {
 
     public void saveUserToFileCSV(Map<String, User> map) throws IOException {
         String fileName = "UserList2.csv";
+
+        UserFileManager.toEnoughtDiskSpace();
+
         FileWriter fileWriter = null;
 
         try {
@@ -59,8 +62,8 @@ public class UserFileManager {
                 if (data.length > 0) {
                     User user = new User(data[USER_LOGIN], data[USER_PASSWORD]);
                     // zobaczyc czy dobrze
-                  // UserList.getInstance().setUserList(data[USER_LOGIN],user);
-                   UserList.getInstance().AddUserToListFromFile(user);
+                    // UserList.getInstance().setUserList(data[USER_LOGIN],user);
+                    UserList.getInstance().AddUserToListFromFile(user);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -82,5 +85,28 @@ public class UserFileManager {
             file.createNewFile();
         }
     }
+
+
+    //jesli nie mozna zapisac do pliku bo za duzy to przekierowuje do zapisuje do pliku nr 2 lub 3
+    public static void toEnoughtDiskSpace() throws IOException {
+        //TODO jakaś metoda
+        if (true) {
+        }
+        File file = new File("C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2_secondList.csv");
+        file.createNewFile();
+
+    }
+
+    //TODO
+    public static void fileUserListIsDamagedDuringReading() {
+
+    }
+
+    //TODO
+    public static void fileUserListIsDamagedDuringSaving() {
+
+    }
+
+
 }
 

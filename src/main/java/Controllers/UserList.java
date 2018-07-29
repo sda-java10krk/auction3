@@ -76,7 +76,7 @@ public class UserList {
         else {
             User user = new User(login,password);
             this.userList.put(login,user);
-            saveReadManager.saveUserToFile(userList);
+            //saveReadManager.saveUserToFile(userList);
 
             userFileManager.saveUserToFileCSV(userList);
 

@@ -19,43 +19,43 @@ import static org.junit.Assert.assertTrue;
 public class FileReadTest {
 
 
-    public static final String FILE_NAME1 = "UserList.txt";
-    public static final String FILE_NAME2 ="AuctionsList.txt";
+//    public static final String FILE_NAME1 = "UserList.txt";
+//    public static final String FILE_NAME2 ="AuctionsList.txt";
+
+//    @Test
+//    public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
+//        Map<String, User> userListTest = new HashMap<>();
+//        User userTest = new User ("login","haslo1");
+//        userListTest.put("login", new User("Login","hasło1"));
+//
+//        SaveReadManager fileManager = new SaveReadManager();
+//        fileManager.saveUserToFile(userListTest);
+//
+//        HashMap <String,User> readUser = fileManager.readUserFromFile();
+//        assertEquals(userListTest, readUser);
+//    }
+
+//    @Test
+//    public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
+//        List<Auction> auctionList = new LinkedList<>();
+//
+//        Auction auction = new Auction(new User ("login","password"),"title","description",BigDecimal.valueOf(100),new Category("category"));
+//
+//        auction.addOffer(new Offer(new User ("1","password"),BigDecimal.valueOf(101)));
+//        auction.addOffer(new Offer(new User ("2","password"),BigDecimal.valueOf(202)));
+//        auction.addOffer(new Offer(new User ("3","password"),BigDecimal.valueOf(303)));
+//        auctionList.add(auction);
+//
+//        SaveReadManager saveReadManager = new SaveReadManager();
+//        saveReadManager.saveOffersToAuction(auctionList);
+//
+//        LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
+//
+//        assertEquals(auctionList, readList);
+//    }
 
     @Test
-    public void saveUserToListTestAndChechResultByMethodReadFile () throws TooShortPasswordException {
-        Map<String, User> userListTest = new HashMap<>();
-        User userTest = new User ("login","haslo1");
-        userListTest.put("login", new User("Login","hasło1"));
-
-        SaveReadManager fileManager = new SaveReadManager();
-        fileManager.saveUserToFile(userListTest);
-
-        HashMap <String,User> readUser = fileManager.readUserFromFile();
-        assertEquals(userListTest, readUser);
-    }
-
-    @Test
-    public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
-        List<Auction> auctionList = new LinkedList<>();
-
-        Auction auction = new Auction(new User ("login","password"),"title","description",BigDecimal.valueOf(100),new Category("category"));
-
-        auction.addOffer(new Offer(new User ("1","password"),BigDecimal.valueOf(101)));
-        auction.addOffer(new Offer(new User ("2","password"),BigDecimal.valueOf(202)));
-        auction.addOffer(new Offer(new User ("3","password"),BigDecimal.valueOf(303)));
-        auctionList.add(auction);
-
-        SaveReadManager saveReadManager = new SaveReadManager();
-        saveReadManager.saveOffersToAuction(auctionList);
-
-        LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
-
-        assertEquals(auctionList, readList);
-    }
-
-    @Test
-    public void saveUserToListTestAndChechResultByMethodReadFileCSV () throws TooShortPasswordException, IOException {
+    public void saveUserToListAndChechResultByMethodReadFileCSVTest () throws TooShortPasswordException, IOException {
         Map<String, User> saveUserListTest = new HashMap<>();
         saveUserListTest.put("login", new User("login","haslo1"));
 
@@ -71,4 +71,5 @@ public class FileReadTest {
 
         assertEquals(saveUserListTest, loadUserListTest);
     }
+
 }
