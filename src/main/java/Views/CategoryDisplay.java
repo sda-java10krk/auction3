@@ -10,7 +10,6 @@ public class CategoryDisplay {
 
             Category FirstCategory = new Category("Kategorie");
 
-
             Category categoryTree = new Category(null);
 
             Category c0 = new Category("Elektronika");

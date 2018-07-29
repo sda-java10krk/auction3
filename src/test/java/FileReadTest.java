@@ -1,4 +1,6 @@
 import Exceptions.*;
+import Helpers.SaveReadManager;
+import Helpers.UserFileManager;
 import Models.Auction;
 import Models.Category;
 import Models.Offer;
@@ -6,6 +8,7 @@ import Models.Offer;
 import Models.User;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -32,8 +35,7 @@ public class FileReadTest {
         assertEquals(userListTest, readUser);
     }
 
-
-
+    @Test
     public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
         List<Auction> auctionList = new LinkedList<>();
 
@@ -50,6 +52,19 @@ public class FileReadTest {
         LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
 
         assertEquals(auctionList, readList);
+    }
 
+
+    public void saveUserToListTestAndChechResultByMethodReadFileCSV () throws TooShortPasswordException, IOException {
+        Map<String, User> userListTest = new HashMap<>();
+        User userTest = new User ("login","haslo1");
+        userListTest.put("login", new User("Login","hasło1"));
+
+        UserFileManager userFileManager = new UserFileManager();
+        userFileManager.saveUserToFileCSV(userListTest);
+
+        HashMap <String,User> readUser = userFileManager.readUserFromFile();
+
+        assertEquals(userListTest, readUser);
     }
 }

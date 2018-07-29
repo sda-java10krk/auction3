@@ -3,7 +3,6 @@ package Models;
 import Exceptions.BadChooseToCategory;
 
 
-
 import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
 import Exceptions.SubcategoryPresentException;
 import Models.Auction;
@@ -17,10 +16,11 @@ import java.util.Set;
 
 public class Category implements Serializable {
 
+    public static final int PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY = 0;
+
     private Set<Auction> auction;
     private Set<Category> subcategories;
     private String name;
-
 
 
     public Category(String name) {
@@ -29,44 +29,28 @@ public class Category implements Serializable {
         this.auction = new HashSet<Auction>();
     }
 
-    // ale jak chce dac uzytnownikowi mozliwosc dodania swojej kategorii to nie powinienem robic HashSet z categoriami
-    // nie rozumiem potencjalnie nieskonczeonego zagłebienia - czy to chodzi w dół czy w boki dla tego schematu co juz mamy
-    // bo dla mnie nie ma sensu isc w dół jak robimy jedną odnoge
 
     public void addAuction(Auction auction) throws SubcategoryPresentException {
-        if(isSubcategoryPresent()) {
+        if (isSubcategoryPresent()) {
             throw new SubcategoryPresentException();
-        }else{
+        } else {
             this.auction.add(auction);
         }
     }
 
 
-
-    public void removingAuction(Auction auction){
+    public void removingAuction(Auction auction) {
         this.auction.remove(auction);
     }
 
-//// jaki dostep dawać użytkownikom - czy mogą robic subkategorie tylko na najnizszym poziomie czy wyzszych tez// no bo
-//    // i tak robimy aukcje tylko na najnizszym poziomie wiec jak czegos by brakowało to sobie dorobi sukbategorie na najnizszym
-//    public void addSubcategory(Category category) {
-//        // i gdy chce dodac subkategorie to musze jako parametr przyjac 1. gdzie chce dodac subkategorie i jak sie ma nazywac
-//        subcategories.add(category);
-//        //utworzyc categorie "pozostałe" i wysłac wiadomosc do userów ze aucja hest w takiej kategorii
-//    }
 
     public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
-        if(!isSubcategoryPresent() && !this.subcategories.isEmpty()){
+        if (!isSubcategoryPresent() && !this.subcategories.isEmpty()) {
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
-        }else{
+        } else {
             subcategories.add(category);
         }
     }
-
-    public void showEveryOffersForCategory (){
-
-    }
-
 
 
     public String getName() {
@@ -74,24 +58,27 @@ public class Category implements Serializable {
     }
 
 
-    public void print(int level){
-        for(int i =0 ; i<level ; i++){
+    public void print(int level) {
+        for (int i = 0; i < level; i++) {
             System.out.print("-");
         }
         System.out.println(this.name);
 
-        for(Category subcategories : this.subcategories){
-            subcategories.print(level+1);
+        for (Category subcategories : this.subcategories) {
+            subcategories.print(level + 1);
         }
     }
 
-    public void printAuctionToSelectedCategory(String categoryName, int level){
+
+    public void printAuctionToSelectedCategory(String categoryName) {
+
+       int level = PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY;
 
         this.name = categoryName;
         System.out.println(this.name);
 
-        for(Category subcategories : this.subcategories){
-            subcategories.print(level+1);
+        for (Category subcategories : this.subcategories) {
+            subcategories.print(level + 1);
         }
         if (subcategories.isEmpty()) {
             System.out.println("jestes na dole");
@@ -117,18 +104,12 @@ public class Category implements Serializable {
         return subcategories;
     }
 
-//    public List showAuctionBasedOnCategory (Category category){
-//
-//
-//        return List
-//    }
-
     @Override
     public String toString() {
-        if(name == null){
+        if (name == null) {
             name = "Kategorie";
         }
-         return "";
+        return "";
     }
 
     @Override
