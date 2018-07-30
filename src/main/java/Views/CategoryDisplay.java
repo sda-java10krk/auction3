@@ -59,6 +59,8 @@ public class CategoryDisplay {
 
             FirstCategory.print(2);
         }
+
+
     }
 
 

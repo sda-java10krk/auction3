@@ -59,7 +59,7 @@ public class Category implements Serializable {
         if(!isSubcategoryPresent() && !this.subcategories.isEmpty()){
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
         }else{
-            subcategories.add(category);
+            this.subcategories.add(category);
         }
     }
 
@@ -95,6 +95,10 @@ public class Category implements Serializable {
 
     public Set<Auction> getAuction() {
         return auction;
+    }
+
+    public void getNameOfAuction(){
+        System.out.println("SIEMANO");
     }
 
     public Set<Category> getSubcategories() {
