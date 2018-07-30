@@ -2,6 +2,7 @@ package Models;
 
 import Exceptions.AuctionNotEndedYetException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +44,24 @@ public class AuctionsDatabase {
 
     }
 
-
-    public List<Auction> getCurrentAuctions(){
-
-        List<Auction> auctions = this.currentAuctionsMap.values().stream().collect(Collectors.toList());
-
+    public List<Auction> getCurrentAuctions(User user){
+        List<Auction> auctions = new ArrayList<>();
+        for (Map.Entry<String, Auction> entry : currentAuctionsMap.entrySet()) {
+            if(currentAuctionsMap.containsValue(user.getLogin())){
+                auctions.add(entry.getValue());
+            }
+        }
         return auctions;
     }
+//
+//
+//    public List<Auction> getWinningAuctions(){
+//        List<Auction> auctions = new ArrayList<>();
+//        for (Map.Entry<String, Auction> entry : winningAuctionsMap.entrySet()) {
+//            auctions.add(entry.getValue());
+//        }
+//        return auctions;
+//    }
 
 
 
