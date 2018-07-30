@@ -1,12 +1,12 @@
 package Controllers;
 
 import Exceptions.TooShortPasswordException;
-import Helpers.SaveReadManager;
 import Helpers.UserFileManager;
 import Models.User;
 
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
+import Helpers.SaveReadManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,11 +16,11 @@ import java.util.Objects;
 public class UserList {
 
     private static UserList instance;
-
     private Map<String, User> userList = new HashMap<>();
     private UserFileManager userFileManager = new UserFileManager();
 
-        public Map<String, User> getUserList () {
+
+    public Map<String, User> getUserList () {
             return userList;
         }
 
@@ -29,7 +29,7 @@ public class UserList {
         this.userList= new HashMap<>();
     }
 
-    public void setUserList(String login, User user) {
+    private void setUserList(String login, User user) {
     }
 
         public void setUserList (Map < String, User > userList){
@@ -47,7 +47,7 @@ public class UserList {
         return instance;
     }
 
-    public boolean findUser(String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
         if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
             this.userList.get(login);
         }
@@ -58,7 +58,12 @@ public class UserList {
         return true;
     }
 
-    public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
+    public boolean registerUser( String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
+        if(userList==null){
+            User user = new User(login,password);
+            this.userList.put(login,user);
+            userFileManager.saveUserToFileCSV(userList);
+        }
         if(this.userList.containsKey(login)){
             throw new UserAlreadyInTheBaseException();
         }
