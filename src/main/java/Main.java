@@ -1,10 +1,7 @@
-import Controllers.AuctionControllers;
-import Exceptions.LoginNotGoneWellExeption;
 import Exceptions.UserNotExistInBaseException;
-import Helpers.SaveReadManager;
 import Controllers.UserControllers;
 import Controllers.UserList;
-import Models.AuctionsDatabase;
+import Helpers.UserFileManager;
 import Models.User;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
@@ -20,9 +17,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
         UserControllers userControllers = new UserControllers();
-        SaveReadManager saveReadManager = new SaveReadManager();
+        UserFileManager saveReadManager = new UserFileManager();
 
-        HashMap<String, User> users = saveReadManager.readUserFromFile();
+        HashMap<String, User> users = (HashMap<String, User>) saveReadManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
         User currentUser;
 

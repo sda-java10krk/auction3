@@ -5,8 +5,8 @@ import Exceptions.TooShortPasswordException;
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
 import Models.User;
+import java.io.IOException;
 
-import java.util.Map;
 
 
 public class UserControllers {
@@ -15,7 +15,7 @@ public class UserControllers {
         return UserList.getInstance().findUser(login, password);
     }
 
-    public boolean userRegister(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException {
+    public boolean userRegister(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
         if (UserList.getInstance().registerUser(login, password)) {
             return true;
         }
