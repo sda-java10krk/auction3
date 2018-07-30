@@ -9,4 +9,5 @@ public enum State {
     ADDING_AUCTION,
     LISTING_AUCTIONS,
     WINNING_AUCTIONS,
+    MAKING_OFFER,
 }

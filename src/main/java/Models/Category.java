@@ -51,7 +51,6 @@ public class Category implements Serializable {
         }
     }
 
-
     public void removingAuction(Auction auction) {
         this.auction.remove(auction);
     }
@@ -60,7 +59,7 @@ public class Category implements Serializable {
     public void addSubcategory(Category category) throws AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException {
         if (!isSubcategoryPresent() && !this.subcategories.isEmpty()) {
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
-        } else {
+        }else{
             this.subcategories.add(category);
         }
     }
@@ -116,6 +115,10 @@ public class Category implements Serializable {
 
     public Set<Auction> getAuction() {
         return auction;
+    }
+
+    public void getNameOfAuction(){
+        System.out.println("SIEMANO");
     }
 
     public Set<Category> getSubcategories() {
