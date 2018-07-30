@@ -91,17 +91,10 @@ public class Main {
                         }
                         case("2"):{
                             state = State.LISTING_AUCTIONS;
-
-                            //Aukcje Wystawione przez Usera
-
-                            // UserControllers userControllers = new UserControllers();
-//                userControllers.userIsPresent(login,password);
                             break;
-
                         }
                         case("3"):{
                             state = State.WINNING_AUCTIONS;
-                            //Auckje wygrane przez Usera
                             break;
                         }
                         case("4"):{
@@ -152,6 +145,7 @@ public class Main {
 
                 case LISTING_AUCTIONS:{
                     AuctionControllers auctionControllers = new AuctionControllers();
+
                     break;
 
                 }
