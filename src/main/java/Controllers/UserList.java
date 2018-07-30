@@ -58,7 +58,7 @@ public class UserList {
         return instance;
     }
 
-    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+    public boolean findUser(String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
         if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
             this.userList.get(login);
         }

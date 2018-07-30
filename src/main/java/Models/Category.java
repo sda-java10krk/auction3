@@ -4,6 +4,7 @@ import Exceptions.BadChooseToCategory;
 
 
 import Exceptions.AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException;
+import Exceptions.SubcategoryDoNotExist;
 import Exceptions.SubcategoryPresentException;
 import Models.Auction;
 
@@ -18,10 +19,23 @@ public class Category implements Serializable {
 
     public static final int PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY = 0;
 
+
     private Set<Auction> auction;
     private Set<Category> subcategories;
     private String name;
 
+    //TODO
+    // private static Category instance;
+
+//    public Category() {
+//    }
+
+//    public static Category getInstance() {
+//        if(instance == null){
+//            instance = new Category();
+//        }
+//        return instance;
+//    }
 
     public Category(String name) {
         this.name = name;
@@ -70,18 +84,21 @@ public class Category implements Serializable {
     }
 
     //TODO
-    public void printAuctionToSelectedCategory(String categoryName) {
+    public void findCategoryAndShowAuctions(String category) throws SubcategoryDoNotExist {
 
-       int level = PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY;
+        if (!isSubcategoryPresent()) {
+            throw new SubcategoryDoNotExist();
+        } else {
+            int level = PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY;
 
-        this.name = categoryName;
-        System.out.println(this.name);
+            System.out.println(this.name);
 
-        for (Category subcategories : this.subcategories) {
-            subcategories.print(level + 1);
-        }
-        if (subcategories.isEmpty()) {
-            System.out.println("jestes na dole");
+            for (Category subcategories : this.subcategories) {
+                subcategories.print(level + 1);
+            }
+            if (subcategories.isEmpty()) {
+                System.out.println("auctions");
+            }
         }
     }
 
