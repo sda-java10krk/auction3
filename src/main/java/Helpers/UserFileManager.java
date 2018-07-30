@@ -19,7 +19,7 @@ public class UserFileManager {
 
 
     public void saveUserToFileCSV(Map<String, User> map) throws IOException {
-        String fileName = "C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2.csv";
+        String fileName = "UserList2.csv";
         //UserFileManager.toEnoughtDiskSpace();
         FileWriter fileWriter = null;
 
@@ -48,7 +48,7 @@ public class UserFileManager {
 
     public Map<String, User> readUserFromFileCsv() throws TooShortPasswordException, IOException {
 
-        String fileName = "C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2.csv";
+        String fileName = "UserList2.csv";
         String line = "";
         String cvsSplitBy = ",";
         Map <String,User> map = new HashMap<>();
@@ -76,7 +76,7 @@ public class UserFileManager {
         //TODO jakaś metoda
         if (true) {
         } else {
-            File file = new File("C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2_secondList.csv");
+            File file = new File("UserList2_secondList.csv");
             file.createNewFile();
         }
     }
@@ -90,7 +90,6 @@ public class UserFileManager {
     public static void fileUserListIsDamagedDuringSaving() {
 
     }
-
 
 }
 

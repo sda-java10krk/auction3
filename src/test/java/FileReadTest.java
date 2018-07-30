@@ -2,6 +2,7 @@ import Exceptions.*;
 import Helpers.SaveReadManager;
 import Helpers.UserFileManager;
 import Models.Auction;
+import Models.Category;
 import Models.Offer;
 
 import Models.User;
@@ -64,10 +65,31 @@ public class FileReadTest {
         UserFileManager userFileManager = new UserFileManager();
         userFileManager.saveUserToFileCSV(saveUserListTest);
 
+
         Map<String, User> loadUserListTest = new HashMap<>();
         loadUserListTest = userFileManager.readUserFromFileCsv();
-        
+
         assertEquals(saveUserListTest, loadUserListTest);
+    }
+
+
+    public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
+        List<Auction> auctionList = new LinkedList<>();
+
+        Auction auction = new Auction(new User ("login","password"),"title","description",BigDecimal.valueOf(100),new Category("category"));
+
+        auction.addOffer(new Offer(new User ("1","password"),BigDecimal.valueOf(101)));
+        auction.addOffer(new Offer(new User ("2","password"),BigDecimal.valueOf(202)));
+        auction.addOffer(new Offer(new User ("3","password"),BigDecimal.valueOf(303)));
+        auctionList.add(auction);
+
+        SaveReadManager saveReadManager = new SaveReadManager();
+        saveReadManager.saveOffersToAuction(auctionList);
+
+        LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
+
+        assertEquals(auctionList, readList);
+
     }
 
 }

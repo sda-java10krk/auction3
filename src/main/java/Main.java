@@ -16,10 +16,12 @@ public class Main {
         int n=0;
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
+
         UserControllers userControllers = new UserControllers();
         SaveReadManager saveReadManager = new SaveReadManager();
 
         HashMap<String, User> users = saveReadManager.readUserFromFile();
+
         UserList.getInstance().setUserList(users);
 
         while(state!=State.STOP){

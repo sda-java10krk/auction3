@@ -19,8 +19,6 @@ public class UserList {
 
     private Map<String, User> userList = new HashMap<>();
     private UserFileManager userFileManager = new UserFileManager();
-    //private SaveReadManager saveReadManager = new SaveReadManager();
-
 
         public Map<String, User> getUserList () {
             return userList;
@@ -67,8 +65,6 @@ public class UserList {
         else {
             User user = new User(login,password);
             this.userList.put(login,user);
-            //saveReadManager.saveUserToFile(userList);
-
             userFileManager.saveUserToFileCSV(userList);
 
         }
