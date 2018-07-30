@@ -19,12 +19,8 @@ public class UserList {
 
     private Map<String, User> userList = new HashMap<>();
     private UserFileManager userFileManager = new UserFileManager();
-    private SaveReadManager saveReadManager = new SaveReadManager();
+    //private SaveReadManager saveReadManager = new SaveReadManager();
 
-
-        public void createUser (String login, String password) throws IllegalArgumentException, TooShortPasswordException {
-            userList.put(login, new User(login, password));
-        }
 
         public Map<String, User> getUserList () {
             return userList;
@@ -45,11 +41,6 @@ public class UserList {
     public UserList(Map < String, User > userList) {
             this.userList = userList;
         }
-
-            //TODO
-    public void AddUserToListFromFile (User user) {
-        userList.put(user.getLogin(),user);
-    }
 
         public static UserList getInstance() {
         if(instance == null){

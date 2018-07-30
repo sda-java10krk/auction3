@@ -19,7 +19,6 @@ public class Category implements Serializable {
 
     public static final int PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY = 0;
 
-
     private Set<Auction> auction;
     private Set<Category> subcategories;
     private String name;
@@ -62,7 +61,7 @@ public class Category implements Serializable {
         if (!isSubcategoryPresent() && !this.subcategories.isEmpty()) {
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
         } else {
-            subcategories.add(category);
+            this.subcategories.add(category);
         }
     }
 
@@ -85,11 +84,13 @@ public class Category implements Serializable {
 
     //TODO
     public void findCategoryAndShowAuctions(String category) throws SubcategoryDoNotExist {
+        int level = PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY;
+
+        if(this.subcategories.contains(category))
 
         if (!isSubcategoryPresent()) {
             throw new SubcategoryDoNotExist();
         } else {
-            int level = PRINT_LEVEL_NEEDED_FOR_A_METDOD_PRINT_AUCTION_TO_SELECT_CATEGORY;
 
             System.out.println(this.name);
 

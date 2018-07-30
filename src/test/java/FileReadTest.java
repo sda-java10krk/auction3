@@ -2,7 +2,6 @@ import Exceptions.*;
 import Helpers.SaveReadManager;
 import Helpers.UserFileManager;
 import Models.Auction;
-import Models.Category;
 import Models.Offer;
 
 import Models.User;
@@ -56,6 +55,7 @@ public class FileReadTest {
 
     @Test
     public void saveUserToListAndChechResultByMethodReadFileCSVTest () throws TooShortPasswordException, IOException {
+
         Map<String, User> saveUserListTest = new HashMap<>();
         saveUserListTest.put("login1", new User("login1","haslo1"));
         saveUserListTest.put("login2", new User("login2","haslo2"));
@@ -64,10 +64,9 @@ public class FileReadTest {
         UserFileManager userFileManager = new UserFileManager();
         userFileManager.saveUserToFileCSV(saveUserListTest);
 
-        User user = userFileManager.readUserFromFileCsv();
         Map<String, User> loadUserListTest = new HashMap<>();
-        loadUserListTest.put(user.getLogin(),user);
-
+        loadUserListTest = userFileManager.readUserFromFileCsv();
+        
         assertEquals(saveUserListTest, loadUserListTest);
     }
 
