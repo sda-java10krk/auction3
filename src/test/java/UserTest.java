@@ -22,14 +22,15 @@ public class UserTest {
 
     }
 
-//    @Test
-//    public void testLoginUser() throws Exception {
-//        UserControllers userControllers = new UserControllers();
-//        String login = "Filip123";
-//        String password = "Haslo123";
-//        assertTrue(userList.findUser(login, password));
-//    }
-//
+    @Test
+    public void testLoginUser() throws Exception {
+        UserControllers userControllers = new UserControllers();
+        String login = "Filip123";
+        String password = "Haslo123";
+
+        assertTrue(userList.findUser(login,password).equals(userList));
+    }
+
 //    @Test(expected = UserNotExistInBaseException.class)
 //    public void testThrowUserNotExist() throws Exception {
 //        String login = "Fasdasd1";
@@ -62,19 +63,7 @@ public class UserTest {
         assertTrue(userList.getUserList().size() > result);
     }
 
-//    @Test
-//    public void TestCurrentUser() throws Exception {
-//        UserControllers userControllers = new UserControllers();
-//        String login = "Filip123";
-//        String password = "Haslo123";
-//
-//        userControllers.userLogin(login,password);
-//
-//        String user1 = CurrentUser.getInstance().getUser().login;
-//
-//
-//        assert(login.equals(user1));
-//    }
+
 
 }
 
