@@ -1,6 +1,7 @@
 package Views;
 
 public class HelloMenuView {
+
     public static void helloView(){
         System.out.println("Witaj! Co chcesz zrobić?");
         System.out.println("1.Logowanie");

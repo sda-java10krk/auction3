@@ -11,8 +11,6 @@ import java.util.Map;
 
 public class SaveReadManager {
 
-
-
     public void saveUserToFile (Map<String, User> map) {
 
         String fileName1 = "UserList.txt";
@@ -89,5 +87,4 @@ public class SaveReadManager {
         }
         return null ;
     }
-    }
-
+}

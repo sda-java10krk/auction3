@@ -1,14 +1,11 @@
 
 package Controllers;
 
-
 import Exceptions.*;
 import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
 import Models.User;
-
-
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Map;
@@ -35,14 +32,16 @@ public class AuctionControllers {
         return auction;
     }
 
-    public String showSpecificAuction(Category category, String categoryName) throws NoSuchACategoryException {
+    public Set<Auction> showSpecificAuction(Category category) throws NoSuchACategoryException {
 
-        if(category.getName().equals(categoryName)){
-            return category.getAuction().toString();
-        }else{
+        if(category.getAuction()==null){
             throw new NoSuchACategoryException();
         }
+        return category.getAuction();
+
     }
+
+
 
 //    public void showMyListingAuction(){
 //
