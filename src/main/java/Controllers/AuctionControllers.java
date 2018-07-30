@@ -44,12 +44,12 @@ public class AuctionControllers {
         }
     }
 
-    public void showMyListingAuction(){
-
-        AuctionsDatabase.getInstance().getCurrentAuctions();
-
-
-
-    }
+//    public void showMyListingAuction(){
+//
+//        AuctionsDatabase.getInstance().getCurrentAuctions();
+//
+//
+//
+//    }
 
 }

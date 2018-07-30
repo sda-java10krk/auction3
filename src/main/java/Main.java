@@ -4,6 +4,7 @@ import Exceptions.UserNotExistInBaseException;
 import Helpers.SaveReadManager;
 import Controllers.UserControllers;
 import Controllers.UserList;
+import Models.AuctionsDatabase;
 import Models.User;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
@@ -144,8 +145,6 @@ public class Main {
                 }
 
                 case LISTING_AUCTIONS:{
-                    AuctionControllers auctionControllers = new AuctionControllers();
-
                     break;
 
                 }

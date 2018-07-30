@@ -18,10 +18,6 @@ public class UserList {
     private SaveReadManager saveReadManager = new SaveReadManager();
 
 
-        public void createUser (String login, String password) throws IllegalArgumentException, TooShortPasswordException {
-            userList.put(login, new User(login, password));
-        }
-
         public Map<String, User> getUserList () {
             return userList;
         }
