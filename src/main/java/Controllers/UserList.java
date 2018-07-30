@@ -21,7 +21,7 @@ public class UserList {
     public Map<String, User> getUserList () {
         return userList;
     }
-    
+
     public UserList() {
         this.userList= new HashMap<>();
     }
