@@ -8,16 +8,16 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
+import com.opencsv.CSVReader;
+
 
 public class UserFileManager {
 
     private static final String SEPARATOR = ",";
     private static final String NEW_LINE = "\n";
-    private static final String PARAMETERS = "login,password";
-
 
     public void saveUserToFileCSV(Map<String, User> map) throws IOException {
-        String fileName = "UserList2.csv";
+        String fileName = "C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2.csv";
 
         UserFileManager.toEnoughtDiskSpace();
 
@@ -29,7 +29,7 @@ public class UserFileManager {
                 fileWriter.append(user.getLogin());
                 fileWriter.append(SEPARATOR);
                 fileWriter.append(user.getPassword());
-                fileWriter.append(SEPARATOR);
+                fileWriter.append(NEW_LINE);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,27 +42,25 @@ public class UserFileManager {
         }
     }
 
+
     private static final int USER_LOGIN = 0;
     private static final int USER_PASSWORD = 1;
-
 
     public User readUserFromFileCsv() throws TooShortPasswordException, IOException {
 
         UserFileManager.checkTheFileCsvUserExist();
         String fileName = "C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2.csv";
-        BufferedReader fileReader = null;
-        String line = "";
+        //String line = "";
         String cvsSplitBy = ",";
-
+        int lines = 0;
         try {
-            fileReader = new BufferedReader(new FileReader(fileName));
-            fileReader.readLine();
-            while ((line = fileReader.readLine()) != null) {
+            BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
+            String line = fileReader.readLine();
+            while (line!= null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
                     User user = new User(data[USER_LOGIN], data[USER_PASSWORD]);
-                    // zobaczyc czy dobrze
-                    // UserList.getInstance().setUserList(data[USER_LOGIN],user);
+                    //NEW_LINE
                     UserList.getInstance().AddUserToListFromFile(user);
                 }
             }
@@ -91,10 +89,10 @@ public class UserFileManager {
     public static void toEnoughtDiskSpace() throws IOException {
         //TODO jakaś metoda
         if (true) {
+        } else {
+            File file = new File("C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2_secondList.csv");
+            file.createNewFile();
         }
-        File file = new File("C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2_secondList.csv");
-        file.createNewFile();
-
     }
 
     //TODO

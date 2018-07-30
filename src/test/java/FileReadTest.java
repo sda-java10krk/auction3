@@ -57,13 +57,12 @@ public class FileReadTest {
     @Test
     public void saveUserToListAndChechResultByMethodReadFileCSVTest () throws TooShortPasswordException, IOException {
         Map<String, User> saveUserListTest = new HashMap<>();
-        saveUserListTest.put("login", new User("login","haslo1"));
+        saveUserListTest.put("login1", new User("login1","haslo1"));
+        saveUserListTest.put("login2", new User("login2","haslo2"));
 
 
         UserFileManager userFileManager = new UserFileManager();
         userFileManager.saveUserToFileCSV(saveUserListTest);
-
-        //HashMap <String,User> readUser = userFileManager.readUserFromFile();
 
         User user = userFileManager.readUserFromFileCsv();
         Map<String, User> loadUserListTest = new HashMap<>();
