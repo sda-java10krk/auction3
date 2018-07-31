@@ -33,6 +33,14 @@ public class AuctionsDatabase {
 
     }
 
+    public Map<String, Auction> getCurrentAuctionsMap() {
+        return currentAuctionsMap;
+    }
+
+    public Map<String, Auction> getWinningAuctionsMap() {
+        return winningAuctionsMap;
+    }
+
     public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException{
 
         if(auction.auctionWinnerChecking()){
