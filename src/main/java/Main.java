@@ -7,6 +7,9 @@ import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
 import Models.User;
+import Models.*;
+import Controllers.UserControllers;
+import Controllers.UserList;
 import Views.AddingAuctionView;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
@@ -25,7 +28,6 @@ public class Main {
 
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
-
         Map<String, User> users = userFileManager.readUserFromFileCsv();
 
         UserList.getInstance().setUserList(users);
@@ -93,6 +95,8 @@ public class Main {
                         case("1"):{
                             CategoryDisplay.initializeCategories();
                             state = State.SHOWING_CATEGORY;
+//                            String user = currentUser.getInstance().getUser().getLogin();
+//                            System.out.println(user);
                             break;
                         }
                         case("2"):{
@@ -166,6 +170,8 @@ public class Main {
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,categoryTemp);
                     AuctionsDatabase.getInstance().addCurrentAuction(auction);
                     AuctionsDatabase.getInstance().getCurrentAuctions(currentUser);
+                    OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
+                    OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }

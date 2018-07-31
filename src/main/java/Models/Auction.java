@@ -17,9 +17,10 @@ public class Auction implements Serializable {
     private Category category;
     private List<Offer> offersList;
     private Offer currentOffer;
+    private Integer id;
 
 
-    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, Integer id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
 
         this.user = user;
 
@@ -44,6 +45,8 @@ public class Auction implements Serializable {
         this.category = category;
 
         this.offersList = new LinkedList<>();
+
+        this.id = id;
     }
 
     public boolean addOffer(Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction{
@@ -64,6 +67,7 @@ public class Auction implements Serializable {
 
         return true;
     }
+
 
     public boolean auctionWinnerChecking(){
         if(this.offersList.size()==3){
@@ -103,16 +107,21 @@ public class Auction implements Serializable {
         return currentOffer;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Auction auction = (Auction) o;
-        return Objects.equals(user, auction.user) &&
+        return id == auction.id &&
+                Objects.equals(user, auction.user) &&
                 Objects.equals(title, auction.title) &&
-                Objects.equals(description, auction.description)  &&
-                Objects.equals(startingPrice, auction.startingPrice)  &&
-                Objects.equals(category, auction.category)  &&
+                Objects.equals(description, auction.description) &&
+                Objects.equals(startingPrice, auction.startingPrice) &&
+                Objects.equals(category, auction.category) &&
                 Objects.equals(offersList, auction.offersList) &&
                 Objects.equals(currentOffer, auction.currentOffer);
     }
@@ -120,7 +129,7 @@ public class Auction implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(user, title, description, startingPrice, category, offersList, currentOffer);
+        return Objects.hash(user, title, description, startingPrice, category, offersList, currentOffer, id);
     }
 
     @Override
@@ -133,6 +142,7 @@ public class Auction implements Serializable {
         sb.append(", category=").append(category);
         sb.append(", offersList=").append(offersList);
         sb.append(", currentOffer=").append(currentOffer);
+        sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
     }

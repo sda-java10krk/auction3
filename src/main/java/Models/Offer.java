@@ -13,14 +13,17 @@ public class Offer implements Serializable {
 
     private User user;
     private BigDecimal price;
+    private int id=0;
 
-    public Offer(User user, BigDecimal price) throws NegativeOfferPriceException {
+    public Offer(User user, BigDecimal price,int id) throws NegativeOfferPriceException {
         this.user = user;
         if(price.compareTo(BigDecimal.valueOf(0))<0){
             throw new NegativeOfferPriceException();
         }
         this.price = price;
+        this.id = id;
     }
+
 
     public User getUser() {
         return user;

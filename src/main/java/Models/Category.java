@@ -60,6 +60,7 @@ public class Category implements Serializable {
         if (!isSubcategoryPresent() && !this.subcategories.isEmpty()) {
             throw new AddingSubcategoryToCategoryThatAlreadyHaveAnAuctionException();
         }else{
+
             this.subcategories.add(category);
         }
     }

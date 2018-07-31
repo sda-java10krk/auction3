@@ -25,7 +25,7 @@ public class AuctionControllers {
     public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
 
 
-        Auction auction = new Auction(user,title,description,startingPrice,category);
+        Auction auction = new Auction(user,title,description,startingPrice,category,1);
 
         category.addAuction(auction);
 

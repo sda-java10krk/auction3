@@ -55,9 +55,7 @@ public class CategoryDisplay {
 
     }
 
-
     public static void askAboutCategory() {
         System.out.println("Podaj kategorie ogólną lub szczegółową, aby zobaczyć aukcje");
-
     }
 }

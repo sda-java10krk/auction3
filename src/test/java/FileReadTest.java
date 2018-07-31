@@ -1,11 +1,15 @@
 import Exceptions.*;
+import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
 
+import Models.Auction;
+import Models.Category;
 import Models.User;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -17,8 +21,15 @@ public class FileReadTest {
 
     Map<String, User> saveUserListTest;
     @Before
-    public void setup() {
+    public void setup1() {
         saveUserListTest = new HashMap<>();
+    }
+
+
+    Map<String, User> saveAuctionToMapTest;
+    @Before
+    public void setup2() {
+        saveAuctionToMapTest = new HashMap<>();
     }
 
          @Test
@@ -36,6 +47,26 @@ public class FileReadTest {
 
             assertEquals(saveUserListTest, loadUserListTest);
         }
+
+
+    @Test
+    public void saveAuctionToListAndChechResultByMethodReadFileCSVTest () throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+        User user1 = new User ("login1","haslo1");
+
+        Auction auction1 = new Auction(user1,"Auction1","Description1",BigDecimal.valueOf(100),new Category("Laptopy"),10);
+
+        Map<String, Auction> saveAuctionToMapTest = new HashMap<>();
+        saveAuctionToMapTest.put("login1",auction1);
+
+        AuctionFileManager auctionFileManager = new AuctionFileManager();
+        auctionFileManager.saveAuctionToFileCSV(saveAuctionToMapTest);
+
+        Map<String,Auction> loadUserListTest = new HashMap<>();
+        loadUserListTest = auctionFileManager.readAuctionFromFileCsv();
+
+
+        assertEquals(saveAuctionToMapTest, loadUserListTest);
+    }
 
 //        public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
 //

@@ -1,5 +1,6 @@
 package Controllers;
 
+import Exceptions.FileNotExistInDatabase;
 import Exceptions.TooShortPasswordException;
 import Helpers.UserFileManager;
 import Models.User;
@@ -7,6 +8,7 @@ import Models.User;
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,10 +21,10 @@ public class UserList {
     private UserFileManager userFileManager = new UserFileManager();
 
 
-    public Map<String, User> getUserList () {
-            return userList;
-        }
 
+    public Map<String, User> getUserList () {
+        return userList;
+    }
 
     public UserList() {
         this.userList= new HashMap<>();
@@ -31,21 +33,20 @@ public class UserList {
     private void setUserList(String login, User user) {
     }
 
-        public void setUserList (Map < String, User > userList){
-            this.userList = userList;
-        }
+    public void setUserList (Map < String, User > userList){
+        this.userList = userList;
+    }
 
     public UserList(Map < String, User > userList) {
-            this.userList = userList;
-        }
+        this.userList = userList;
+    }
 
-        public static UserList getInstance() {
+    public static UserList getInstance() {
         if(instance == null){
             instance = new UserList();
         }
         return instance;
     }
-
 
     public User findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
 
@@ -56,7 +57,6 @@ public class UserList {
             throw new UserNotExistInBaseException();
 
         }
-
     }
 
 
@@ -64,7 +64,6 @@ public class UserList {
         if(userList==null){
             User user = new User(login,password);
             this.userList.put(login,user);
-            //saveReadManager.saveUserToFile(userList);
             userFileManager.saveUserToFileCSV(userList);
         }
         if(this.userList.containsKey(login)){
@@ -74,7 +73,6 @@ public class UserList {
             User user = new User(login,password);
             this.userList.put(login,user);
             userFileManager.saveUserToFileCSV(userList);
-
         }
         return true;
     }
@@ -96,4 +94,3 @@ public class UserList {
         return Objects.hash(userList);
     }
 }
-
