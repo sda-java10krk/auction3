@@ -5,6 +5,9 @@ import Models.User;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -14,6 +17,29 @@ public class Offer implements Serializable {
     private User user;
     private BigDecimal price;
     private int id=0;
+    private static Offer instance;
+    public Map<String,Offer> AllOfferOfUser;
+    public List<Offer> AllOffer = new ArrayList<>();
+
+
+    public Offer() {
+    }
+
+
+    public static Offer getInstance() throws NegativeOfferPriceException {
+        if(instance==null){
+            instance= new Offer();
+        }
+        return instance;
+    }
+
+    public Map<String, Offer> getAllOfferOfUser() {
+        return AllOfferOfUser;
+    }
+
+//    public Map AllUsersOffer(User user, Offer offer) {
+//        return AllOfferOfUser;
+//    }
 
     public Offer(User user, BigDecimal price,int id) throws NegativeOfferPriceException {
         this.user = user;

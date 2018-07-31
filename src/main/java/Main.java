@@ -1,16 +1,11 @@
-import Controllers.AuctionControllers;
+import Controllers.*;
 import Exceptions.LoginNotGoneWellExeption;
 import Exceptions.UserNotExistInBaseException;
-import Controllers.UserControllers;
-import Controllers.UserList;
 import Helpers.UserFileManager;
 import Models.*;
 import Controllers.UserControllers;
 import Controllers.UserList;
-import Views.AddingAuctionView;
-import Views.CategoryDisplay;
-import Views.HelloMenuView;
-import Views.LoggedUserMenuView;
+import Views.*;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -23,11 +18,11 @@ public class Main {
         State state = State.INIT;
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
+        OfferController offerController = new OfferController();
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
         User currentUser=null;
         List<Auction>AllUserAuction= new ArrayList<>();
-        AllUserAuction=OfferDatabase.getInstance().AlAuctionOfUser;
 
         while(state!=State.STOP){
             switch(state){
@@ -166,13 +161,17 @@ public class Main {
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,categoryTemp);
                     AuctionsDatabase.getInstance().addCurrentAuction(auction);
                     AuctionsDatabase.getInstance().getCurrentAuctions(currentUser);
-                    OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
-                    OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
 
                 case MAKING_OFFER:{
+                    AddingOfferView.settingAuctionTitle();
+                    String title=scanner.next();
+                    AddingOfferView.settingNewPrice();
+                    BigDecimal price= scanner.nextBigDecimal();
+                    offerController.creatingOffer(currentUser,price);
+                    offerController.addOffer();
 
                     break;
                 }
