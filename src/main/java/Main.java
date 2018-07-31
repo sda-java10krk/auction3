@@ -1,13 +1,20 @@
+import Controllers.AuctionControllers;
+import Exceptions.LoginNotGoneWellExeption;
 import Exceptions.UserNotExistInBaseException;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Helpers.UserFileManager;
-import Models.User;
+import Models.*;
+import Controllers.UserControllers;
+import Controllers.UserList;
+import Views.AddingAuctionView;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
 import Views.LoggedUserMenuView;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -17,11 +24,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
         UserControllers userControllers = new UserControllers();
-        UserFileManager saveReadManager = new UserFileManager();
-
-        HashMap<String, User> users = (HashMap<String, User>) saveReadManager.readUserFromFileCsv();
+        UserFileManager userFileManager = new UserFileManager();
+        Map<String, User> users = userFileManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
-        User currentUser;
+        User currentUser=null;
 
         while(state!=State.STOP){
             switch(state){
@@ -70,7 +76,7 @@ public class Main {
                     String password = scanner.next();
                     if(userControllers.userRegister(login,password)){
                         HelloMenuView.RegisterConfirmedInformation();
-                        state = State.LOGGED_IN;
+                        state = State.DURING_LOGIN;
                     }else{
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_REGISTRATION;
@@ -115,24 +121,27 @@ public class Main {
                     String answer = scanner.next();
                     switch(answer){
                         case("1"):{
-                            state = State.LISTING_AUCTIONS;
+                            state = State.ADDING_AUCTION;
                             break;
 
                         }
                         case("2"):{
-                            state = State.WINNING_AUCTIONS;
-                            break;
-
-                        }
-                        case("3"):{
-                            state = State.LOGOUT;
+                            state = State.MAKING_OFFER;
                             break;
 
                         }
                         case("4"):{
-                            state = State.STOP;
+                            state = State.WINNING_AUCTIONS;
                             break;
 
+                        }
+                        case("5"):{
+                            state = State.LOGOUT;
+                            break;
+                        }
+                        case("6"):{
+                            state = State.STOP;
+                            break;
                         }
                     }
                     break;
@@ -143,7 +152,33 @@ public class Main {
                     break;
                 }
 
+                case ADDING_AUCTION:{
+                    AddingAuctionView.settingAuctionTitle();
+                    String title=scanner.next();
+                    AddingAuctionView.settingAuctionDescription();
+                    String description=scanner.next();
+                    AddingAuctionView.settingStartingPrice();
+                    BigDecimal startingPrice = scanner.nextBigDecimal();
+                    AddingAuctionView.settingCategory();
+                    String category = scanner.next();
+
+                    Category categoryTemp = new Category(category);
+                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,categoryTemp);
+                    AuctionsDatabase.getInstance().addCurrentAuction(auction);
+                    AuctionsDatabase.getInstance().getCurrentAuctions(currentUser);
+                    OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
+                    OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
+                    state = State.SHOWING_CATEGORY;
+                    break;
+                }
+
+                case MAKING_OFFER:{
+
+                    break;
+                }
+
                 case LISTING_AUCTIONS:{
+
                     break;
 
                 }

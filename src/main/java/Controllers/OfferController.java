@@ -5,6 +5,7 @@ import Exceptions.NegativeOfferPriceException;
 import Exceptions.OfferTooLowException;
 import Models.Auction;
 import Models.Offer;
+import Models.OfferDatabase;
 import Models.User;
 
 import java.math.BigDecimal;
@@ -21,8 +22,8 @@ public class OfferController {
 // czy mam to rozumiec ze nazwalismy te funkcje addOffer i tak samo sie nazywa w Auction tylko tutaj wywoujemy
         public void addOffer(Auction auction, Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
             auction.addOffer(offer);
-
         }
+
 
 
 

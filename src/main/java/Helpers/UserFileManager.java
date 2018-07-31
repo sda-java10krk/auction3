@@ -76,7 +76,7 @@ public class UserFileManager {
         //TODO jakaś metoda
         if (true) {
         } else {
-            File file = new File("C:\\Users\\marcin\\IdeaProjects\\auction3\\UserList2_secondList.csv");
+            File file = new File("UserList2_secondList.csv");
             file.createNewFile();
         }
     }

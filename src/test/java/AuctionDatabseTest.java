@@ -5,6 +5,7 @@ import Models.User;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,5 +29,7 @@ public class AuctionDatabseTest {
         AuctionsDatabase.getInstance().addCurrentAuction(auction);
 
         AuctionsDatabase.getInstance().getCurrentAuctions(user);
+
+
     }
 }

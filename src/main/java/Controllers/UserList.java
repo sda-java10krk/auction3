@@ -61,7 +61,7 @@ public class UserList {
         }
     }
 
-    public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException{
+    public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
         if(userList==null){
             User user = new User(login,password);
             this.userList.put(login,user);

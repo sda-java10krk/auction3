@@ -51,7 +51,6 @@ public class Category implements Serializable {
         }
     }
 
-
     public void removingAuction(Auction auction) {
         this.auction.remove(auction);
     }

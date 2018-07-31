@@ -9,6 +9,7 @@ public class OfferDatabase {
     private static OfferDatabase instance;
     public Map<String,Offer> AllOfferOfUser;
     public Map<String,Auction> AllAuctionOfUser;
+    public List<Auction>AlAuctionOfUser;
 
 
     public static OfferDatabase getInstance(){
