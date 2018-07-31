@@ -35,9 +35,13 @@ public class OfferDatabase {
 
     public List<Auction> getAllAuctionsOfUser(User user){
         List<Auction> userAuctions = new ArrayList<>();
-        for (Map.Entry<String, Auction> entry : AllAuctionOfUser.entrySet()) {
-            if(AllAuctionOfUser.containsValue(user.getLogin())){
-                userAuctions.add(entry.getValue());
+//        for (Map.Entry<String, Auction> entry : AllAuctionOfUser.entrySet()) {
+//            if(AllAuctionOfUser.containsValue(user.getLogin())){
+//                userAuctions.add(entry.getValue());
+//            }
+        for(int i = 0; i<AllAuctionOfUser.size();i++){
+            if(AllAuctionOfUser.containsKey(user.login)){
+                userAuctions.add(AllAuctionOfUser.get(user.login));
             }
         }
         return userAuctions;
@@ -45,9 +49,9 @@ public class OfferDatabase {
 
     public List<Offer> getAllOfferOfUser(User user){
         List<Offer> userOffer = new ArrayList<>();
-        for (Map.Entry<String, Offer> entry : AllOfferOfUser.entrySet()) {
-            if(AllOfferOfUser.containsValue(user.getLogin())){
-               userOffer.add(entry.getValue());
+        for(int i = 0; i<AllOfferOfUser.size();i++){
+            if(AllOfferOfUser.containsKey(user.login)){
+                userOffer.add(AllOfferOfUser.get(user.login));
             }
         }
         return userOffer;

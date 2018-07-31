@@ -13,9 +13,7 @@ import Views.HelloMenuView;
 import Views.LoggedUserMenuView;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -28,6 +26,8 @@ public class Main {
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
         User currentUser=null;
+        List<Auction>AllUserAuction= new ArrayList<>();
+        AllUserAuction=OfferDatabase.getInstance().AlAuctionOfUser;
 
         while(state!=State.STOP){
             switch(state){
