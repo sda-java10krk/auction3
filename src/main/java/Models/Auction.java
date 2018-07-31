@@ -20,7 +20,7 @@ public class Auction implements Serializable {
     private int id;
 
 
-    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, int id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, int id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, AuctionId0Exception {
 
         this.user = user;
 
@@ -47,6 +47,9 @@ public class Auction implements Serializable {
 
         this.offersList = new LinkedList<>();
 
+        if(id==0){
+            throw new AuctionId0Exception();
+        }
         this.id = id;
     }
 

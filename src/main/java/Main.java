@@ -1,19 +1,12 @@
 import Controllers.AuctionControllers;
-import Exceptions.LoginNotGoneWellExeption;
 import Exceptions.UserNotExistInBaseException;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Helpers.UserFileManager;
 import Models.*;
-import Controllers.UserControllers;
-import Controllers.UserList;
-import Views.AddingAuctionView;
-import Views.CategoryDisplay;
-import Views.HelloMenuView;
-import Views.LoggedUserMenuView;
+import Views.*;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -89,7 +82,7 @@ public class Main {
                     String answer=scanner.next();
                     switch(answer){
                         case("1"):{
-                            CategoryDisplay.initializeCategories();
+                            CategoryDisplay.printCategoryTree();
                             state = State.SHOWING_CATEGORY;
 //                            String user = currentUser.getInstance().getUser().getLogin();
 //                            System.out.println(user);
@@ -116,7 +109,7 @@ public class Main {
                 }
 
                 case SHOWING_CATEGORY:{
-                    CategoryDisplay.initializeCategories();
+                    CategoryDisplay.printCategoryTree();
                     LoggedUserMenuView.TreeViewOptions();
                     String answer = scanner.next();
                     switch(answer){
@@ -160,12 +153,12 @@ public class Main {
                     AddingAuctionView.settingStartingPrice();
                     BigDecimal startingPrice = scanner.nextBigDecimal();
                     AddingAuctionView.settingCategory();
-                    String category = scanner.next();
+                    String categoryId = scanner.next();
 
-                    Category categoryTemp = new Category(category);
-                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,categoryTemp);
-                    AuctionsDatabase.getInstance().addCurrentAuction(auction);
-                    AuctionsDatabase.getInstance().getCurrentAuctions(currentUser);
+                    Category category = CategoriesDatabase.getInstance().findCategoryByString("Skutery");
+
+                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
+                    Map<String, Auction> teścik = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
                     OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
                     OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
@@ -173,7 +166,8 @@ public class Main {
                 }
 
                 case MAKING_OFFER:{
-
+                    MakingOfferView.askingForPrice();
+                    BigDecimal price = scanner.nextBigDecimal();
                     break;
                 }
 

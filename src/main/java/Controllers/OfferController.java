@@ -3,6 +3,7 @@ package Controllers;
 import Exceptions.AddingOfferToOwnAuction;
 import Exceptions.NegativeOfferPriceException;
 import Exceptions.OfferTooLowException;
+import Helpers.OfferID;
 import Models.Auction;
 import Models.Offer;
 import Models.OfferDatabase;
@@ -15,7 +16,7 @@ public class OfferController {
 
         public Offer creatingOffer(User user, BigDecimal price) throws NegativeOfferPriceException {
 
-            Offer offer = new Offer(user,price);
+            Offer offer = new Offer(user,price,OfferID.getInstance().getId());
 
             return offer;
         }
