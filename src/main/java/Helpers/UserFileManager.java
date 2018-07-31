@@ -18,9 +18,7 @@ public class UserFileManager {
     private static final String NEW_LINE = "\n";
 
 
-
-
-    public static void saveUserToFileCSV(Map<String, User> map) throws IOException {
+    public void saveUserToFileCSV(Map<String, User> map) throws IOException {
 
         String fileName = "UserList2.csv";
         //UserFileManager.toEnoughtDiskSpace();

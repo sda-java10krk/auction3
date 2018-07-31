@@ -1,16 +1,11 @@
 import Exceptions.*;
-import Helpers.SaveReadManager;
 import Helpers.UserFileManager;
-import Models.Auction;
-import Models.Category;
-import Models.Offer;
 
 import Models.User;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;

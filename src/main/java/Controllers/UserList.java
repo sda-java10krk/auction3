@@ -6,7 +6,6 @@ import Models.User;
 
 import Exceptions.UserAlreadyInTheBaseException;
 import Exceptions.UserNotExistInBaseException;
-import Helpers.SaveReadManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,21 +46,25 @@ public class UserList {
         return instance;
     }
 
-    public boolean findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+
+    public User findUser( String login, String password) throws UserNotExistInBaseException, TooShortPasswordException {
+
         if(this.userList.containsKey(login) && this.userList.get(login).getPassword().equals(password)){
-            this.userList.get(login);
+            return this.userList.get(login);
         }
         else {
             throw new UserNotExistInBaseException();
 
         }
-        return true;
+
     }
 
-    public boolean registerUser( String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
+
+    public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
         if(userList==null){
             User user = new User(login,password);
             this.userList.put(login,user);
+            //saveReadManager.saveUserToFile(userList);
             userFileManager.saveUserToFileCSV(userList);
         }
         if(this.userList.containsKey(login)){

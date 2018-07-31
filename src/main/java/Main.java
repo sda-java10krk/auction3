@@ -1,13 +1,19 @@
 import Controllers.AuctionControllers;
+import Exceptions.UserNotExistInBaseException;
 import Controllers.UserControllers;
 import Controllers.UserList;
-import Helpers.SaveReadManager;
+import Helpers.UserFileManager;
+import Models.Auction;
+import Models.AuctionsDatabase;
+import Models.Category;
 import Models.User;
+import Views.AddingAuctionView;
 import Views.CategoryDisplay;
 import Views.HelloMenuView;
 import Views.LoggedUserMenuView;
 
-import java.util.HashMap;
+import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -18,11 +24,12 @@ public class Main {
         State state = State.INIT;
 
         UserControllers userControllers = new UserControllers();
-        SaveReadManager saveReadManager = new SaveReadManager();
+        UserFileManager userFileManager = new UserFileManager();
 
-        HashMap<String, User> users = saveReadManager.readUserFromFile();
+        Map<String, User> users = userFileManager.readUserFromFileCsv();
 
         UserList.getInstance().setUserList(users);
+        User currentUser=null;
 
         while(state!=State.STOP){
             switch(state){
@@ -54,15 +61,15 @@ public class Main {
                     String login = scanner.next();
                     HelloMenuView.askForPassword();
                     String password = scanner.next();
-                    if(userControllers.userLogin(login,password)){
+                    try {
+                        currentUser = userControllers.userLogin(login, password);
                         state = State.LOGGED_IN;
-                        break;
-                    }
-                    else{
+
+                    }catch(UserNotExistInBaseException e) {
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_LOGIN;
-                        break;
                     }
+                    break;
                 }
                 case DURING_REGISTRATION:{
                     HelloMenuView.askForLogin();
@@ -71,11 +78,12 @@ public class Main {
                     String password = scanner.next();
                     if(userControllers.userRegister(login,password)){
                         HelloMenuView.RegisterConfirmedInformation();
-                        state = State.LOGGED_IN;
+                        state = State.DURING_LOGIN;
                     }else{
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_REGISTRATION;
                     }
+                    break;
                 }
 
                 case LOGGED_IN:{
@@ -89,16 +97,10 @@ public class Main {
                         }
                         case("2"):{
                             state = State.LISTING_AUCTIONS;
-                            //Aukcje Wystawione przez Usera
-
-                            // UserControllers userControllers = new UserControllers();
-//                userControllers.userIsPresent(login,password);
                             break;
-
                         }
                         case("3"):{
                             state = State.WINNING_AUCTIONS;
-                            //Auckje wygrane przez Usera
                             break;
                         }
                         case("4"):{
@@ -119,28 +121,30 @@ public class Main {
                     String answer = scanner.next();
                     switch(answer){
                         case("1"):{
-                            state = State.LISTING_AUCTIONS;
+                            state = State.ADDING_AUCTION;
                             break;
 
                         }
                         case("2"):{
-                            state = State.WINNING_AUCTIONS;
-                            break;
-
-                        }
-                        case("3"):{
-                            state = State.LOGOUT;
+                            state = State.MAKING_OFFER;
                             break;
 
                         }
                         case("4"):{
-                            state = State.STOP;
+                            state = State.WINNING_AUCTIONS;
                             break;
 
                         }
-
-
+                        case("5"):{
+                            state = State.LOGOUT;
+                            break;
+                        }
+                        case("6"):{
+                            state = State.STOP;
+                            break;
+                        }
                     }
+                    break;
                 }
 
                 case LOGOUT:{
@@ -148,8 +152,31 @@ public class Main {
                     break;
                 }
 
+                case ADDING_AUCTION:{
+                    AddingAuctionView.settingAuctionTitle();
+                    String title=scanner.next();
+                    AddingAuctionView.settingAuctionDescription();
+                    String description=scanner.next();
+                    AddingAuctionView.settingStartingPrice();
+                    BigDecimal startingPrice = scanner.nextBigDecimal();
+                    AddingAuctionView.settingCategory();
+                    String category = scanner.next();
+
+                    Category categoryTemp = new Category(category);
+                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,categoryTemp);
+                    AuctionsDatabase.getInstance().addCurrentAuction(auction);
+                    AuctionsDatabase.getInstance().getCurrentAuctions(currentUser);
+                    state = State.SHOWING_CATEGORY;
+                    break;
+                }
+
+                case MAKING_OFFER:{
+
+                    break;
+                }
+
                 case LISTING_AUCTIONS:{
-                    AuctionControllers auctionControllers = new AuctionControllers();
+
                     break;
 
                 }

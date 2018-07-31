@@ -43,7 +43,6 @@ public class Auction implements Serializable {
         }
         this.category = category;
 
-
         this.offersList = new LinkedList<>();
     }
 
