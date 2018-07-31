@@ -136,6 +136,10 @@ public class Main {
                             state = State.STOP;
                             break;
                         }
+                        case("7"):{
+                            state = State.LISTING_AUCTIONS;
+                            break;
+                        }
                     }
                     break;
                 }
@@ -158,7 +162,7 @@ public class Main {
                     Category category = CategoriesDatabase.getInstance().findCategoryByString("Skutery");
 
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
-                    Map<String, Auction> teścik = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+                    AuctionsDatabase.getInstance().getCurrentAuctionsMap();
                     OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
                     OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
@@ -173,7 +177,7 @@ public class Main {
 
                 case LISTING_AUCTIONS:{
 
-                    break;
+                   break;
 
                 }
 

@@ -21,8 +21,10 @@ public class OfferController {
             return offer;
         }
 // czy mam to rozumiec ze nazwalismy te funkcje addOffer i tak samo sie nazywa w Auction tylko tutaj wywoujemy
+
         public void addOffer(Auction auction, Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
             auction.addOffer(offer);
+
         }
 
 

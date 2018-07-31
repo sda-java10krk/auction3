@@ -99,6 +99,7 @@ public class CategoriesDatabase {
 //        return null;
 //    }
 
+
     public Category findCategoryByString(String name){
 
         if(this.bottom1.getName().equals(name)){

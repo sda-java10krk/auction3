@@ -33,6 +33,14 @@ public class AuctionsDatabase {
 
     }
 
+    @Override
+    public String toString() {
+        return "AuctionsDatabase{" +
+                "currentAuctionsMap=" + currentAuctionsMap +
+                ", winningAuctionsMap=" + winningAuctionsMap +
+                '}';
+    }
+
     public Map<String, Auction> getCurrentAuctionsMap() {
         return currentAuctionsMap;
     }
