@@ -17,9 +17,10 @@ public class Auction implements Serializable {
     private Category category;
     private List<Offer> offersList;
     private Offer currentOffer;
+    private int id;
 
 
-    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
+    public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, Integer id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException {
 
         this.user = user;
 
@@ -45,6 +46,8 @@ public class Auction implements Serializable {
 
 
         this.offersList = new LinkedList<>();
+
+        this.id = id;
     }
 
     public boolean addOffer(Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction{
@@ -65,6 +68,7 @@ public class Auction implements Serializable {
 
         return true;
     }
+
 
     public boolean auctionWinnerChecking(){
         if(this.offersList.size()==3){

@@ -13,6 +13,7 @@ public class Offer implements Serializable {
 
     private User user;
     private BigDecimal price;
+    private int id=0;
 
     public Offer(User user, BigDecimal price) throws NegativeOfferPriceException {
         this.user = user;
@@ -21,6 +22,7 @@ public class Offer implements Serializable {
         }
         this.price = price;
     }
+
 
     public User getUser() {
         return user;
