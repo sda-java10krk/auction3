@@ -17,7 +17,8 @@ public class OfferController {
 
         public Offer creatingOffer(User user, BigDecimal price) throws NegativeOfferPriceException {
 
-            Offer offer = new Offer(user,price,OfferID.getInstance().getId());
+            Offer offer = new Offer(user,price, OfferID.getInstance().getId());
+
 
             return offer;
         }

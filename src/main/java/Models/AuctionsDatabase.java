@@ -70,7 +70,16 @@ public class AuctionsDatabase {
         }
         return auctions;
     }
-//
+
+    public void setCurrentAuctionsMap(Map<Integer, Auction> currentAuctionsMap) {
+        this.currentAuctionsMap = currentAuctionsMap;
+    }
+
+    public void setWinningAuctionsMap(Map<Integer, Auction> winningAuctionsMap) {
+        this.winningAuctionsMap = winningAuctionsMap;
+    }
+
+    //
 //
 //    public List<Auction> getWinningAuctions(){
 //        List<Auction> auctions = new ArrayList<>();

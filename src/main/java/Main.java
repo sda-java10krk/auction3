@@ -3,7 +3,12 @@ import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
+import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
+import Models.Auction;
+import Models.AuctionsDatabase;
+import Models.Category;
+import Models.User;
 import Models.*;
 import Views.*;
 import java.math.BigDecimal;
@@ -18,14 +23,22 @@ public class Main {
         int n=0;
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
+        User currentUser=null;
+
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
-        Map<String, User> users = userFileManager.readUserFromFileCsv();
-        UserList.getInstance().setUserList(users);
-        User currentUser=null;
-        List<Auction> AllUserAuction= new ArrayList<>();
+        AuctionFileManager auctionFileManager = new AuctionFileManager();
 
+        userFileManager.ExistFileUserCSV();
+        auctionFileManager.ExistFileAuctionCSV();
+
+        Map<String, User> users = userFileManager.readUserFromFileCsv();
+        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
+
+        AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+        UserList.getInstance().setUserList(users);
+        
         while(state!=State.STOP){
             switch(state){
                 case INIT:{
@@ -163,7 +176,7 @@ public class Main {
                     AddingAuctionView.settingCategory();
                     String categoryId = scanner.next();
 
-                    Category category = CategoriesDatabase.getInstance().findCategoryByString("Skutery");
+                    Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
 
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     AuctionsDatabase.getInstance().getCurrentAuctionsMap();
@@ -186,6 +199,8 @@ public class Main {
 
                 case LISTING_AUCTIONS:{
 
+
+
                    break;
 
                 }
@@ -193,6 +208,8 @@ public class Main {
                 case WINNING_AUCTIONS:{
 
                 }
+
+
 
             }
         }
