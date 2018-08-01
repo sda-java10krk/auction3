@@ -6,6 +6,7 @@ import Exceptions.OfferTooLowException;
 import Helpers.OfferID;
 import Models.Auction;
 import Models.Offer;
+import Models.OfferDatabase;
 import Models.User;
 
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ public class OfferController {
 
         public void addOffer(Auction auction,Offer offer) throws AddingOfferToOwnAuction, OfferTooLowException, NegativeOfferPriceException {
             auction.addOffer(offer);
-            offer.getAllOfferOfAuction().put(auction.getId(),offer);
+            OfferDatabase.getInstance().getallOfferOfAuction(auction).add(auction.getId(),offer);
 
         }
 
