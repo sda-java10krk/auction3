@@ -85,7 +85,7 @@ public class AuctionFileManager {
     
     public void ExistFileAuctionCSV() throws IOException {
 
-        String fileName = "AuctionFileCSV.csv";
+        String fileName = "AuctionFile.csv";
         File file = new File(fileName);
         if (file.exists()) {
         } else {
