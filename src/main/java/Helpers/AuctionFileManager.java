@@ -18,7 +18,7 @@ public class AuctionFileManager {
     private static final String SEPARATOR = ",";
     private static final String NEW_LINE = "\n";
 
-    public void saveAuctionToFileCSV(Map<String, Auction> map) throws IOException {
+    public void saveAuctionToFileCSV(Map<Integer, Auction> map) throws IOException {
 
         String fileName = "AuctionList.csv";
         FileWriter fileWriter = null;
@@ -58,12 +58,12 @@ public class AuctionFileManager {
     private static final int CATEGORY = 4;
     private static final int AUCTION_ID = 5;
 
-    public Map<String, Auction> readAuctionFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
+    public Map<Integer, Auction> readAuctionFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
 
         String fileName = "AuctionList.csv";
         String line = "";
         String cvsSplitBy = ",";
-        Map<String, Auction> map = new HashMap<>();
+            Map<Integer, Auction> map = new HashMap<>();
         UserList userList = UserList.getInstance();
 
         try {
@@ -71,8 +71,8 @@ public class AuctionFileManager {
             while ((line = fileReader.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
-                    Auction auction = new Auction(UserList.getInstance().getUserList().get(data[USER_LOGIN]), data[TITLE], data[DESCRIPTION], new BigDecimal(data[STARTING_PRICE]), new Category(data[CATEGORY]), Integer.parseInt(data[AUCTION_ID]));
-                    map.put(data[USER_LOGIN], auction);
+                    Auction auction = new Auction(UserList.getInstance().getUserList().get(data[USER_LOGIN]), data[TITLE], data[DESCRIPTION], new BigDecimal(data[STARTING_PRICE]), new Category(data[CATEGORY]), Integer.valueOf(data[AUCTION_ID]));
+                    map.put(Integer.valueOf(data[AUCTION_ID]), auction);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -82,10 +82,10 @@ public class AuctionFileManager {
         }
         return map;
     }
-    
+
     public void ExistFileAuctionCSV() throws IOException {
 
-        String fileName = "AuctionFileCSV.csv";
+        String fileName = "AuctionList.csv";
         File file = new File(fileName);
         if (file.exists()) {
         } else {

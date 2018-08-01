@@ -18,7 +18,6 @@ public class OfferController {
 
             Offer offer = new Offer(user,price, OfferID.getInstance().getId());
 
-
             return offer;
         }
 // czy mam to rozumiec ze nazwalismy te funkcje addOffer i tak samo sie nazywa w Auction tylko tutaj wywoujemy

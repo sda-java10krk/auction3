@@ -66,13 +66,13 @@ public class FileReadTest {
 
         Auction auction1 = new Auction(user1, "Auction1", "Description1", BigDecimal.valueOf(100), new Category("Laptopy"), 10);
 
-        Map<String, Auction> saveAuctionToMapTest = new HashMap<>();
-        saveAuctionToMapTest.put("login1", auction1);
+        Map<Integer, Auction> saveAuctionToMapTest = new HashMap<>();
+        saveAuctionToMapTest.put(10, auction1);
 
         AuctionFileManager auctionFileManager = new AuctionFileManager();
         auctionFileManager.saveAuctionToFileCSV(saveAuctionToMapTest);
 
-        Map<String, Auction> loadAuctionListTest = new HashMap<>();
+        Map<Integer, Auction> loadAuctionListTest = new HashMap<>();
         loadAuctionListTest = auctionFileManager.readAuctionFromFileCsv();
 
         assertEquals(saveAuctionToMapTest, loadAuctionListTest);
