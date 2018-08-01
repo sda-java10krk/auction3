@@ -19,6 +19,7 @@ public class UserFileManager {
 
 
     public void saveUserToFileCSV(Map<String, User> map) throws IOException {
+
         String fileName = "UserList2.csv";
         //UserFileManager.toEnoughtDiskSpace();
         FileWriter fileWriter = null;
@@ -71,12 +72,12 @@ public class UserFileManager {
     }
 
 
-    //jesli nie mozna zapisac do pliku bo za duzy to przekierowuje do zapisuje do pliku nr 2 lub 3
-    public static void toEnoughtDiskSpace() throws IOException {
-        //TODO jakaś metoda
-        if (true) {
+    public void ExistFileUserCSV() throws IOException {
+
+        String  fileName = "UserList2.csv";
+        File file = new File(fileName);
+        if(file.exists()) {
         } else {
-            File file = new File("UserList2_secondList.csv");
             file.createNewFile();
         }
     }
@@ -90,7 +91,6 @@ public class UserFileManager {
     public static void fileUserListIsDamagedDuringSaving() {
 
     }
-
 
 }
 

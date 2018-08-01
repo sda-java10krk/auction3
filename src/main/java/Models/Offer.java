@@ -21,6 +21,10 @@ public class Offer implements Serializable {
         this.allOfferOfAuction = new HashMap<>();
     }
 
+    public void addOffert(Auction auction,Offer offer){
+        this.allOfferOfAuction.put(auction.getId(),offer);
+    }
+
     public static Offer getInstance() throws NegativeOfferPriceException {
         if(instance==null){
             instance= new Offer();

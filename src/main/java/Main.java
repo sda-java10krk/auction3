@@ -3,7 +3,12 @@ import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
+import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
+import Models.Auction;
+import Models.AuctionsDatabase;
+import Models.Category;
+import Models.User;
 import Models.*;
 import Views.*;
 import java.math.BigDecimal;
@@ -18,10 +23,15 @@ public class Main {
         int n=0;
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
+
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
+        userFileManager.ExistFileUserCSV();
+        AuctionFileManager auctionFileManager = new AuctionFileManager();
+        auctionFileManager.ExistFileAuctionCSV();
         Map<String, User> users = userFileManager.readUserFromFileCsv();
+
         UserList.getInstance().setUserList(users);
         User currentUser=null;
 
@@ -139,6 +149,10 @@ public class Main {
                             state = State.STOP;
                             break;
                         }
+                        case("7"):{
+                            state = State.LISTING_AUCTIONS;
+                            break;
+                        }
                     }
                     break;
                 }
@@ -162,7 +176,6 @@ public class Main {
 
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     AuctionsDatabase.getInstance().getCurrentAuctionsMap();
-
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
@@ -172,17 +185,24 @@ public class Main {
                     int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
-                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1;i++ ){
-                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)==true){
-                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offerController.creatingOffer(currentUser,price));
+                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1; ){
+                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)){
+                            Offer offer = offerController.creatingOffer(currentUser,price);
+                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offer);
+                            AddingOfferView.NewOfferCreate();
+                            state = State.SHOWING_CATEGORY;
+                            break;
                         }
+                        else
+                            i++;
                     }
+                    state = State.SHOWING_CATEGORY;
                     break;
                 }
 
                 case LISTING_AUCTIONS:{
 
-                    break;
+                   break;
 
                 }
 

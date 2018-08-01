@@ -17,10 +17,8 @@ import java.util.Objects;
 public class UserList {
 
     private static UserList instance;
-
     private Map<String, User> userList = new HashMap<>();
     private UserFileManager userFileManager = new UserFileManager();
-    //private SaveReadManager saveReadManager = new SaveReadManager();
 
 
 
@@ -28,11 +26,11 @@ public class UserList {
         return userList;
     }
 
-    public UserList() {
-        this.userList= new HashMap<>();
+    public UserList() throws IOException, TooShortPasswordException {
+        this.userList = new UserFileManager().readUserFromFileCsv();
     }
 
-    public void setUserList(String login, User user) {
+    private void setUserList(String login, User user) {
     }
 
     public void setUserList (Map < String, User > userList){
@@ -43,7 +41,7 @@ public class UserList {
         this.userList = userList;
     }
 
-    public static UserList getInstance() {
+    public static UserList getInstance() throws IOException, TooShortPasswordException {
         if(instance == null){
             instance = new UserList();
         }
@@ -60,6 +58,7 @@ public class UserList {
 
         }
     }
+
 
     public boolean registerUser(String login, String password) throws UserAlreadyInTheBaseException, TooShortPasswordException, IOException {
         if(userList==null){
