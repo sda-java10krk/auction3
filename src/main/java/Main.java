@@ -23,17 +23,25 @@ public class Main {
         int n=0;
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
+        User currentUser=null;
 
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
-        userFileManager.ExistFileUserCSV();
-        AuctionFileManager auctionFileManager = new AuctionFileManager();
-        auctionFileManager.ExistFileAuctionCSV();
-        Map<String, User> users = userFileManager.readUserFromFileCsv();
 
+        userFileManager.ExistFileUserCSV();
+
+        AuctionFileManager auctionFileManager = new AuctionFileManager();
+
+        userFileManager.ExistFileUserCSV();
+        auctionFileManager.ExistFileAuctionCSV();
+
+        Map<String, User> users = userFileManager.readUserFromFileCsv();
+        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
+
+        AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
         UserList.getInstance().setUserList(users);
-        User currentUser=null;
+
 
         while(state!=State.STOP){
             switch(state){
@@ -172,32 +180,37 @@ public class Main {
                     AddingAuctionView.settingCategory();
                     String categoryId = scanner.next();
 
-                    Category category = CategoriesDatabase.getInstance().findCategoryByString("Skutery");
-
-                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
-                    AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+                    Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
+                    AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
 
-                case MAKING_OFFER:{
+                case MAKING_OFFER: {
                     AddingOfferView.GetAuctionId();
                     int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
-                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1; ){
-                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)){
-                            Offer offer = offerController.creatingOffer(currentUser,price);
-                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offer);
-                            AddingOfferView.NewOfferCreate();
-                            state = State.SHOWING_CATEGORY;
-                            break;
-                        }
-                        else
-                            i++;
-                    }
-                    state = State.SHOWING_CATEGORY;
-                    break;
+
+//                    for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; i++) {
+//                        if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
+//                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offerController.creatingOffer(currentUser, price));
+//
+//                            for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; ) {
+//                                if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
+//                                    Offer offer = offerController.creatingOffer(currentUser, price);
+//                                    offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
+//                                    AddingOfferView.NewOfferCreate();
+//                                    state = State.SHOWING_CATEGORY;
+//                                    break;
+//
+//                                } else
+//                                    i++;
+//                            }
+//                            state = State.SHOWING_CATEGORY;
+//                            break;
+//                        }
+//                    }
                 }
 
                 case LISTING_AUCTIONS:{
@@ -209,6 +222,8 @@ public class Main {
                 case WINNING_AUCTIONS:{
 
                 }
+
+
 
             }
         }

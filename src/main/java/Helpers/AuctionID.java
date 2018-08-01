@@ -5,7 +5,7 @@ import Models.AuctionsDatabase;
 public class AuctionID {
 
     private static AuctionID instance;
-    private static int id=0;
+    private int id;
 
     public static AuctionID getInstance(){
         if (instance == null){
