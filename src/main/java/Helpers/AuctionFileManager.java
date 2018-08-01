@@ -26,6 +26,7 @@ public class AuctionFileManager {
         try {
             fileWriter = new FileWriter(fileName, true);
             for (Auction auction : map.values()) {
+
                 fileWriter.append(auction.getUser().getLogin());
                 fileWriter.append(SEPARATOR);
                 fileWriter.append(auction.getTitle());
@@ -57,7 +58,7 @@ public class AuctionFileManager {
     private static final int CATEGORY = 4;
     private static final int AUCTION_ID = 5;
 
-    public Map<String, Auction> readAuctionFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+    public Map<String, Auction> readAuctionFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
 
         String fileName = "AuctionList.csv";
         String line = "";
@@ -122,9 +123,9 @@ public class AuctionFileManager {
 //        return null ;
 //    }
 
-    public static void ExistFileAuctionCSV() throws IOException {
+    public void ExistFileAuctionCSV() throws IOException {
 
-       String  fileName = "AuctionFileCSV.csx";
+       String  fileName = "AuctionFileCSV.csv";
         File file = new File(fileName);
         if(file.exists()) {
         } else {

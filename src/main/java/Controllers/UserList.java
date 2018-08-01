@@ -26,8 +26,8 @@ public class UserList {
         return userList;
     }
 
-    public UserList() {
-        this.userList= new HashMap<>();
+    public UserList() throws IOException, TooShortPasswordException {
+        this.userList = new UserFileManager().readUserFromFileCsv();
     }
 
     private void setUserList(String login, User user) {
@@ -41,7 +41,7 @@ public class UserList {
         this.userList = userList;
     }
 
-    public static UserList getInstance() {
+    public static UserList getInstance() throws IOException, TooShortPasswordException {
         if(instance == null){
             instance = new UserList();
         }

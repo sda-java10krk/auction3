@@ -1,3 +1,4 @@
+import Controllers.UserList;
 import Exceptions.*;
 import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
@@ -20,6 +21,7 @@ public class FileReadTest {
 
 
     Map<String, User> saveUserListTest;
+
     @Before
     public void setup1() {
         saveUserListTest = new HashMap<>();
@@ -27,45 +29,58 @@ public class FileReadTest {
 
 
     Map<String, User> saveAuctionToMapTest;
+
     @Before
     public void setup2() {
         saveAuctionToMapTest = new HashMap<>();
     }
 
-         @Test
-        public void saveUserToListAndChechResultByMethodReadFileCSVTest () throws TooShortPasswordException, IOException {
+    @Test
+    public void saveUserToListAndChechResultByMethodReadFileCSVTest() throws TooShortPasswordException, IOException {
 
-            Map<String, User> saveUserListTest = new HashMap<>();
-            saveUserListTest.put("login1", new User("login1", "haslo1"));
-            saveUserListTest.put("login2", new User("login2", "haslo2"));
+        Map<String, User> saveUserListTest = new HashMap<>();
+        saveUserListTest.put("login1", new User("login1", "haslo1"));
+        saveUserListTest.put("login2", new User("login2", "haslo2"));
 
-            UserFileManager userFileManager = new UserFileManager();
-            userFileManager.saveUserToFileCSV(saveUserListTest);
+        UserFileManager userFileManager = new UserFileManager();
+        userFileManager.saveUserToFileCSV(saveUserListTest);
 
-            Map<String, User> loadUserListTest = new HashMap<>();
-            loadUserListTest = userFileManager.readUserFromFileCsv();
+        Map<String, User> loadUserListTest = new HashMap<>();
+        loadUserListTest = userFileManager.readUserFromFileCsv();
 
-            assertEquals(saveUserListTest, loadUserListTest);
-        }
+        assertEquals(saveUserListTest, loadUserListTest);
+    }
 
 
     @Test
-    public void saveAuctionToListAndChechResultByMethodReadFileCSVTest () throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
-        User user1 = new User ("login1","haslo1");
+    public void saveAuctionToListAndChechResultByMethodReadFileCSVTest() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
+        // robimy usera, tworzymy plik i zapisujemy aby mozna było go uzyc do auckji
+        User user1 = new User("login1", "haslo1");
+        Map<String, User> saveUserToFileCSVTEST = new HashMap<>();
+        saveUserToFileCSVTEST.put(user1.getLogin(), user1);
+        UserFileManager userFileManager = new UserFileManager();
+        userFileManager.ExistFileUserCSV();
+        userFileManager.saveUserToFileCSV(saveUserToFileCSVTEST);
+        Map<String, User> loadUserListTest = new HashMap<>();
+        loadUserListTest = userFileManager.readUserFromFileCsv();
+        UserList userList = UserList.getInstance();
 
-        Auction auction1 = new Auction(user1,"Auction1","Description1",BigDecimal.valueOf(100),new Category("Laptopy"),10);
+
+
+
+        Auction auction1 = new Auction(user1,"Auction1", "Description1", BigDecimal.valueOf(100), new Category("Laptopy"), 10);
+       // Auction auction1 = new Auction(userList.getInstance().getUserList().get(user1.getLogin()),"Auction1", "Description1", BigDecimal.valueOf(100), new Category("Laptopy"), 10);
 
         Map<String, Auction> saveAuctionToMapTest = new HashMap<>();
-        saveAuctionToMapTest.put("login1",auction1);
+        saveAuctionToMapTest.put("login1", auction1);
 
         AuctionFileManager auctionFileManager = new AuctionFileManager();
         auctionFileManager.saveAuctionToFileCSV(saveAuctionToMapTest);
 
-        Map<String,Auction> loadUserListTest = new HashMap<>();
-        loadUserListTest = auctionFileManager.readAuctionFromFileCsv();
+        Map<String, Auction> loadAuctionListTest = new HashMap<>();
+        loadAuctionListTest = auctionFileManager.readAuctionFromFileCsv();
 
-
-        assertEquals(saveAuctionToMapTest, loadUserListTest);
+        assertEquals(saveAuctionToMapTest, loadAuctionListTest);
     }
 
 //        public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
@@ -87,5 +102,5 @@ public class FileReadTest {
 //            assertEquals(auctionList, readList);
 //
 //        }
-    }
+}
 

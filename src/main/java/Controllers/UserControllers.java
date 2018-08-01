@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class UserControllers {
 
-    public User userLogin(String login, String password) throws TooShortPasswordException, UserNotExistInBaseException {
+    public User userLogin(String login, String password) throws TooShortPasswordException, UserNotExistInBaseException, IOException {
         return UserList.getInstance().findUser(login, password);
     }
 

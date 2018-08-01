@@ -13,6 +13,7 @@ public class AuctionID {
         }
         return instance;
     }
+
     public int getId(){
 
         id++;
