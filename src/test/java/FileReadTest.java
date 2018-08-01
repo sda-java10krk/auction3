@@ -54,7 +54,6 @@ public class FileReadTest {
 
     @Test
     public void saveAuctionToListAndChechResultByMethodReadFileCSVTest() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
-        // robimy usera, tworzymy plik i zapisujemy aby mozna było go uzyc do auckji
         User user1 = new User("login1", "haslo1");
         Map<String, User> saveUserToFileCSVTEST = new HashMap<>();
         saveUserToFileCSVTEST.put(user1.getLogin(), user1);
@@ -65,11 +64,7 @@ public class FileReadTest {
         loadUserListTest = userFileManager.readUserFromFileCsv();
         UserList userList = UserList.getInstance();
 
-
-
-
-        Auction auction1 = new Auction(user1,"Auction1", "Description1", BigDecimal.valueOf(100), new Category("Laptopy"), 10);
-       // Auction auction1 = new Auction(userList.getInstance().getUserList().get(user1.getLogin()),"Auction1", "Description1", BigDecimal.valueOf(100), new Category("Laptopy"), 10);
+        Auction auction1 = new Auction(user1, "Auction1", "Description1", BigDecimal.valueOf(100), new Category("Laptopy"), 10);
 
         Map<String, Auction> saveAuctionToMapTest = new HashMap<>();
         saveAuctionToMapTest.put("login1", auction1);
@@ -82,25 +77,5 @@ public class FileReadTest {
 
         assertEquals(saveAuctionToMapTest, loadAuctionListTest);
     }
-
-//        public void saveAuctionAndOffersAndChechResultByMethodReadFile () throws EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, TooShortPasswordException, NegativeOfferPriceException, AddingOfferToOwnAuction, OfferTooLowException {
-//
-//            List<Auction> auctionList = new LinkedList<>();
-//
-//            Auction auction = new Auction(new User("login", "password"), "title", "description", BigDecimal.valueOf(100), new Category("category"));
-//
-//            auction.addOffer(new Offer(new User("1", "password"), BigDecimal.valueOf(101)));
-//            auction.addOffer(new Offer(new User("2", "password"), BigDecimal.valueOf(202)));
-//            auction.addOffer(new Offer(new User("3", "password"), BigDecimal.valueOf(303)));
-//            auctionList.add(auction);
-//
-//            SaveReadManager saveReadManager = new SaveReadManager();
-//            saveReadManager.saveOffersToAuction(auctionList);
-//
-//            LinkedList<Auction> readList = saveReadManager.readAuctionToOffers();
-//
-//            assertEquals(auctionList, readList);
-//
-//        }
 }
 
