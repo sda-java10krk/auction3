@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class AuctionsDatabase {
     private static AuctionsDatabase instance;
-    private Map<String,Auction> currentAuctionsMap;
-    private Map<String,Auction> winningAuctionsMap;
+    private Map<Integer,Auction> currentAuctionsMap;
+    private Map<Integer,Auction> winningAuctionsMap;
 
 
 
@@ -29,7 +29,7 @@ public class AuctionsDatabase {
 
     public void addCurrentAuction(Auction auction){
 
-        this.currentAuctionsMap.put(auction.getUser().getLogin(), auction);
+        this.currentAuctionsMap.put(auction.getId(), auction);
 
     }
 
@@ -41,18 +41,19 @@ public class AuctionsDatabase {
                 '}';
     }
 
-    public Map<String, Auction> getCurrentAuctionsMap() {
+
+    public Map<Integer, Auction> getCurrentAuctionsMap() {
         return currentAuctionsMap;
     }
 
-    public Map<String, Auction> getWinningAuctionsMap() {
+    public Map<Integer, Auction> getWinningAuctionsMap() {
         return winningAuctionsMap;
     }
 
     public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException{
 
         if(auction.auctionWinnerChecking()){
-            this.winningAuctionsMap.put(auction.getUser().getLogin(),auction);
+            this.winningAuctionsMap.put(auction.getId(),auction);
         }
         else{
             throw new AuctionNotEndedYetException();
@@ -62,14 +63,23 @@ public class AuctionsDatabase {
 
     public List<Auction> getCurrentAuctions(User user){
         List<Auction> auctions = new ArrayList<>();
-        for (Map.Entry<String, Auction> entry : currentAuctionsMap.entrySet()) {
+        for (Map.Entry<Integer, Auction> entry : currentAuctionsMap.entrySet()) {
             if(currentAuctionsMap.containsValue(user.getLogin())){
                 auctions.add(entry.getValue());
             }
         }
         return auctions;
     }
-//
+
+    public void setCurrentAuctionsMap(Map<Integer, Auction> currentAuctionsMap) {
+        this.currentAuctionsMap = currentAuctionsMap;
+    }
+
+    public void setWinningAuctionsMap(Map<Integer, Auction> winningAuctionsMap) {
+        this.winningAuctionsMap = winningAuctionsMap;
+    }
+
+    //
 //
 //    public List<Auction> getWinningAuctions(){
 //        List<Auction> auctions = new ArrayList<>();

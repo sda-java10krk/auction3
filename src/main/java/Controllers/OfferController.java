@@ -10,6 +10,7 @@ import Models.OfferDatabase;
 import Models.User;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 
 public class OfferController {
@@ -22,9 +23,9 @@ public class OfferController {
         }
 // czy mam to rozumiec ze nazwalismy te funkcje addOffer i tak samo sie nazywa w Auction tylko tutaj wywoujemy
 
-        public void addOffer(Auction auction, Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
+        public void addOffer(Auction auction,Offer offer) throws AddingOfferToOwnAuction, OfferTooLowException {
             auction.addOffer(offer);
-
+            offer.allOfferOfAuction.put(auction.getId(),offer);
         }
 
 

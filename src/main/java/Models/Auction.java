@@ -17,7 +17,7 @@ public class Auction implements Serializable {
     private Category category;
     private List<Offer> offersList;
     private Offer currentOffer;
-    private int id;
+    private Integer id;
 
 
     public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, int id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, AuctionId0Exception {
@@ -79,6 +79,8 @@ public class Auction implements Serializable {
             return false;
         }
     }
+
+
 
 
 

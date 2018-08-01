@@ -63,7 +63,9 @@ public class AuctionFileManager {
         String fileName = "AuctionList.csv";
         String line = "";
         String cvsSplitBy = ",";
-            Map<Integer, Auction> map = new HashMap<>();
+
+        Map<Integer, Auction> map = new HashMap<>();
+
         UserList userList = UserList.getInstance();
 
         try {
@@ -92,4 +94,5 @@ public class AuctionFileManager {
             file.createNewFile();
         }
     }
+
 }

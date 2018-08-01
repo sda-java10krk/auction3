@@ -1,7 +1,9 @@
 import Controllers.AuctionControllers;
-import Exceptions.UserNotExistInBaseException;
+import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
+import Exceptions.UserNotExistInBaseException;
+import Helpers.AuctionFileCounterManager;
 import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
 import Models.Auction;
@@ -10,8 +12,9 @@ import Models.Category;
 import Models.User;
 import Models.*;
 import Views.*;
-
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -21,18 +24,24 @@ public class Main {
         int n=0;
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
+        User currentUser=null;
 
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
-        userFileManager.ExistFileUserCSV();
+        OfferController offerController = new OfferController();
         AuctionFileManager auctionFileManager = new AuctionFileManager();
+        AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
+
+        userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
+        auctionFileCounterManager.ExistFileAuctionCounterCSV();
+
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
 
+        AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
         UserList.getInstance().setUserList(users);
-        User currentUser=null;
-
+        
         while(state!=State.STOP){
             switch(state){
                 case INIT:{
@@ -175,19 +184,26 @@ public class Main {
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     AuctionsDatabase.getInstance().getCurrentAuctionsMap();
 
-                    OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
-                    OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
 
                 case MAKING_OFFER:{
+                    AddingOfferView.GetAuctionId();
+                    int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
+                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1;i++ ){
+                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)){
+                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offerController.creatingOffer(currentUser,price));
+                        }
+                    }
                     break;
                 }
 
                 case LISTING_AUCTIONS:{
+
+
 
                    break;
 
@@ -196,6 +212,8 @@ public class Main {
                 case WINNING_AUCTIONS:{
 
                 }
+
+
 
             }
         }
