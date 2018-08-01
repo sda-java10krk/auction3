@@ -1,29 +1,31 @@
-import Exceptions.OfferTooLowException;
-import Exceptions.SubcategoryPresentException;
+import Controllers.AuctionControllers;
+import Controllers.OfferController;
+import Exceptions.*;
+import Models.Auction;
+import Models.Category;
+import Models.Offer;
+import Models.User;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class OfferTest {
 
-//    @Test
-//    public void returnTrueIfPossible() throws SubcategoryPresentException, OfferTooLowException {
-//        List<Models.Offers> offersList = null;
-//        Models.Offers offers1 = new Models.Offers(new Models.User("BARTOSZ","sfsdffd"),new BigDecimal(2000));
-//        Models.Offers offers2 = new Models.Offers(new Models.User("BARTOSZZ","sfasdfff"),new BigDecimal(20000));
-//        Models.Offers offers3 = new Models.Offers(new Models.User("BARTOSZZ","sfasdfff"),new BigDecimal(20000));
-//        Models.Offers offers4 = new Models.Offers(new Models.User("BARTOSZZ","sfasdfff"),new BigDecimal(20000));
-//
-//            offersList.add(offers1);
-//            offersList.add(offers2);
-//            offersList.add(offers3);
-//
-//        Models.Auction auction = new Models.Auction("Super", "Sprawa",new BigDecimal(2000),new Models.Category("Models.Category"));
-//
-//        auction.addingOffer(offers4);
-//
-//
-//
-//    }
+    @Test
+    public void returnTrueIfPossible() throws SubcategoryPresentException, OfferTooLowException, TooShortPasswordException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, AuctionId0Exception, NegativeOfferPriceException, AddingOfferToOwnAuction {
+        User user = new User("Filip", "qwerty");
+        Auction auction = AuctionControllers.getInstance().createAuction(user, "Opel", "sdadas", new BigDecimal(6000), new Category("Osobowe"));
+
+        User user1 = new User("Filip1", "qwerty");
+        OfferController offerController = new OfferController();
+        offerController.addOffer(auction, offerController.creatingOffer(user1, new BigDecimal(10000)));
+
+        Offer offer = auction.getOffersList().get(0);
+
+
+    }
+
 }

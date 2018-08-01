@@ -1,12 +1,14 @@
 import Controllers.AuctionControllers;
-import Exceptions.UserNotExistInBaseException;
+import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
+import Exceptions.UserNotExistInBaseException;
 import Helpers.UserFileManager;
 import Models.*;
 import Views.*;
-
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -18,9 +20,11 @@ public class Main {
         State state = State.INIT;
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
+        OfferController offerController = new OfferController();
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
         User currentUser=null;
+        List<Auction> AllUserAuction= new ArrayList<>();
 
         while(state!=State.STOP){
             switch(state){
@@ -163,15 +167,20 @@ public class Main {
 
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     AuctionsDatabase.getInstance().getCurrentAuctionsMap();
-                    OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
-                    OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
 
                 case MAKING_OFFER:{
+                    AddingOfferView.GetAuctionId();
+                    int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
+                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1;i++ ){
+                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)){
+                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offerController.creatingOffer(currentUser,price));
+                        }
+                    }
                     break;
                 }
 
