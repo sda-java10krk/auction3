@@ -59,7 +59,7 @@ public class Auction implements Serializable {
         this.id = id;
     }
 
-    public boolean addOffer(Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
+    public boolean addOffer(Auction auction,Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
 
         if (offer.getUser().equals(user)) {
             throw new AddingOfferToOwnAuction();
@@ -70,7 +70,7 @@ public class Auction implements Serializable {
             if (auctionWinnerChecking()) {
                 return false;
             } else {
-                this.offersList.add(offer);
+                this.offersList.add(auction.getId(),offer);
                 this.currentOffer = offer;
             }
         }
@@ -86,7 +86,7 @@ public class Auction implements Serializable {
             return false;
         }
     }
-    
+
     public User getUser() {
         return user;
     }

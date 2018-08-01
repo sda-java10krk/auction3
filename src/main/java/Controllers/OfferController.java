@@ -26,8 +26,6 @@ public class OfferController {
 
         public void addOffer(Auction auction,Offer offer) throws AddingOfferToOwnAuction, OfferTooLowException, NegativeOfferPriceException {
             auction.addOffer(offer);
-            OfferDatabase.getInstance().getallOfferOfAuction(auction).add(auction.getId(),offer);
-
         }
 
 }

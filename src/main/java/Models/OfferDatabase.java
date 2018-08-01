@@ -31,14 +31,14 @@ public class OfferDatabase {
         return allOfferOfAuction;
     }
 
-    public List<Offer> getallOfferOfAuction(Auction auction) {
-        List<Offer> offerts = new ArrayList<>();
-        for (Map.Entry<Integer, Offer> entry : allOfferOfAuction.entrySet()) {
-            if (allOfferOfAuction.containsValue(auction.getId())) {
-                offerts.add(entry.getValue());
-            }
-        }
-        return offerts;
-    }
+//    public List<Offer> getallOfferOfAuction(Auction auction) {
+//        List<Offer> offerts = new ArrayList<>();
+//        for (Map.Entry<Integer, Offer> entry : allOfferOfAuction.entrySet()) {
+//            if (allOfferOfAuction.containsValue(auction.getId())) {
+//                offerts.add(entry.getValue());
+//            }
+//        }
+//        return offerts;
+//    }
 }
 
