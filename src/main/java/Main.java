@@ -11,6 +11,7 @@ import Models.Category;
 import Models.User;
 import Models.*;
 import Views.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        int n=0;
+        int n = 0;
         Scanner scanner = new Scanner(System.in);
         State state = State.INIT;
-        User currentUser=null;
+        User currentUser = null;
 
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
@@ -43,21 +44,21 @@ public class Main {
         UserList.getInstance().setUserList(users);
 
 
-        while(state!=State.STOP){
-            switch(state){
-                case INIT:{
+        while (state != State.STOP) {
+            switch (state) {
+                case INIT: {
                     HelloMenuView.helloView();
                     String answer = scanner.next();
-                    switch (answer){
-                        case("1"):{
+                    switch (answer) {
+                        case ("1"): {
                             state = State.DURING_LOGIN;
                             break;
                         }
-                        case("2"):{
+                        case ("2"): {
                             state = State.DURING_REGISTRATION;
                             break;
                         }
-                        case("3"):{
+                        case ("3"): {
                             state = State.STOP;
                             break;
                         }
@@ -68,7 +69,7 @@ public class Main {
                     }
                     break;
                 }
-                case DURING_LOGIN:{
+                case DURING_LOGIN: {
                     HelloMenuView.askForLogin();
                     String login = scanner.next();
                     HelloMenuView.askForPassword();
@@ -77,51 +78,51 @@ public class Main {
                         currentUser = userControllers.userLogin(login, password);
                         state = State.LOGGED_IN;
 
-                    }catch(UserNotExistInBaseException e) {
+                    } catch (UserNotExistInBaseException e) {
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_LOGIN;
                     }
                     break;
                 }
-                case DURING_REGISTRATION:{
+                case DURING_REGISTRATION: {
                     HelloMenuView.askForLogin();
                     String login = scanner.next();
                     HelloMenuView.askForPassword();
                     String password = scanner.next();
-                    if(userControllers.userRegister(login,password)){
+                    if (userControllers.userRegister(login, password)) {
                         HelloMenuView.RegisterConfirmedInformation();
                         state = State.DURING_LOGIN;
-                    }else{
+                    } else {
                         HelloMenuView.WrongAnwser();
                         state = State.DURING_REGISTRATION;
                     }
                     break;
                 }
 
-                case LOGGED_IN:{
+                case LOGGED_IN: {
                     LoggedUserMenuView.FirstOptionsView();
-                    String answer=scanner.next();
-                    switch(answer){
-                        case("1"):{
+                    String answer = scanner.next();
+                    switch (answer) {
+                        case ("1"): {
                             CategoryDisplay.printCategoryTree();
                             state = State.SHOWING_CATEGORY;
 //                            String user = currentUser.getInstance().getUser().getLogin();
 //                            System.out.println(user);
                             break;
                         }
-                        case("2"):{
+                        case ("2"): {
                             state = State.LISTING_AUCTIONS;
                             break;
                         }
-                        case("3"):{
+                        case ("3"): {
                             state = State.WINNING_AUCTIONS;
                             break;
                         }
-                        case("4"):{
+                        case ("4"): {
                             state = State.LOGOUT;
                             break;
                         }
-                        case("5"):{
+                        case ("5"): {
                             state = State.STOP;
                             break;
                         }
@@ -129,35 +130,35 @@ public class Main {
                     break;
                 }
 
-                case SHOWING_CATEGORY:{
+                case SHOWING_CATEGORY: {
                     CategoryDisplay.printCategoryTree();
                     LoggedUserMenuView.TreeViewOptions();
                     String answer = scanner.next();
-                    switch(answer){
-                        case("1"):{
+                    switch (answer) {
+                        case ("1"): {
                             state = State.ADDING_AUCTION;
                             break;
 
                         }
-                        case("2"):{
+                        case ("2"): {
                             state = State.MAKING_OFFER;
                             break;
 
                         }
-                        case("4"):{
+                        case ("4"): {
                             state = State.WINNING_AUCTIONS;
                             break;
 
                         }
-                        case("5"):{
+                        case ("5"): {
                             state = State.LOGOUT;
                             break;
                         }
-                        case("6"):{
+                        case ("6"): {
                             state = State.STOP;
                             break;
                         }
-                        case("7"):{
+                        case ("7"): {
                             state = State.LISTING_AUCTIONS;
                             break;
                         }
@@ -165,23 +166,23 @@ public class Main {
                     break;
                 }
 
-                case LOGOUT:{
+                case LOGOUT: {
                     state = State.INIT;
                     break;
                 }
 
-                case ADDING_AUCTION:{
+                case ADDING_AUCTION: {
                     AddingAuctionView.settingAuctionTitle();
-                    String title=scanner.next();
+                    String title = scanner.next();
                     AddingAuctionView.settingAuctionDescription();
-                    String description=scanner.next();
+                    String description = scanner.next();
                     AddingAuctionView.settingStartingPrice();
                     BigDecimal startingPrice = scanner.nextBigDecimal();
                     AddingAuctionView.settingCategory();
                     String categoryId = scanner.next();
 
                     Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
-                    AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
+                    AuctionControllers.getInstance().createAuction(currentUser, title, description, startingPrice, category);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
@@ -191,73 +192,66 @@ public class Main {
                     int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
-
-                            for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; ) {
-                                if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
-                                    Offer offer = offerController.creatingOffer(currentUser, price);
-                                    offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
-                                    AddingOfferView.NewOfferCreate();
-                                    state = State.SHOWING_CATEGORY;
-                                    break;
-
-                                } else
-                                    i++;
-                            }
-                            state = State.SHOWING_CATEGORY;
-                            break;
+//                    if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
+                        Offer offer = offerController.creatingOffer(currentUser, price);
+                        offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
+                        AddingOfferView.NewOfferCreate();
+//                    }
+//                    else
+//                        AddingOfferView.Error();
+                    state = State.SHOWING_CATEGORY;
+                    break;
                 }
+            case LISTING_AUCTIONS: {
 
-                case LISTING_AUCTIONS:{
 
+                Map<Integer, Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
 
-                    Map<Integer,Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+                for (Map.Entry entry : map.entrySet()) {
+                    System.out.println(entry.getKey() + ", " + entry.getValue());
 
-                    for (Map.Entry entry : map.entrySet()) {
-                        System.out.println(entry.getKey() + ", " + entry.getValue());
+                }
+                LoggedUserMenuView.TreeViewOptions();
+                String answer = scanner.next();
+                switch (answer) {
+                    case ("1"): {
+                        state = State.ADDING_AUCTION;
+                        break;
 
                     }
-                    LoggedUserMenuView.TreeViewOptions();
-                    String answer = scanner.next();
-                    switch(answer){
-                        case("1"):{
-                            state = State.ADDING_AUCTION;
-                            break;
+                    case ("2"): {
+                        state = State.MAKING_OFFER;
+                        break;
 
-                        }
-                        case("2"):{
-                            state = State.MAKING_OFFER;
-                            break;
-
-                        }
-                        case("4"):{
-                            state = State.WINNING_AUCTIONS;
-                            break;
-
-                        }
-                        case("5"):{
-                            state = State.LOGOUT;
-                            break;
-                        }
-                        case("6"):{
-                            state = State.STOP;
-                            break;
-                        }
-                        case("7"):{
-                            state = State.LISTING_AUCTIONS;
-                            break;
-                        }
                     }
-                   break;
+                    case ("4"): {
+                        state = State.WINNING_AUCTIONS;
+                        break;
+
+                    }
+                    case ("5"): {
+                        state = State.LOGOUT;
+                        break;
+                    }
+                    case ("6"): {
+                        state = State.STOP;
+                        break;
+                    }
+                    case ("7"): {
+                        state = State.LISTING_AUCTIONS;
+                        break;
+                    }
                 }
+                break;
+            }
 
-                case WINNING_AUCTIONS:{
-
-                }
-
-
+            case WINNING_AUCTIONS: {
 
             }
-        }
 
+
+        }
     }
+
+}
 }
