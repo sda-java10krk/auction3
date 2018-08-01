@@ -64,15 +64,20 @@ public class Auction implements Serializable {
         if (offer.getUser().equals(user)) {
             throw new AddingOfferToOwnAuction();
         }
-        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0 || offer.getPrice().compareTo(this.startingPrice) <= 0) {
+        if( this.currentOffer == null && offer.getPrice().compareTo(this.startingPrice) <= 0){
+
+            this.offersList.add(auction.getId(),offer);
+            this.currentOffer = offer;
+        }
+        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0){
             throw new OfferTooLowException();
         } else {
-            if (auctionWinnerChecking()) {
-                return false;
-            } else {
-                this.offersList.add(auction.getId(),offer);
+//            if (auctionWinnerChecking()) {
+//                return false;
+//            } else {
+                this.offersList.add(offer);
                 this.currentOffer = offer;
-            }
+//            }
         }
 
         return true;
@@ -143,11 +148,11 @@ public class Auction implements Serializable {
         sb.append("user=").append(user);
         sb.append(", title='").append(title).append('\'');
         sb.append(", description='").append(description).append('\'');
-        sb.append(", startingPrice=").append(startingPrice);
+        if(currentOffer==null) {
+            sb.append(", startingPrice=").append(startingPrice);
+        }
         sb.append(", category=").append(category);
-        sb.append(", offersList=").append(offersList);
         sb.append(", currentOffer=").append(currentOffer);
-        sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
     }
