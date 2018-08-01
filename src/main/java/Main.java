@@ -24,7 +24,6 @@ public class Main {
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
         User currentUser=null;
-        List<Auction> AllUserAuction= new ArrayList<>();
 
         while(state!=State.STOP){
             switch(state){
