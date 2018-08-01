@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class AuctionsDatabase {
     private static AuctionsDatabase instance;
@@ -33,14 +32,15 @@ public class AuctionsDatabase {
 
     }
 
+
     @Override
+
     public String toString() {
         return "AuctionsDatabase{" +
                 "currentAuctionsMap=" + currentAuctionsMap +
                 ", winningAuctionsMap=" + winningAuctionsMap +
                 '}';
     }
-
 
     public Map<Integer, Auction> getCurrentAuctionsMap() {
         return currentAuctionsMap;
@@ -53,7 +53,7 @@ public class AuctionsDatabase {
     public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException{
 
         if(auction.auctionWinnerChecking()){
-            this.winningAuctionsMap.put(auction.getId(),auction);
+            this.winningAuctionsMap.put(auction.getId() ,auction);
         }
         else{
             throw new AuctionNotEndedYetException();

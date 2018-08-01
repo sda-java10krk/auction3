@@ -15,10 +15,14 @@ public class Offer implements Serializable {
     private BigDecimal price;
     private int id=0;
     private static Offer instance;
-    public Map<Integer,Offer> allOfferOfAuction = new HashMap<>();
+    private Map<Integer,Offer> allOfferOfAuction;
 
     private Offer(){
-//        this.allOfferOfAuction = new HashMap<>();
+        this.allOfferOfAuction = new HashMap<>();
+    }
+
+    public void addOffert(Auction auction,Offer offer){
+        this.allOfferOfAuction.put(auction.getId(),offer);
     }
 
     public static Offer getInstance() throws NegativeOfferPriceException {

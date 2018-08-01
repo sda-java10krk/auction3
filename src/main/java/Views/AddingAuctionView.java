@@ -2,11 +2,11 @@ package Views;
 
 public class AddingAuctionView {
     public static void settingAuctionTitle(){
-        System.out.println("Podaj tytuł aukcji!: ");
+        System.out.println("Podaj tytuł aukcji!☻: ");
     }
 
     public static void settingAuctionDescription(){
-        System.out.println("Podaj opis aukcji!: ");
+        System.out.println("Podaj opis aukcji! ☺: ");
     }
 
     public static void settingStartingPrice(){

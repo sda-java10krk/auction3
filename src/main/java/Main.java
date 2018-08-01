@@ -28,6 +28,9 @@ public class Main {
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
+
+        userFileManager.ExistFileUserCSV();
+
         AuctionFileManager auctionFileManager = new AuctionFileManager();
 
         userFileManager.ExistFileUserCSV();
@@ -38,7 +41,8 @@ public class Main {
 
         AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
         UserList.getInstance().setUserList(users);
-        
+
+
         while(state!=State.STOP){
             switch(state){
                 case INIT:{
@@ -177,29 +181,39 @@ public class Main {
                     String categoryId = scanner.next();
 
                     Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
-
-                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
-                    AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+                    AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
 
-                case MAKING_OFFER:{
+                case MAKING_OFFER: {
                     AddingOfferView.GetAuctionId();
                     int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
-                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1;i++ ){
-                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)){
-                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offerController.creatingOffer(currentUser,price));
-                        }
-                    }
-                    break;
+
+//                    for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; i++) {
+//                        if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
+//                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offerController.creatingOffer(currentUser, price));
+//
+//                            for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; ) {
+//                                if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
+//                                    Offer offer = offerController.creatingOffer(currentUser, price);
+//                                    offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
+//                                    AddingOfferView.NewOfferCreate();
+//                                    state = State.SHOWING_CATEGORY;
+//                                    break;
+//
+//                                } else
+//                                    i++;
+//                            }
+//                            state = State.SHOWING_CATEGORY;
+//                            break;
+//                        }
+//                    }
                 }
 
                 case LISTING_AUCTIONS:{
-
-
 
                    break;
 
