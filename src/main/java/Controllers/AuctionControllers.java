@@ -2,6 +2,7 @@
 package Controllers;
 
 import Exceptions.*;
+import Helpers.AuctionID;
 import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class AuctionControllers {
 
     public static AuctionControllers instance;
-    public Map<String,Auction>AuctionList;
+    public Map<Integer,Auction>AuctionList;
 
     public static AuctionControllers getInstance() {
         if(instance == null){
@@ -27,11 +28,12 @@ public class AuctionControllers {
         this.AuctionList=new HashMap<>();
     }
 
-    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException {
+    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
 
-        Auction auction = new Auction(user,title,description,startingPrice,category,1);
+        Auction auction = new Auction(user,title,description,startingPrice,category,AuctionID.getInstance().getId());
         category.addAuction(auction);
-        AuctionList.put(title,auction);
+        AuctionsDatabase.getInstance().addCurrentAuction(auction);
+
         return auction;
     }
 
@@ -43,6 +45,7 @@ public class AuctionControllers {
         return category.getAuction();
 
     }
+
 
 
 

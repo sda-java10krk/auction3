@@ -1,8 +1,8 @@
 package Views;
 
 public class AddingOfferView {
-        public static void settingAuctionTitle(){
-            System.out.println("Podaj tytuł aukcji!: ");
+        public static void GetAuctionId(){
+            System.out.println("Podaj id aukcji!: ");
         }
 
         public static void settingNewPrice(){

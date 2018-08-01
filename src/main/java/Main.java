@@ -1,14 +1,16 @@
-import Controllers.*;
-import Exceptions.LoginNotGoneWellExeption;
+import Controllers.AuctionControllers;
+import Controllers.OfferController;
+import Controllers.UserControllers;
+import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
 import Helpers.UserFileManager;
 import Models.*;
-import Controllers.UserControllers;
-import Controllers.UserList;
 import Views.*;
-
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -22,7 +24,7 @@ public class Main {
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         UserList.getInstance().setUserList(users);
         User currentUser=null;
-        List<Auction>AllUserAuction= new ArrayList<>();
+        List<Auction> AllUserAuction= new ArrayList<>();
 
         while(state!=State.STOP){
             switch(state){
@@ -84,7 +86,7 @@ public class Main {
                     String answer=scanner.next();
                     switch(answer){
                         case("1"):{
-                            CategoryDisplay.initializeCategories();
+                            CategoryDisplay.printCategoryTree();
                             state = State.SHOWING_CATEGORY;
 //                            String user = currentUser.getInstance().getUser().getLogin();
 //                            System.out.println(user);
@@ -111,7 +113,7 @@ public class Main {
                 }
 
                 case SHOWING_CATEGORY:{
-                    CategoryDisplay.initializeCategories();
+                    CategoryDisplay.printCategoryTree();
                     LoggedUserMenuView.TreeViewOptions();
                     String answer = scanner.next();
                     switch(answer){
@@ -155,24 +157,27 @@ public class Main {
                     AddingAuctionView.settingStartingPrice();
                     BigDecimal startingPrice = scanner.nextBigDecimal();
                     AddingAuctionView.settingCategory();
-                    String category = scanner.next();
+                    String categoryId = scanner.next();
 
-                    Category categoryTemp = new Category(category);
-                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,categoryTemp);
-                    AuctionsDatabase.getInstance().addCurrentAuction(auction);
-                    AuctionsDatabase.getInstance().getCurrentAuctions(currentUser);
+                    Category category = CategoriesDatabase.getInstance().findCategoryByString("Skutery");
+
+                    Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
+                    AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
 
                 case MAKING_OFFER:{
-                    AddingOfferView.settingAuctionTitle();
-                    String title=scanner.next();
-                    AddingOfferView.settingNewPrice();
-                    BigDecimal price= scanner.nextBigDecimal();
-                    offerController.creatingOffer(currentUser,price);
-                    offerController.addOffer();
-
+                    AddingOfferView.GetAuctionId();
+                    int id = scanner.nextInt();
+                    MakingOfferView.askingForPrice();
+                    BigDecimal price = scanner.nextBigDecimal();
+                    for(int i = 0 ;i<AuctionsDatabase.getInstance().getCurrentAuctionsMap().size()-1;i++ ){
+                        if(AuctionControllers.getInstance().AuctionList.containsKey(id)==true){
+                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id),offerController.creatingOffer(currentUser,price));
+                        }
+                    }
                     break;
                 }
 

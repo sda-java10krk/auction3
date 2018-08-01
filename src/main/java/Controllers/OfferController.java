@@ -10,19 +10,21 @@ import Models.OfferDatabase;
 import Models.User;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 
 public class OfferController {
 
         public Offer creatingOffer(User user, BigDecimal price) throws NegativeOfferPriceException {
-            Offer offer = new Offer(user,price, OfferID.getInstance().getId());
-//            Offer.getInstance().AllOfferOfUser.put(user.getLogin(),offer);
+
+            Offer offer = new Offer(user,price,OfferID.getInstance().getId());
+
             return offer;
         }
 // czy mam to rozumiec ze nazwalismy te funkcje addOffer i tak samo sie nazywa w Auction tylko tutaj wywoujemy
-        public void addOffer(Auction auction, Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction, NegativeOfferPriceException {
+        public void addOffer(Auction auction,Offer offer) throws AddingOfferToOwnAuction, OfferTooLowException {
             auction.addOffer(offer);
-            Offer.getInstance().
+            offer.allOfferOfAuction.put(auction.getId(),offer);
         }
 
 
