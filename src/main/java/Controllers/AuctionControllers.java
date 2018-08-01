@@ -7,7 +7,6 @@ import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
 import Models.User;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -21,20 +20,21 @@ public class AuctionControllers {
     private AuctionFileManager auctionFileManager = new AuctionFileManager();
 
     public static AuctionControllers getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new AuctionControllers();
         }
         return instance;
     }
-    public void AuctionList(){
-        this.AuctionList=new HashMap<>();
+
+    public void AuctionList() {
+        this.AuctionList = new HashMap<>();
     }
 
-    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception, IOException {
+    public Auction createAuction(User user, String title, String description, BigDecimal startingPrice, Category category, Integer counter) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception, IOException {
 
-        Auction auction = new Auction(user,title,description,startingPrice,category,AuctionID.getInstance().getId());
-        category.addAuction(auction);
-        AuctionsDatabase.getInstance().addCurrentAuction(auction);
+        Auction auction = new Auction(user, title, description, startingPrice, category, counter);
+       category.addAuction(auction);
+       AuctionsDatabase.getInstance().addCurrentAuction(auction);
         auctionFileManager.saveAuctionToFileCSV(AuctionsDatabase.getInstance().getCurrentAuctionsMap());
 
         return auction;
@@ -42,7 +42,7 @@ public class AuctionControllers {
 
     public Set<Auction> showSpecificAuction(Category category) throws NoSuchACategoryException {
 
-        if(category.getAuction()==null){
+        if (category.getAuction() == null) {
             throw new NoSuchACategoryException();
         }
         return category.getAuction();
@@ -50,14 +50,5 @@ public class AuctionControllers {
     }
 
 
-
-
-//    public void showMyListingAuction(){
-//
-//        AuctionsDatabase.getInstance().getCurrentAuctions();
-//
-//
-//
-//    }
 
 }

@@ -1,5 +1,6 @@
 import Controllers.UserList;
 import Exceptions.*;
+import Helpers.AuctionFileCounterManager;
 import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
 
@@ -77,5 +78,6 @@ public class FileReadTest {
 
         assertEquals(saveAuctionToMapTest, loadAuctionListTest);
     }
+
 }
 

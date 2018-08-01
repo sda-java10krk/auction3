@@ -20,5 +20,6 @@ public class LoggedUserMenuView {
         System.out.println("4.Wyświetlić wygrane przez Ciebie aukcje");
         System.out.println("5.Wylogować");
         System.out.println("6.Wyjść");
+        System.out.println("7.Wyświetl listę aktywnych aukcji");
     }
 }

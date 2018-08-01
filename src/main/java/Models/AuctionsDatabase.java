@@ -6,17 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class AuctionsDatabase {
     private static AuctionsDatabase instance;
-    private Map<Integer,Auction> currentAuctionsMap;
-    private Map<Integer,Auction> winningAuctionsMap;
+    private Map<Integer, Auction> currentAuctionsMap;
+    private Map<Integer, Auction> winningAuctionsMap;
 
 
-
-    public static AuctionsDatabase getInstance(){
-        if (instance == null){
+    public static AuctionsDatabase getInstance() {
+        if (instance == null) {
             instance = new AuctionsDatabase();
         }
         return instance;
@@ -27,20 +25,21 @@ public class AuctionsDatabase {
         this.winningAuctionsMap = new HashMap<>();
     }
 
-    public void addCurrentAuction(Auction auction){
+    public void addCurrentAuction(Auction auction) {
 
         this.currentAuctionsMap.put(auction.getId(), auction);
 
     }
 
+
     @Override
+
     public String toString() {
         return "AuctionsDatabase{" +
                 "currentAuctionsMap=" + currentAuctionsMap +
                 ", winningAuctionsMap=" + winningAuctionsMap +
                 '}';
     }
-
 
     public Map<Integer, Auction> getCurrentAuctionsMap() {
         return currentAuctionsMap;
@@ -50,21 +49,20 @@ public class AuctionsDatabase {
         return winningAuctionsMap;
     }
 
-    public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException{
+    public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException {
 
-        if(auction.auctionWinnerChecking()){
-            this.winningAuctionsMap.put(auction.getId(),auction);
-        }
-        else{
+        if (auction.auctionWinnerChecking()) {
+            this.winningAuctionsMap.put(auction.getId(), auction);
+        } else {
             throw new AuctionNotEndedYetException();
         }
 
     }
 
-    public List<Auction> getCurrentAuctions(User user){
+    public List<Auction> getCurrentAuctions(User user) {
         List<Auction> auctions = new ArrayList<>();
         for (Map.Entry<Integer, Auction> entry : currentAuctionsMap.entrySet()) {
-            if(currentAuctionsMap.containsValue(user.getLogin())){
+            if (currentAuctionsMap.containsValue(user.getLogin())) {
                 auctions.add(entry.getValue());
             }
         }
@@ -88,8 +86,6 @@ public class AuctionsDatabase {
 //        }
 //        return auctions;
 //    }
-
-
 
 
 }

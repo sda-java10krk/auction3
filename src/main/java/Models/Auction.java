@@ -20,50 +20,55 @@ public class Auction implements Serializable {
     private Integer id;
 
 
+    public int getId() {
+        return this.id;
+    }
+
+
     public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, int id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, AuctionId0Exception {
 
         this.user = user;
 
-        if(title.length()==0){
+        if (title.length() == 0) {
             throw new EmptyTitleException();
         }
         this.title = title;
 
-        if(description.length()==0){
+        if (description.length() == 0) {
             throw new EmptyDescriptionException();
         }
         this.description = description;
 
-        if(startingPrice.compareTo(BigDecimal.valueOf(0))>0){
+        if (startingPrice.compareTo(BigDecimal.valueOf(0)) > 0) {
             this.startingPrice = startingPrice;
-        }else{
+        } else {
             throw new TooLowPriceException();
         }
-        if(category.isSubcategoryPresent()){
+        if (category.isSubcategoryPresent()) {
             throw new SubcategoryPresentException();
         }
         this.category = category;
 
         this.offersList = new LinkedList<>();
 
-        if(id==0){
+        if (id == 0) {
             throw new AuctionId0Exception();
         }
         this.id = id;
     }
 
-    public boolean addOffer(Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction{
+    public boolean addOffer(Auction auction,Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
 
-        if(offer.getUser().equals(user)){
+        if (offer.getUser().equals(user)) {
             throw new AddingOfferToOwnAuction();
         }
-        if(this.currentOffer!=null && offer.getPrice().compareTo(this.currentOffer.getPrice())<=0 || offer.getPrice().compareTo(this.startingPrice)<=0){
+        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0 || offer.getPrice().compareTo(this.startingPrice) <= 0) {
             throw new OfferTooLowException();
-        }else{
-            if(auctionWinnerChecking()) {
+        } else {
+            if (auctionWinnerChecking()) {
                 return false;
-            }else {
-                this.offersList.add(offer);
+            } else {
+                this.offersList.add(auction.getId(),offer);
                 this.currentOffer = offer;
             }
         }
@@ -72,17 +77,13 @@ public class Auction implements Serializable {
     }
 
 
-    public boolean auctionWinnerChecking(){
-        if(this.offersList.size()==3){
+    public boolean auctionWinnerChecking() {
+        if (this.offersList.size() == 3) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
-
-
-
 
     public User getUser() {
         return user;
@@ -112,9 +113,6 @@ public class Auction implements Serializable {
         return currentOffer;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
     @Override
     public boolean equals(Object o) {

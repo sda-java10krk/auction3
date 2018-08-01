@@ -11,16 +11,15 @@ public class AuctionFileCounterManager {
 
     private static final String SEPARATOR = ",";
 
-    public void saveAuctionCounterToFileCSV(Map<Integer, Auction> map) throws IOException {
+    public void saveAuctionCounterToFileCSV(Integer counter) throws IOException {
 
         String fileName = "AuctionCounterFile.csv";
         FileWriter fileWriter = null;
 
         try {
-            for (Auction auction : map.values()) {
                 fileWriter = new FileWriter(fileName);
-                fileWriter.append(String.valueOf(auction.getId()));
-            }
+                fileWriter.append(String.valueOf(counter));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +37,7 @@ public class AuctionFileCounterManager {
         String fileName = "AuctionCounterFile.csv";
         String line = "";
         String cvsSplitBy = ",";
-        Integer auctionID = 0;
+        Integer auctionID =1;
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
