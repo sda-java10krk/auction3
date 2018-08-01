@@ -173,6 +173,7 @@ public class Main {
 
                     Auction auction = AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category);
                     AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+                    Map<String, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
                     OfferDatabase.getInstance().AddAuctionOfUser(currentUser,auction);
                     OfferDatabase.getInstance().getAllAuctionsOfUser(currentUser);
                     state = State.SHOWING_CATEGORY;
