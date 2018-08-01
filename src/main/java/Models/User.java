@@ -59,10 +59,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return login;
     }
 }
 
