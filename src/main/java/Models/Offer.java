@@ -14,27 +14,6 @@ public class Offer implements Serializable {
     private User user;
     private BigDecimal price;
     private int id=0;
-    private static Offer instance;
-    private Map<Integer,Offer> allOfferOfAuction;
-
-    private Offer(){
-        this.allOfferOfAuction = new HashMap<>();
-    }
-
-    public void addOffert(Auction auction,Offer offer){
-        this.allOfferOfAuction.put(auction.getId(),offer);
-    }
-
-    public static Offer getInstance() throws NegativeOfferPriceException {
-        if(instance==null){
-            instance= new Offer();
-        }
-        return instance;
-    }
-
-    public Map<Integer, Offer> getAllOfferOfAuction() {
-        return allOfferOfAuction;
-    }
 
 
     public Offer(User user, BigDecimal price,int id) throws NegativeOfferPriceException {

@@ -192,31 +192,62 @@ public class Main {
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
 
-//                    for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; i++) {
-//                        if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
-//                            offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offerController.creatingOffer(currentUser, price));
-//
-//                            for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; ) {
-//                                if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
-//                                    Offer offer = offerController.creatingOffer(currentUser, price);
-//                                    offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
-//                                    AddingOfferView.NewOfferCreate();
-//                                    state = State.SHOWING_CATEGORY;
-//                                    break;
-//
-//                                } else
-//                                    i++;
-//                            }
-//                            state = State.SHOWING_CATEGORY;
-//                            break;
-//                        }
-//                    }
+                            for (int i = 0; i < AuctionsDatabase.getInstance().getCurrentAuctionsMap().size() - 1; ) {
+                                if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
+                                    Offer offer = offerController.creatingOffer(currentUser, price);
+                                    offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
+                                    AddingOfferView.NewOfferCreate();
+                                    state = State.SHOWING_CATEGORY;
+                                    break;
+
+                                } else
+                                    i++;
+                            }
+                            state = State.SHOWING_CATEGORY;
+                            break;
                 }
 
                 case LISTING_AUCTIONS:{
 
-                   break;
 
+                    Map<Integer,Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
+
+                    for (Map.Entry entry : map.entrySet()) {
+                        System.out.println(entry.getKey() + ", " + entry.getValue());
+
+                    }
+                    LoggedUserMenuView.TreeViewOptions();
+                    String answer = scanner.next();
+                    switch(answer){
+                        case("1"):{
+                            state = State.ADDING_AUCTION;
+                            break;
+
+                        }
+                        case("2"):{
+                            state = State.MAKING_OFFER;
+                            break;
+
+                        }
+                        case("4"):{
+                            state = State.WINNING_AUCTIONS;
+                            break;
+
+                        }
+                        case("5"):{
+                            state = State.LOGOUT;
+                            break;
+                        }
+                        case("6"):{
+                            state = State.STOP;
+                            break;
+                        }
+                        case("7"):{
+                            state = State.LISTING_AUCTIONS;
+                            break;
+                        }
+                    }
+                   break;
                 }
 
                 case WINNING_AUCTIONS:{
