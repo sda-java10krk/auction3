@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws Exception {
 
         int n=0;
@@ -197,8 +198,6 @@ public class Main {
                                     Offer offer = offerController.creatingOffer(currentUser, price);
                                     offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
                                     AddingOfferView.NewOfferCreate();
-                                    state = State.SHOWING_CATEGORY;
-                                    break;
 
                                 } else
                                     i++;
