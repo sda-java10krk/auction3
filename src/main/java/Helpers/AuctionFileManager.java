@@ -24,7 +24,7 @@ public class AuctionFileManager {
         FileWriter fileWriter = null;
 
         try {
-            fileWriter = new FileWriter(fileName, true);
+            fileWriter = new FileWriter(fileName);
             for (Auction auction : map.values()) {
 
                 fileWriter.append(auction.getUser().getLogin());

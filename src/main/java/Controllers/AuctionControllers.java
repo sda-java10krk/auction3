@@ -16,7 +16,7 @@ import java.util.Set;
 public class AuctionControllers {
 
     public static AuctionControllers instance;
-    public Map<Integer,Auction>AuctionList;
+    public Map<Integer,Auction> AuctionList;
     private AuctionFileManager auctionFileManager = new AuctionFileManager();
 
     public static AuctionControllers getInstance() {
@@ -48,7 +48,6 @@ public class AuctionControllers {
         return category.getAuction();
 
     }
-
 
 
 }

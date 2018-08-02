@@ -30,23 +30,21 @@ public class Main {
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
-        AuctionFileCounterManager auctionFileCounterManager1 = new AuctionFileCounterManager();
 
-        userFileManager.ExistFileUserCSV();
 
         AuctionFileManager auctionFileManager = new AuctionFileManager();
         AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
 
-        userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
         auctionFileCounterManager.ExistFileAuctionCounterCSV();
-
-        Integer counter = auctionFileCounterManager.readAuctionCounterFromFileCsv();
+        userFileManager.ExistFileUserCSV();
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
-        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
 
+        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
+        // do currentAuction dodajemy aukcje z pliku
         AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+
         UserList.getInstance().setUserList(users);
 
 
@@ -186,8 +184,8 @@ public class Main {
                     BigDecimal startingPrice = scanner.nextBigDecimal();
                     AddingAuctionView.settingCategory();
                     String categoryId = scanner.next();
-
                     Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
+                    Integer counter = auctionFileCounterManager.readAuctionCounterFromFileCsv();
 
                     AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category,counter);
                     auctionFileCounterManager.saveAuctionCounterToFileCSV(counter);
@@ -223,6 +221,7 @@ public class Main {
                         System.out.println(entry.getKey() + ", " + entry.getValue());
 
                     }
+
                     LoggedUserMenuView.TreeViewOptions();
                     String answer = scanner.next();
                     switch(answer){

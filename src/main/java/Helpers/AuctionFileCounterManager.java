@@ -37,7 +37,7 @@ public class AuctionFileCounterManager {
         String fileName = "AuctionCounterFile.csv";
         String line = "";
         String cvsSplitBy = ",";
-        Integer auctionID =1;
+        Integer auctionID = null;
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
@@ -54,7 +54,6 @@ public class AuctionFileCounterManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return auctionID;
     }
 
@@ -66,6 +65,11 @@ public class AuctionFileCounterManager {
         if (file.exists()) {
         } else {
             file.createNewFile();
+            FileWriter fileWriter = null;
+            fileWriter = new FileWriter(fileName);
+            Integer firstAuctionID = 0;
+            fileWriter.append(String.valueOf(firstAuctionID));
+            fileWriter.close();
         }
     }
 }
