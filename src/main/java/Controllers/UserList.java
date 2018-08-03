@@ -21,7 +21,6 @@ public class UserList {
     private UserFileManager userFileManager = new UserFileManager();
 
 
-
     public Map<String, User> getUserList () {
         return userList;
     }

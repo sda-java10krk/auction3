@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class AuctionsDatabase {
     private static AuctionsDatabase instance;
+
     private Map<Integer, Auction> currentAuctionsMap;
     private Map<Integer, Auction> winningAuctionsMap;
 

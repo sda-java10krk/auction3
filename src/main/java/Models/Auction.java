@@ -20,14 +20,12 @@ public class Auction implements Serializable {
     private Integer id;
 
 
-
     public int getId() {
         return this.id;
     }
 
 
     public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, int id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, AuctionId0Exception {
-
 
         this.user = user;
 
@@ -69,9 +67,9 @@ public class Auction implements Serializable {
             this.offersList.add(auction.getId(),offer);
             this.currentOffer = offer;
         }
-        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0){
-            throw new OfferTooLowException();
-        } else {
+//        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0){
+//            throw new OfferTooLowException();
+         else {
 //            if (auctionWinnerChecking()) {
 //                return false;
 //            } else {

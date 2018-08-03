@@ -24,7 +24,7 @@ public class AuctionFileManager {
         FileWriter fileWriter = null;
 
         try {
-            fileWriter = new FileWriter(fileName, true);
+            fileWriter = new FileWriter(fileName);
             for (Auction auction : map.values()) {
 
                 fileWriter.append(auction.getUser().getLogin());
@@ -63,7 +63,9 @@ public class AuctionFileManager {
         String fileName = "AuctionList.csv";
         String line = "";
         String cvsSplitBy = ",";
+
         Map<Integer, Auction> map = new HashMap<>();
+
         UserList userList = UserList.getInstance();
 
         try {
@@ -71,7 +73,7 @@ public class AuctionFileManager {
             while ((line = fileReader.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
-                    Auction auction = new Auction(UserList.getInstance().getUserList().get(data[USER_LOGIN]), data[TITLE], data[DESCRIPTION], new BigDecimal(data[STARTING_PRICE]), new Category(data[CATEGORY]), Integer.parseInt(data[AUCTION_ID]));
+                    Auction auction = new Auction(UserList.getInstance().getUserList().get(data[USER_LOGIN]), data[TITLE], data[DESCRIPTION], new BigDecimal(data[STARTING_PRICE]), new Category(data[CATEGORY]), Integer.valueOf(data[AUCTION_ID]));
                     map.put(Integer.valueOf(data[AUCTION_ID]), auction);
                 }
             }
@@ -82,7 +84,7 @@ public class AuctionFileManager {
         }
         return map;
     }
-    
+
     public void ExistFileAuctionCSV() throws IOException {
 
         String fileName = "AuctionList.csv";
@@ -92,4 +94,5 @@ public class AuctionFileManager {
             file.createNewFile();
         }
     }
+
 }

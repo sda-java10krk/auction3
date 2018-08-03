@@ -15,10 +15,9 @@ import java.util.Map;
 
 public class OfferController {
 
-        public Offer creatingOffer(User user, BigDecimal price) throws NegativeOfferPriceException {
+        public Offer creatingOffer(User user, BigDecimal price,Auction auction) throws OfferTooLowException {
 
-            Offer offer = new Offer(user,price, OfferID.getInstance().getId());
-
+            Offer offer = new Offer(user,price, OfferID.getInstance().getId(), auction.getId());
 
             return offer;
         }

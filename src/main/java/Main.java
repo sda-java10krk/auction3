@@ -3,8 +3,7 @@ import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
-import Helpers.AuctionFileManager;
-import Helpers.UserFileManager;
+import Helpers.*;
 import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
@@ -28,20 +27,25 @@ public class Main {
         User currentUser = null;
 
         UserControllers userControllers = new UserControllers();
-        UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
 
-        userFileManager.ExistFileUserCSV();
-
+        UserFileManager userFileManager = new UserFileManager();
         AuctionFileManager auctionFileManager = new AuctionFileManager();
+        AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
+        OfferFileCounterManager offerFileCounterManager = new OfferFileCounterManager();
+        OfferFileManager offerFileManager = new OfferFileManager();
 
         userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
+        auctionFileCounterManager.ExistFileAuctionCounterCSV();
+        offerFileManager.ExistFileOfferCSV();
+        offerFileCounterManager.ExistFileOfferCounterCSV();
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
-        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
 
+        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
         AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+
         UserList.getInstance().setUserList(users);
 
 
@@ -181,9 +185,11 @@ public class Main {
                     BigDecimal startingPrice = scanner.nextBigDecimal();
                     AddingAuctionView.settingCategory();
                     String categoryId = scanner.next();
-
                     Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
-                    AuctionControllers.getInstance().createAuction(currentUser, title, description, startingPrice, category);
+                    Integer counter = auctionFileCounterManager.readAuctionCounterFromFileCsv();
+                    AuctionControllers.getInstance().createAuction(currentUser, title, description, startingPrice, category, counter);
+                    auctionFileCounterManager.saveAuctionCounterToFileCSV(counter);
+
                     state = State.SHOWING_CATEGORY;
                     break;
                 }
@@ -195,12 +201,10 @@ public class Main {
                     BigDecimal price = scanner.nextBigDecimal();
 
 
-
-
 //                    if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
-                        Offer offer = offerController.creatingOffer(currentUser, price);
-                        offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
-                        AddingOfferView.NewOfferCreate();
+                    Offer offer = offerController.creatingOffer(currentUser, price,AuctionsDatabase.getInstance().getCurrentAuctions(currentUser).get(id));
+                    offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
+                    AddingOfferView.NewOfferCreate();
 //                    }
 //                    else
 //                        AddingOfferView.Error();
@@ -208,59 +212,66 @@ public class Main {
                     break;
 
                 }
-            case LISTING_AUCTIONS: {
+                case LISTING_AUCTIONS: {
 
-
-                Map<Integer, Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
-
-                for (Map.Entry entry : map.entrySet()) {
-                    System.out.println(entry.getKey() + ", " + entry.getValue());
 
                 }
+                Map<Integer, Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
                 LoggedUserMenuView.TreeViewOptions();
                 String answer = scanner.next();
                 switch (answer) {
                     case ("1"): {
                         state = State.ADDING_AUCTION;
+
+                        for(Map.Entry entry : map.entrySet()) {
+                            System.out.println(entry.getKey() + ", " + entry.getValue());
+                        }
+
+
+                        LoggedUserMenuView.TreeViewOptions();
+                        String answer1 = scanner.next();
+                        switch (answer1) {
+                            case ("1"): {
+                                state = State.ADDING_AUCTION;
+                                break;
+
+                            }
+                            case ("2"): {
+                                state = State.MAKING_OFFER;
+                                break;
+
+                            }
+                            case ("4"): {
+                                state = State.WINNING_AUCTIONS;
+                                break;
+
+                            }
+                            case ("5"): {
+                                state = State.LOGOUT;
+                                break;
+                            }
+                            case ("6"): {
+                                state = State.STOP;
+                                break;
+                            }
+                            case ("7"): {
+                                state = State.LISTING_AUCTIONS;
+                                break;
+                            }
+                        }
                         break;
+                    }
+
+//                    case WINNING_AUCTIONS: {
 
                     }
-                    case ("2"): {
-                        state = State.MAKING_OFFER;
-                        break;
 
-                    }
-                    case ("4"): {
-                        state = State.WINNING_AUCTIONS;
-                        break;
 
-                    }
-                    case ("5"): {
-                        state = State.LOGOUT;
-                        break;
-                    }
-                    case ("6"): {
-                        state = State.STOP;
-                        break;
-                    }
-                    case ("7"): {
-                        state = State.LISTING_AUCTIONS;
-                        break;
-                    }
                 }
-                break;
             }
-
-            case WINNING_AUCTIONS: {
-
-            }
-
 
         }
     }
-
-}
-}
 
 /*
 rozkminic countera
