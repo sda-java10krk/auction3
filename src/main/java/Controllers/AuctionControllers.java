@@ -27,7 +27,7 @@ public class AuctionControllers {
         return instance;
     }
 
-    public void AuctionList() {
+    public AuctionControllers() {
         this.AuctionList = new HashMap<>();
     }
 

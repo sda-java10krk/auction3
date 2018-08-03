@@ -62,15 +62,20 @@ public class Auction implements Serializable {
         if (offer.getUser().equals(user)) {
             throw new AddingOfferToOwnAuction();
         }
-        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0 || offer.getPrice().compareTo(this.startingPrice) <= 0) {
-            throw new OfferTooLowException();
-        } else {
-            if (auctionWinnerChecking()) {
-                return false;
-            } else {
-                this.offersList.add(auction.getId(),offer);
+        if( this.currentOffer == null && offer.getPrice().compareTo(this.startingPrice) <= 0){
+
+            this.offersList.add(auction.getId(),offer);
+            this.currentOffer = offer;
+        }
+//        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0){
+//            throw new OfferTooLowException();
+         else {
+//            if (auctionWinnerChecking()) {
+//                return false;
+//            } else {
+                this.offersList.add(offer);
                 this.currentOffer = offer;
-            }
+//            }
         }
 
         return true;
@@ -131,7 +136,22 @@ public class Auction implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(user, title, description, startingPrice, category, offersList, currentOffer, id);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Auction{");
+        sb.append("user=").append(user);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        if(currentOffer==null) {
+            sb.append(", startingPrice=").append(startingPrice);
+        }
+        sb.append(", category=").append(category);
+        sb.append(", currentOffer=").append(currentOffer);
+        sb.append('}');
+        return sb.toString();
     }
 }
 /*

@@ -1,6 +1,8 @@
 package Models;
 
 import Exceptions.NegativeOfferPriceException;
+import Exceptions.OfferTooLowException;
+import Exceptions.TooLowPriceException;
 import Models.User;
 
 import java.io.Serializable;
@@ -16,10 +18,10 @@ public class Offer implements Serializable {
     private int id=0;
 
 
-    public Offer(User user, BigDecimal price,int id) throws NegativeOfferPriceException {
+    public Offer(User user, BigDecimal price,int id, int idAuction) throws OfferTooLowException {
         this.user = user;
         if(price.compareTo(BigDecimal.valueOf(0))<0){
-            throw new NegativeOfferPriceException();
+            throw new OfferTooLowException();
         }
         this.price = price;
         this.id = id;
@@ -50,5 +52,14 @@ public class Offer implements Serializable {
     public int hashCode() {
 
         return Objects.hash(user, price);
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "user=" + user +
+                ", price=" + price +
+                ", id=" + id +
+                '}';
     }
 }

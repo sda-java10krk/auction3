@@ -43,12 +43,13 @@ public class OfferFileManager {
         }
     }
 
-    private static final int AUCTION_ID = 0;
-    private static final int USER_LOGIN = 1;
-    private static final int PRICE = 2;
-    private static final int OFFER_ID = 3;
 
-    public Map<Integer, Offer> readOfferFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception, NegativeOfferPriceException {
+    private static final int USER_LOGIN = 0;
+    private static final int PRICE = 1;
+    private static final int OFFER_ID = 2;
+    private static final int AUCTION_ID = 3;
+
+    public Map<Integer, Offer> readOfferFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception, NegativeOfferPriceException, OfferTooLowException {
 
         String fileName = "OfferList.csv";
         String line = "";
@@ -63,8 +64,7 @@ public class OfferFileManager {
             while ((line = fileReader.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
-                    //data [AUCTION_ID],
-                    Offer offer = new Offer(UserList.getInstance().getUserList().get(data[USER_LOGIN]), new BigDecimal(data[PRICE]), Integer.valueOf(data[OFFER_ID]));
+                   Offer offer = new Offer(UserList.getInstance().getUserList().get(data[USER_LOGIN]), new BigDecimal(data[PRICE]), Integer.valueOf(data[OFFER_ID]),Integer.valueOf(data [AUCTION_ID]));
                     map.put(Integer.valueOf(data[AUCTION_ID]), offer);
                 }
             }
