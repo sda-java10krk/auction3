@@ -48,4 +48,13 @@ public class Offer implements Serializable {
 
         return Objects.hash(user, price);
     }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "user=" + user +
+                ", price=" + price +
+                ", id=" + id +
+                '}';
+    }
 }

@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
+    @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws Exception {
 
         int n = 0;
@@ -192,15 +193,20 @@ public class Main {
                     int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
+
+
+
+
 //                    if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
                         Offer offer = offerController.creatingOffer(currentUser, price);
-                        offerController.addOffer(AuctionControllers.getInstance().AuctionList.get(id), offer);
+                        offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
                         AddingOfferView.NewOfferCreate();
 //                    }
 //                    else
 //                        AddingOfferView.Error();
                     state = State.SHOWING_CATEGORY;
                     break;
+
                 }
             case LISTING_AUCTIONS: {
 
