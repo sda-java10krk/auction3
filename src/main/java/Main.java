@@ -3,6 +3,7 @@ import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
+import Helpers.AuctionFileCounterManager;
 import Helpers.AuctionFileManager;
 import Helpers.UserFileManager;
 import Models.Auction;
@@ -30,13 +31,18 @@ public class Main {
         UserControllers userControllers = new UserControllers();
         UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
+        AuctionFileCounterManager auctionFileCounterManager1 = new AuctionFileCounterManager();
 
         userFileManager.ExistFileUserCSV();
 
         AuctionFileManager auctionFileManager = new AuctionFileManager();
+        AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
 
         userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
+        auctionFileCounterManager.ExistFileAuctionCounterCSV();
+
+        Integer counter = auctionFileCounterManager.readAuctionCounterFromFileCsv();
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
         Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
@@ -183,7 +189,10 @@ public class Main {
                     String categoryId = scanner.next();
 
                     Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
-                    AuctionControllers.getInstance().createAuction(currentUser, title, description, startingPrice, category);
+
+                    AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category,counter);
+                    auctionFileCounterManager.saveAuctionCounterToFileCSV(counter);
+
                     state = State.SHOWING_CATEGORY;
                     break;
                 }

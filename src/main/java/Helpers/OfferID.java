@@ -3,7 +3,7 @@ package Helpers;
 public class OfferID {
 
     private static OfferID instance;
-    private static int id=0;
+    private Integer id=0;
 
     public static OfferID getInstance(){
         if (instance == null){
@@ -11,7 +11,7 @@ public class OfferID {
         }
         return instance;
     }
-    public int getId(){
+    public Integer getId(){
 
         id++;
         return id;

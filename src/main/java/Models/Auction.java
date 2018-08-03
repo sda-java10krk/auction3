@@ -20,14 +20,12 @@ public class Auction implements Serializable {
     private Integer id;
 
 
-
     public int getId() {
         return this.id;
     }
 
 
     public Auction(User user, String title, String description, BigDecimal startingPrice, Category category, int id) throws SubcategoryPresentException, TooLowPriceException, EmptyTitleException, EmptyDescriptionException, AuctionId0Exception {
-
 
         this.user = user;
 
