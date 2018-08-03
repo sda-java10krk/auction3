@@ -3,6 +3,7 @@ package Models;
 import Exceptions.NegativeOfferPriceException;
 import Exceptions.OfferTooLowException;
 import Exceptions.TooLowPriceException;
+import Helpers.OfferID;
 import Models.User;
 
 import java.io.Serializable;
@@ -15,10 +16,10 @@ public class Offer implements Serializable {
 
     private User user;
     private BigDecimal price;
-    private int id=0;
+    private Integer id=0;
 
 
-    public Offer(User user, BigDecimal price,int id, int idAuction) throws OfferTooLowException {
+    public Offer(User user, BigDecimal price, Integer idOffer ,Integer idAuction) throws OfferTooLowException {
         this.user = user;
         if(price.compareTo(BigDecimal.valueOf(0))<0){
             throw new OfferTooLowException();

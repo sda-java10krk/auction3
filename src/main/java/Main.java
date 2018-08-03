@@ -28,7 +28,6 @@ public class Main {
 
         UserControllers userControllers = new UserControllers();
         OfferController offerController = new OfferController();
-
         UserFileManager userFileManager = new UserFileManager();
         AuctionFileManager auctionFileManager = new AuctionFileManager();
         AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
@@ -199,10 +198,10 @@ public class Main {
                     int id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
-
-
+                    OfferID offerID = new OfferID();
+                    Integer counter = offerFileCounterManager.readOfferCounterFromFileCsv();
 //                    if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
-                    Offer offer = offerController.creatingOffer(currentUser, price,AuctionsDatabase.getInstance().getCurrentAuctions(currentUser).get(id));
+                    Offer offer = (Offer) offerController.creatingOffer(currentUser, price,counter,id);
                     offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
                     AddingOfferView.NewOfferCreate();
 //                    }
@@ -214,8 +213,6 @@ public class Main {
                 }
                 case LISTING_AUCTIONS: {
 
-
-                }
                 Map<Integer, Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
                 LoggedUserMenuView.TreeViewOptions();
                 String answer = scanner.next();
@@ -271,7 +268,7 @@ public class Main {
             }
 
         }
-    }
+    }}
 
 /*
 rozkminic countera

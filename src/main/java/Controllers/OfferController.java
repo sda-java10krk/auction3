@@ -6,18 +6,16 @@ import Exceptions.OfferTooLowException;
 import Helpers.OfferID;
 import Models.Auction;
 import Models.Offer;
-import Models.OfferDatabase;
 import Models.User;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 
 public class OfferController {
 
-        public Offer creatingOffer(User user, BigDecimal price,Auction auction) throws OfferTooLowException {
+        public Offer creatingOffer(User user, BigDecimal price,Integer offerId ,Integer auctionId) throws OfferTooLowException {
 
-            Offer offer = new Offer(user,price, OfferID.getInstance().getId(), auction.getId());
+            Offer offer = new Offer(user,price,offerId , auctionId);
 
             return offer;
         }
