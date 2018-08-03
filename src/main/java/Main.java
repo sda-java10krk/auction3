@@ -255,3 +255,11 @@ public class Main {
 
 }
 }
+
+/*
+rozkminic countera
+zapisywanie oferty
+zwyciesto aukcji (3 oferta)
+usuniecie aukcji po zwyciestwie ( osobna mapa na zakonczone aukcje)
+
+*/
