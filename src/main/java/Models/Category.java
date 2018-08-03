@@ -10,10 +10,7 @@ import Models.Auction;
 
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Category implements Serializable {
 
@@ -39,7 +36,7 @@ public class Category implements Serializable {
     public Category(String name) {
         this.name = name;
         this.subcategories = new HashSet<Category>();
-        this.auction = new HashSet<Auction>();
+        this.auction = new HashSet<>();
     }
 
 
@@ -123,6 +120,6 @@ public class Category implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(auction, subcategories, name);
+        return Objects.hash(name);
     }
 }

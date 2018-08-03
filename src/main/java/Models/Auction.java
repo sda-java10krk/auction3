@@ -131,23 +131,7 @@ public class Auction implements Serializable {
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(user, title, description, startingPrice, category, offersList, currentOffer, id);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Auction{");
-        sb.append("user=").append(user);
-        sb.append(", title='").append(title).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", startingPrice=").append(startingPrice);
-        sb.append(", category=").append(category);
-        sb.append(", offersList=").append(offersList);
-        sb.append(", currentOffer=").append(currentOffer);
-        sb.append(", id=").append(id);
-        sb.append('}');
-        return sb.toString();
+        return Objects.hash(id);
     }
 }
 /*
