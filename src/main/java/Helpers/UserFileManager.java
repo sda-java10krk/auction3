@@ -21,7 +21,6 @@ public class UserFileManager {
     public void saveUserToFileCSV(Map<String, User> map) throws IOException {
 
         String fileName = "UserList2.csv";
-        //UserFileManager.toEnoughtDiskSpace();
         FileWriter fileWriter = null;
 
         try {

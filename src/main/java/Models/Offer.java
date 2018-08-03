@@ -25,6 +25,9 @@ public class Offer implements Serializable {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public User getUser() {
         return user;

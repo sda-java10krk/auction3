@@ -3,9 +3,7 @@ import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
-import Helpers.AuctionFileCounterManager;
-import Helpers.AuctionFileManager;
-import Helpers.UserFileManager;
+import Helpers.*;
 import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
@@ -28,21 +26,23 @@ public class Main {
         User currentUser=null;
 
         UserControllers userControllers = new UserControllers();
-        UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
 
-
+        UserFileManager userFileManager = new UserFileManager();
         AuctionFileManager auctionFileManager = new AuctionFileManager();
         AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
+        OfferFileCounterManager offerFileCounterManager = new OfferFileCounterManager();
+        OfferFileManager offerFileManager = new OfferFileManager();
 
+        userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
         auctionFileCounterManager.ExistFileAuctionCounterCSV();
-        userFileManager.ExistFileUserCSV();
+        offerFileManager.ExistFileOfferCSV();
+        offerFileCounterManager.ExistFileOfferCounterCSV();
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
 
         Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
-        // do currentAuction dodajemy aukcje z pliku
         AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
 
         UserList.getInstance().setUserList(users);
