@@ -43,8 +43,7 @@ public class Main {
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
 
-        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
-        AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+
 
         UserList.getInstance().setUserList(users);
 
@@ -108,6 +107,9 @@ public class Main {
                     LoggedUserMenuView.FirstOptionsView();
                     String answer = scanner.next();
                     CategoryDisplay.printCategoryTree();
+                    Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
+                    AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+
                     switch (answer) {
                         case ("1"): {
                             state = State.SHOWING_CATEGORY;
@@ -139,6 +141,7 @@ public class Main {
                 case SHOWING_CATEGORY: {
                     CategoryDisplay.printCategoryTree();
                     LoggedUserMenuView.TreeViewOptions();
+
                     String answer = scanner.next();
                     switch (answer) {
                         case ("1"): {
