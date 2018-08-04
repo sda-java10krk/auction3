@@ -8,6 +8,7 @@ import Models.Offer;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,16 +25,14 @@ public class OfferFileManager {
 
         try {
             fileWriter = new FileWriter(fileName);
-                for(int i=0;i<list.size();i++){
-                //fileWriter.append(String.valueOf(Integer));
-                fileWriter.append(SEPARATOR);
-                fileWriter.append(String.valueOf(list.get(i).getId()));
-                fileWriter.append(SEPARATOR);
-                fileWriter.append((list.get(i).getUser()));
+            for (int i = 0; i < list.size(); i++) {
+                fileWriter.append((list.get(i).getUser().getLogin()));
                 fileWriter.append(SEPARATOR);
                 fileWriter.append(String.valueOf(list.get(i).getPrice()));
                 fileWriter.append(SEPARATOR);
-                fileWriter.append(list.get(i)
+                fileWriter.append(String.valueOf(list.get(i).getId()));
+                fileWriter.append(SEPARATOR);
+                fileWriter.append(String.valueOf(list.get(i).getIdAuction()));
                 fileWriter.append(NEW_LINE);
             }
         } catch (IOException e) {
@@ -52,14 +51,13 @@ public class OfferFileManager {
     private static final int OFFER_ID = 2;
     private static final int AUCTION_ID = 3;
 
-    public Map<Integer, Offer> readOfferFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception, NegativeOfferPriceException, OfferTooLowException {
+    public ArrayList<Offer> readOfferFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception, NegativeOfferPriceException, OfferTooLowException {
 
         String fileName = "OfferList.csv";
         String line = "";
         String cvsSplitBy = ",";
 
-        Map<Integer, Offer> map = new HashMap<>();
-
+        ArrayList <Offer> list = new ArrayList<>();
         UserList userList = UserList.getInstance();
 
         try {
@@ -67,8 +65,8 @@ public class OfferFileManager {
             while ((line = fileReader.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
-                   Offer offer = new Offer(UserList.getInstance().getUserList().get(data[USER_LOGIN]), new BigDecimal(data[PRICE]), Integer.valueOf(data[OFFER_ID]),Integer.valueOf(data [AUCTION_ID]));
-                    map.put(Integer.valueOf(data[AUCTION_ID]), offer);
+                    Offer offer = new Offer(UserList.getInstance().getUserList().get(data[USER_LOGIN]), new BigDecimal(data[PRICE]), Integer.valueOf(data[OFFER_ID]), Integer.valueOf(data[AUCTION_ID]));
+                    list.add((offer));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -76,7 +74,7 @@ public class OfferFileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return map;
+        return list;
     }
 
     public void ExistFileOfferCSV() throws IOException {

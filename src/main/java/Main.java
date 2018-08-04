@@ -33,12 +33,14 @@ public class Main {
         AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
         OfferFileCounterManager offerFileCounterManager = new OfferFileCounterManager();
         OfferFileManager offerFileManager = new OfferFileManager();
+        AuctionWinnerFileManager auctionWinnerFileManager = new AuctionWinnerFileManager();
 
         userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
         auctionFileCounterManager.ExistFileAuctionCounterCSV();
         offerFileManager.ExistFileOfferCSV();
         offerFileCounterManager.ExistFileOfferCounterCSV();
+        auctionWinnerFileManager.ExistFileAuctionCSV();
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
 
@@ -199,7 +201,7 @@ public class Main {
 
                 case MAKING_OFFER: {
                     AddingOfferView.GetAuctionId();
-                    int id = scanner.nextInt();
+                    Integer id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
                     OfferID offerID = new OfferID();
@@ -207,6 +209,7 @@ public class Main {
 //                    if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
                     Offer offer = (Offer) offerController.creatingOffer(currentUser, price,counter,id);
                     offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
+                    offerFileCounterManager.saveOfferCounterToFileCSV(counter);
                     AddingOfferView.NewOfferCreate();
 //                    }
 //                    else

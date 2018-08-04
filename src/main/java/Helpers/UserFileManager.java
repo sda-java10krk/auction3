@@ -24,7 +24,7 @@ public class UserFileManager {
         FileWriter fileWriter = null;
 
         try {
-            fileWriter = new FileWriter(fileName,true);
+            fileWriter = new FileWriter(fileName);
             for (User user : map.values()) {
                 fileWriter.append(user.getLogin());
                 fileWriter.append(SEPARATOR);

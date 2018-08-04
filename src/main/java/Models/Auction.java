@@ -3,6 +3,7 @@ package Models;
 import Exceptions.*;
 import Helpers.OfferFileManager;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -59,7 +60,7 @@ public class Auction implements Serializable {
         this.id = id;
     }
 
-    public boolean addOffer(Auction auction,Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
+    public boolean addOffer(Auction auction,Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction, IOException {
 
         if (offer.getUser().equals(user)) {
             throw new AddingOfferToOwnAuction();
@@ -76,7 +77,7 @@ public class Auction implements Serializable {
 //            } else {
                 this.offersList.add(offer);
                 this.currentOffer = offer;
-            offerFileManager.saveOfferToFileCSV(offer);
+            offerFileManager.saveOfferToFileCSV(offersList);
 //            }
         }
 

@@ -25,22 +25,22 @@ public class OfferFileCounterManager {
         }
     }
 
-    private static final int AUCTION_ID = 0;
+    private static final int OFFER_ID = 0;
 
     public Integer readOfferCounterFromFileCsv() {
 
         String fileName = "OfferCounterFile.csv";
         String line = "";
         String cvsSplitBy = ",";
-        Integer auctionID = null;
+        Integer offerID = null;
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
             while ((line = fileReader.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
-                    auctionID = Integer.valueOf(data[AUCTION_ID]);
-                    auctionID++;
+                    offerID = Integer.valueOf(data[OFFER_ID]);
+                    offerID++;
 
                 }
             }
@@ -49,7 +49,7 @@ public class OfferFileCounterManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return auctionID;
+        return offerID;
     }
 
 
@@ -62,8 +62,8 @@ public class OfferFileCounterManager {
             file.createNewFile();
             FileWriter fileWriter = null;
             fileWriter = new FileWriter(fileName);
-            Integer firstAuctionID = 0;
-            fileWriter.append(String.valueOf(firstAuctionID));
+            Integer OfferID = 0;
+            fileWriter.append(String.valueOf(OfferID));
             fileWriter.close();
         }
     }
