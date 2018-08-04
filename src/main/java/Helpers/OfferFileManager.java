@@ -9,6 +9,7 @@ import Models.Offer;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OfferFileManager {
@@ -16,21 +17,23 @@ public class OfferFileManager {
     private static final String SEPARATOR = ",";
     private static final String NEW_LINE = "\n";
 
-    public void saveOfferToFileCSV(Map<Integer, Offer> map) throws IOException {
+    public void saveOfferToFileCSV(List<Offer> list) throws IOException {
 
         String fileName = "OfferList.csv";
         FileWriter fileWriter = null;
 
         try {
             fileWriter = new FileWriter(fileName);
-            for (Offer offer : map.values()) {
+                for(int i=0;i<list.size();i++){
                 //fileWriter.append(String.valueOf(Integer));
                 fileWriter.append(SEPARATOR);
-                fileWriter.append(offer.getUser().getLogin());
+                fileWriter.append(String.valueOf(list.get(i).getId()));
                 fileWriter.append(SEPARATOR);
-                fileWriter.append(String.valueOf(offer.getPrice()));
+                fileWriter.append((list.get(i).getUser()));
                 fileWriter.append(SEPARATOR);
-                fileWriter.append(String.valueOf(offer.getId()));
+                fileWriter.append(String.valueOf(list.get(i).getPrice()));
+                fileWriter.append(SEPARATOR);
+                fileWriter.append(list.get(i)
                 fileWriter.append(NEW_LINE);
             }
         } catch (IOException e) {

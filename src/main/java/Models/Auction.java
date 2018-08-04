@@ -1,6 +1,7 @@
 package Models;
 
 import Exceptions.*;
+import Helpers.OfferFileManager;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Auction implements Serializable {
+    private OfferFileManager offerFileManager = new OfferFileManager();
 
     private User user;
     private String title;
@@ -63,7 +65,6 @@ public class Auction implements Serializable {
             throw new AddingOfferToOwnAuction();
         }
         if( this.currentOffer == null && offer.getPrice().compareTo(this.startingPrice) <= 0){
-
             this.offersList.add(auction.getId(),offer);
             this.currentOffer = offer;
         }
@@ -75,6 +76,7 @@ public class Auction implements Serializable {
 //            } else {
                 this.offersList.add(offer);
                 this.currentOffer = offer;
+            offerFileManager.saveOfferToFileCSV(offer);
 //            }
         }
 

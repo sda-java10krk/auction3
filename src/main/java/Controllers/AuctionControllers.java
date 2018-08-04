@@ -3,6 +3,7 @@ package Controllers;
 
 import Exceptions.*;
 import Helpers.AuctionFileManager;
+import Helpers.OfferFileManager;
 import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
@@ -19,7 +20,6 @@ public class AuctionControllers {
     public static AuctionControllers instance;
     public Map<Integer,Auction> AuctionList;
     private AuctionFileManager auctionFileManager = new AuctionFileManager();
-
     public static AuctionControllers getInstance() {
         if (instance == null) {
             instance = new AuctionControllers();
