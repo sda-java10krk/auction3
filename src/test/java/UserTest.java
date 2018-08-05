@@ -1,8 +1,7 @@
 import Controllers.UserControllers;
 import Controllers.UserList;
-import Exceptions.TooShortPasswordException;
-import Exceptions.UserAlreadyInTheBaseException;
-import Exceptions.UserNotExistInBaseException;
+import Exceptions.*;
+import Models.Offer;
 import Models.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +46,7 @@ public class UserTest {
         assertTrue(user.getPassword().length() > 5);
     }
 
-    @Test(expected = UserAlreadyInTheBaseException.class)
+    @Test(expected = OfferTooLowException.class)
     public void testThrowUserAlreadyInTheBaseException() throws Exception {
         String login = "Filip123";
         String password = "asdafasf";

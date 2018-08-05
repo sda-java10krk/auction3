@@ -1,19 +1,14 @@
 package Helpers;
 
-import Controllers.UserList;
-import Models.Auction;
-
 import java.io.*;
-import java.math.BigDecimal;
-import java.util.Map;
 
-public class AuctionFileCounterManager {
+public class OfferFileCounterManager {
 
     private static final String SEPARATOR = ",";
 
-    public void saveAuctionCounterToFileCSV(Integer counter) throws IOException {
+    public void saveOfferCounterToFileCSV(Integer counter) throws IOException {
 
-        String fileName = "AuctionCounterFile.csv";
+        String fileName = "OfferCounterFile.csv";
         FileWriter fileWriter = null;
 
         try {
@@ -30,22 +25,22 @@ public class AuctionFileCounterManager {
         }
     }
 
-    private static final int AUCTION_ID = 0;
+    private static final int OFFER_ID = 0;
 
-    public Integer readAuctionCounterFromFileCsv() {
+    public Integer readOfferCounterFromFileCsv() {
 
-        String fileName = "AuctionCounterFile.csv";
+        String fileName = "OfferCounterFile.csv";
         String line = "";
         String cvsSplitBy = ",";
-        Integer auctionID = null;
+        Integer offerID = null;
 
         try {
             BufferedReader fileReader = new BufferedReader(new FileReader(fileName));
             while ((line = fileReader.readLine()) != null) {
                 String[] data = line.split(cvsSplitBy);
                 if (data.length > 0) {
-                    auctionID = Integer.valueOf(data[AUCTION_ID]);
-                    auctionID++;
+                    offerID = Integer.valueOf(data[OFFER_ID]);
+                    offerID++;
 
                 }
             }
@@ -54,21 +49,21 @@ public class AuctionFileCounterManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return auctionID;
+        return offerID;
     }
 
 
-    public void ExistFileAuctionCounterCSV() throws IOException {
+    public void ExistFileOfferCounterCSV() throws IOException {
 
-        String fileName = "AuctionCounterFile.csv";
+        String fileName = "OfferCounterFile.csv";
         File file = new File(fileName);
         if (file.exists()) {
         } else {
             file.createNewFile();
             FileWriter fileWriter = null;
             fileWriter = new FileWriter(fileName);
-            Integer firstAuctionID = 0;
-            fileWriter.append(String.valueOf(firstAuctionID));
+            Integer OfferID = 0;
+            fileWriter.append(String.valueOf(OfferID));
             fileWriter.close();
         }
     }

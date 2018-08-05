@@ -1,7 +1,9 @@
 package Models;
 
 import Exceptions.*;
+import Helpers.OfferFileManager;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Auction implements Serializable {
+    private OfferFileManager offerFileManager = new OfferFileManager();
 
     private User user;
     private String title;
@@ -57,24 +60,24 @@ public class Auction implements Serializable {
         this.id = id;
     }
 
-    public boolean addOffer(Auction auction,Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction {
+    public boolean addOffer(Auction auction,Offer offer) throws OfferTooLowException, AddingOfferToOwnAuction, IOException {
 
         if (offer.getUser().equals(user)) {
             throw new AddingOfferToOwnAuction();
         }
         if( this.currentOffer == null && offer.getPrice().compareTo(this.startingPrice) <= 0){
-
             this.offersList.add(auction.getId(),offer);
             this.currentOffer = offer;
         }
-        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0){
-            throw new OfferTooLowException();
-        } else {
+//        if (this.currentOffer != null && offer.getPrice().compareTo(this.currentOffer.getPrice()) <= 0){
+//            throw new OfferTooLowException();
+         else {
 //            if (auctionWinnerChecking()) {
 //                return false;
 //            } else {
                 this.offersList.add(offer);
                 this.currentOffer = offer;
+            offerFileManager.saveOfferToFileCSV(offersList);
 //            }
         }
 
@@ -136,7 +139,6 @@ public class Auction implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(user, title, description, startingPrice, category, offersList, currentOffer, id);
     }
 

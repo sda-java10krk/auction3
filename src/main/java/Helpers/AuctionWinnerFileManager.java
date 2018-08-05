@@ -4,23 +4,20 @@ import Controllers.UserList;
 import Exceptions.*;
 import Models.Auction;
 import Models.Category;
-import Models.User;
 
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-public class AuctionFileManager {
+public class AuctionWinnerFileManager {
 
     private static final String SEPARATOR = ",";
     private static final String NEW_LINE = "\n";
 
     public void saveAuctionToFileCSV(Map<Integer, Auction> map) throws IOException {
 
-        String fileName = "AuctionList.csv";
+        String fileName = "AuctionWinnerList.csv";
         FileWriter fileWriter = null;
 
         try {
@@ -60,7 +57,7 @@ public class AuctionFileManager {
 
     public Map<Integer, Auction> readAuctionFromFileCsv() throws TooShortPasswordException, IOException, EmptyDescriptionException, EmptyTitleException, TooLowPriceException, SubcategoryPresentException, AuctionId0Exception {
 
-        String fileName = "AuctionList.csv";
+        String fileName = "AuctionWinnerList.csv";
         String line = "";
         String cvsSplitBy = ",";
 
@@ -87,7 +84,7 @@ public class AuctionFileManager {
 
     public void ExistFileAuctionCSV() throws IOException {
 
-        String fileName = "AuctionList.csv";
+        String fileName = "AuctionWinnerList.csv";
         File file = new File(fileName);
         if (file.exists()) {
         } else {

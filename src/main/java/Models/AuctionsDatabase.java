@@ -1,7 +1,9 @@
 package Models;
 
 import Exceptions.AuctionNotEndedYetException;
+import Helpers.AuctionWinnerFileManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Map;
 
 public class AuctionsDatabase {
     private static AuctionsDatabase instance;
+    AuctionWinnerFileManager auctionWinnerFileManager = new  AuctionWinnerFileManager();
     private Map<Integer, Auction> currentAuctionsMap;
     private Map<Integer, Auction> winningAuctionsMap;
 
@@ -49,10 +52,12 @@ public class AuctionsDatabase {
         return winningAuctionsMap;
     }
 
-    public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException {
+    public void addWiningAuction(Auction auction) throws AuctionNotEndedYetException, IOException {
 
         if (auction.auctionWinnerChecking()) {
             this.winningAuctionsMap.put(auction.getId(), auction);
+            auctionWinnerFileManager.saveAuctionToFileCSV(winningAuctionsMap);
+
         } else {
             throw new AuctionNotEndedYetException();
         }

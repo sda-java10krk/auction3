@@ -3,9 +3,7 @@ import Controllers.OfferController;
 import Controllers.UserControllers;
 import Controllers.UserList;
 import Exceptions.UserNotExistInBaseException;
-import Helpers.AuctionFileCounterManager;
-import Helpers.AuctionFileManager;
-import Helpers.UserFileManager;
+import Helpers.*;
 import Models.Auction;
 import Models.AuctionsDatabase;
 import Models.Category;
@@ -29,25 +27,25 @@ public class Main {
         User currentUser = null;
 
         UserControllers userControllers = new UserControllers();
-        UserFileManager userFileManager = new UserFileManager();
         OfferController offerController = new OfferController();
-        AuctionFileCounterManager auctionFileCounterManager1 = new AuctionFileCounterManager();
-
-        userFileManager.ExistFileUserCSV();
-
+        UserFileManager userFileManager = new UserFileManager();
         AuctionFileManager auctionFileManager = new AuctionFileManager();
         AuctionFileCounterManager auctionFileCounterManager = new AuctionFileCounterManager();
+        OfferFileCounterManager offerFileCounterManager = new OfferFileCounterManager();
+        OfferFileManager offerFileManager = new OfferFileManager();
+        AuctionWinnerFileManager auctionWinnerFileManager = new AuctionWinnerFileManager();
 
         userFileManager.ExistFileUserCSV();
         auctionFileManager.ExistFileAuctionCSV();
         auctionFileCounterManager.ExistFileAuctionCounterCSV();
-
-        Integer counter = auctionFileCounterManager.readAuctionCounterFromFileCsv();
+        offerFileManager.ExistFileOfferCSV();
+        offerFileCounterManager.ExistFileOfferCounterCSV();
+        auctionWinnerFileManager.ExistFileAuctionCSV();
 
         Map<String, User> users = userFileManager.readUserFromFileCsv();
-        Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
 
-        AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+
+
         UserList.getInstance().setUserList(users);
 
 
@@ -109,10 +107,14 @@ public class Main {
                 case LOGGED_IN: {
                     LoggedUserMenuView.FirstOptionsView();
                     String answer = scanner.next();
+                    CategoryDisplay.printCategoryTree();
+                    Map<Integer, Auction> auctions = auctionFileManager.readAuctionFromFileCsv();
+                    AuctionsDatabase.getInstance().setCurrentAuctionsMap(auctions);
+
                     switch (answer) {
                         case ("1"): {
-                            CategoryDisplay.printCategoryTree();
                             state = State.SHOWING_CATEGORY;
+                            //
 //                            String user = currentUser.getInstance().getUser().getLogin();
 //                            System.out.println(user);
                             break;
@@ -140,6 +142,7 @@ public class Main {
                 case SHOWING_CATEGORY: {
                     CategoryDisplay.printCategoryTree();
                     LoggedUserMenuView.TreeViewOptions();
+
                     String answer = scanner.next();
                     switch (answer) {
                         case ("1"): {
@@ -190,7 +193,8 @@ public class Main {
 
                     Category category = CategoriesDatabase.getInstance().findCategoryByString(categoryId);
 
-                    AuctionControllers.getInstance().createAuction(currentUser,title,description,startingPrice,category,counter);
+                    Integer counter = auctionFileCounterManager.readAuctionCounterFromFileCsv();
+                    AuctionControllers.getInstance().createAuction(currentUser, title, description, startingPrice, category, counter);
                     auctionFileCounterManager.saveAuctionCounterToFileCSV(counter);
 
                     state = State.SHOWING_CATEGORY;
@@ -199,17 +203,16 @@ public class Main {
 
                 case MAKING_OFFER: {
                     AddingOfferView.GetAuctionId();
-                    int id = scanner.nextInt();
+                    Integer id = scanner.nextInt();
                     MakingOfferView.askingForPrice();
                     BigDecimal price = scanner.nextBigDecimal();
-
-
-
-
+                    OfferID offerID = new OfferID();
+                    Integer counter = offerFileCounterManager.readOfferCounterFromFileCsv();
 //                    if (AuctionControllers.getInstance().AuctionList.containsKey(id)) {
-                        Offer offer = offerController.creatingOffer(currentUser, price);
-                        offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
-                        AddingOfferView.NewOfferCreate();
+                    Offer offer = (Offer) offerController.creatingOffer(currentUser, price,counter,id);
+                    offerController.addOffer(AuctionsDatabase.getInstance().getCurrentAuctionsMap().get(id), offer);
+                    offerFileCounterManager.saveOfferCounterToFileCSV(counter);
+                    AddingOfferView.NewOfferCreate();
 //                    }
 //                    else
 //                        AddingOfferView.Error();
@@ -217,56 +220,79 @@ public class Main {
                     break;
 
                 }
-            case LISTING_AUCTIONS: {
-
+                case LISTING_AUCTIONS: {
 
                 Map<Integer, Auction> map = AuctionsDatabase.getInstance().getCurrentAuctionsMap();
-
-                for (Map.Entry entry : map.entrySet()) {
-                    System.out.println(entry.getKey() + ", " + entry.getValue());
-
-                }
                 LoggedUserMenuView.TreeViewOptions();
                 String answer = scanner.next();
                 switch (answer) {
                     case ("1"): {
                         state = State.ADDING_AUCTION;
+
+                        for(Map.Entry entry : map.entrySet()) {
+                            System.out.println(entry.getKey() + ", " + entry.getValue());
+                        }
+
+
+                        LoggedUserMenuView.TreeViewOptions();
+                        String answer1 = scanner.next();
+                        switch (answer1) {
+                            case ("1"): {
+                                state = State.ADDING_AUCTION;
+                                break;
+
+                            }
+                            case ("2"): {
+                                state = State.MAKING_OFFER;
+                                break;
+
+                            }
+                            case ("4"): {
+                                state = State.WINNING_AUCTIONS;
+                                break;
+
+                            }
+                            case ("5"): {
+                                state = State.LOGOUT;
+                                break;
+                            }
+                            case ("6"): {
+                                state = State.STOP;
+                                break;
+                            }
+                            case ("7"): {
+                                state = State.LISTING_AUCTIONS;
+                                break;
+                            }
+                        }
                         break;
+                    }
+
+//                    case WINNING_AUCTIONS: {
 
                     }
-                    case ("2"): {
-                        state = State.MAKING_OFFER;
-                        break;
 
-                    }
-                    case ("4"): {
-                        state = State.WINNING_AUCTIONS;
-                        break;
 
-                    }
-                    case ("5"): {
-                        state = State.LOGOUT;
-                        break;
-                    }
-                    case ("6"): {
-                        state = State.STOP;
-                        break;
-                    }
-                    case ("7"): {
-                        state = State.LISTING_AUCTIONS;
-                        break;
-                    }
                 }
-                break;
             }
-
-            case WINNING_AUCTIONS: {
-
-            }
-
 
         }
-    }
+    }}
 
-}
-}
+/*
+bartek update:
+rozkminic countera
+zapisywanie oferty
+zwyciesto aukcji (3 oferta)
+usuniecie aukcji po zwyciestwie ( osobna mapa na zakonczone aukcje)
+
+marcin update:
+lista rzeczy do zrobienia:
+poogarniac maina zeby lepiej opcje działały bo czasem sie sypie
+napisac wypisywanie aukcji na podstawie kategorii
+pozbyc sie currentOffer z konstruktora aukcji
+pozbyc sie z currentAuctionsMap aukcji ktore są juz wygrane bo nie ma chyba czegos takiego
+sprawdzic czy aukcja dodaje sie to mapy auctionwinner
+
+
+*/

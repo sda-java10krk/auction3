@@ -21,11 +21,10 @@ public class UserFileManager {
     public void saveUserToFileCSV(Map<String, User> map) throws IOException {
 
         String fileName = "UserList2.csv";
-        //UserFileManager.toEnoughtDiskSpace();
         FileWriter fileWriter = null;
 
         try {
-            fileWriter = new FileWriter(fileName, true);
+            fileWriter = new FileWriter(fileName);
             for (User user : map.values()) {
                 fileWriter.append(user.getLogin());
                 fileWriter.append(SEPARATOR);

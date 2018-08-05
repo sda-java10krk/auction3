@@ -1,7 +1,11 @@
 package Models;
 
 import Exceptions.NegativeOfferPriceException;
+import Exceptions.OfferTooLowException;
+import Exceptions.TooLowPriceException;
+import Helpers.OfferID;
 import Models.User;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,18 +17,23 @@ public class Offer implements Serializable {
 
     private User user;
     private BigDecimal price;
-    private int id=0;
+    private Integer id;
+    private Integer idAuction;
 
 
-    public Offer(User user, BigDecimal price,int id) throws NegativeOfferPriceException {
+    public Offer(User user, BigDecimal price, Integer id ,Integer idAuction) throws OfferTooLowException {
         this.user = user;
         if(price.compareTo(BigDecimal.valueOf(0))<0){
-            throw new NegativeOfferPriceException();
+            throw new OfferTooLowException();
         }
         this.price = price;
         this.id = id;
+        this.idAuction = idAuction;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public User getUser() {
         return user;
@@ -32,6 +41,10 @@ public class Offer implements Serializable {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public Integer getIdAuction() {
+        return idAuction;
     }
 
     @Override
@@ -51,10 +64,11 @@ public class Offer implements Serializable {
 
     @Override
     public String toString() {
-        return "Offer{" +
-                "user=" + user +
-                ", price=" + price +
-                ", id=" + id +
-                '}';
+        return new ToStringBuilder(this)
+                .append("user", user)
+                .append("price", price)
+                .append("id", id)
+                .append("idAuction", idAuction)
+                .toString();
     }
 }
