@@ -278,9 +278,19 @@ public class Main {
     }}
 
 /*
+bartek update:
 rozkminic countera
 zapisywanie oferty
 zwyciesto aukcji (3 oferta)
 usuniecie aukcji po zwyciestwie ( osobna mapa na zakonczone aukcje)
+
+marcin update:
+lista rzeczy do zrobienia:
+poogarniac maina zeby lepiej opcje działały bo czasem sie sypie
+napisac wypisywanie aukcji na podstawie kategorii
+pozbyc sie currentOffer z konstruktora aukcji
+pozbyc sie z currentAuctionsMap aukcji ktore są juz wygrane bo nie ma chyba czegos takiego
+sprawdzic czy aukcja dodaje sie to mapy auctionwinner
+
 
 */
